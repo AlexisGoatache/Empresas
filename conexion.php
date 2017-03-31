@@ -3,6 +3,5 @@
 $conectar=mysql_connect ('localhost','root','');
 //2. SELECCIONAR LA BD
 mysql_select_db('bdempresas');
-nuevo cambio
 ?>
 
