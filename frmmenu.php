@@ -7,6 +7,7 @@ session_start();
 //require_once("seguridad.php");
 
 //1. CONECTAR CON MYSQL
+
 //2. CONECTAR CON BD
 require_once("conexion.php");
 
