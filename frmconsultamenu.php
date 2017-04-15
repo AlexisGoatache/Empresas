@@ -24,13 +24,14 @@ $CmbStatus = isset($_REQUEST['CmbStatus']) ? $_REQUEST['CmbStatus'] : NULL;
 //FUNCIONES
 
 function query($sql) {
+global $conectar;
 
     echo "<table>";// <!--TABLA DE CONSULTA DE DISPOSITIVOS-->
         // 4 EJECUTAR LA CONSULTA
-        $resultado = mysql_query($sql) or die( "Error en $sql: " . mysql_error() );
+        $resultado = mysqli_query($conectar,$sql) or die( "Error en Sql: " . mysqli_error() );
         // 5. VERIFICA SI ENCONTRO REGISTROS
-        $registro=mysql_fetch_array($resultado);
-        if(mysql_num_rows($resultado)>0){
+        $registro=mysqli_fetch_array($resultado);
+        if(mysqli_num_rows($resultado)>0){
 
         echo"<tr>";// <!--ENCABEZADO DE LA CONSULTA-->
         echo"<th>#</th>";
@@ -54,7 +55,7 @@ function query($sql) {
             echo"<td>".$registro['stades']."</td>";
 
       echo"</tr>"; 
-                  }while($registro=mysql_fetch_array($resultado));
+                  }while($registro=mysqli_fetch_array($resultado));
         } else {
          ?>
          <script>alert ("No existen registros con esa condición!!!");</script>
@@ -71,7 +72,7 @@ function query($sql) {
 <head>
 <title><?php  echo $FrmDescripcion ?></title>
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
-<meta name="generator" content="HAPedit 3.1">
+<meta name="generator" content="Bluefish 2.2.7" >
 <link rel="stylesheet" type="text/css" href="css/miestilo.css" />
 <script type="text/javascript">
 </script>
@@ -108,9 +109,9 @@ function query($sql) {
                 <?php // 3. CONSTRUIR CONSULTA TIPO DE DOCUMENTO
                 $sql="SELECT * FROM tbtipomenu;";
                 // 4 EJECUTAR LA CONSULTA
-                $resultado = mysql_query($sql) or die( "Error en $sql: " . mysql_error() );
+                $resultado = mysqli_query($conectar,$sql) or die( "Error en Sql: " . mysqli_error() );
                 // 5 RECORRER EL RESULTADO
-                while ($registro = mysql_fetch_array($resultado)) {
+                while ($registro = mysqli_fetch_array($resultado)) {
                   echo "<option  value='$registro[tipid]'>$registro[tipdes]</option>";}?>
                 </select>
               </td>
@@ -121,9 +122,9 @@ function query($sql) {
                   <?php // 3. CONSTRUIR CONSULTA DE EMPRESAS
                   $sql="SELECT * FROM tbstatus;";
                   // 4 EJECUTAR LA CONSULTA
-                  $resultado = mysql_query($sql) or die( "Error en $sql: " . mysql_error() );
+                  $resultado = mysqli_query($conectar,$sql) or die( "Error en Sql: " . mysqli_error() );
                   // 5 RECORRER EL RESULTADO
-                  while ($registro = mysql_fetch_array($resultado)) {
+                  while ($registro = mysqli_fetch_array($resultado)) {
                     echo "<option value='$registro[staid]'>$registro[stades]</option>";}?>
                 </select>
               </td>

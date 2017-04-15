@@ -32,16 +32,16 @@ $TxtPassword = isset($_REQUEST['TxtPassword']) ? $_REQUEST['TxtPassword'] : NULL
 if ($BtnAccion=='Enviar'){
 
   $Sql="SELECT * FROM tbempresas WHERE empid='$TxtUsuario'";
-  $Resultado = mysql_query($Sql) or die("Error en $Sql: " . mysql_error());
+  $Resultado = mysqli_query($conectar,$Sql) or die("Error en $Sql: " . mysqli_error());
 
-  if(mysql_num_rows($Resultado)>0){ //SI LA CANTIDAD DE REGISTROS ES MAYOR QUE 0
-    $Registro=mysql_fetch_array($Resultado); //TRAIGO COMO ARRAY LA INF.
+  if(mysqli_num_rows($Resultado)>0){ //SI LA CANTIDAD DE REGISTROS ES MAYOR QUE 0
+    $Registro=mysqli_fetch_array($Resultado); //TRAIGO COMO ARRAY LA INF.
     if ($Registro['empcla']==$TxtPassword){
       $_SESSION['empid']=$TxtUsuario; //APERTURA LA SESION DEL USUARIO
       $_SESSION['empdes']=$Registro['empnom'];
 	  ?><script>window.location='frmmenucss.php'; </script><?php
 	  }else{?><script>alert('La contraseña no conincide');</script><?php } 
-	  }else{?><script>alert('El usuario no existe'+'<?php echo $TxtUsuario?>');</script><?php }
+	  }else{?><script>alert('El usuario: << '+'<?php echo $TxtUsuario?>'+' >> no existe' );</script><?php }
 	  }
   ?>	
 

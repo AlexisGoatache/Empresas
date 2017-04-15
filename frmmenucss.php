@@ -33,18 +33,18 @@ $TbNombre1="tbmenu";
 	// 3. CONSTRUIR CONSULTA DE LOS TIPOS DE MENU
 	$Sql="SELECT * FROM $TbNombre WHERE tipsta='1'";
 	// 4 EJECUTAR LA CONSULTA
-	$Resultado = mysql_query($Sql) or die( "Error en $Sql: " . mysql_error() );
+	$Resultado = mysqli_query($conectar,$Sql) or die( "Error en $Sql: " . mysqli_error() );
 	// 5 RECORRER EL RESULTADO
-	while ($Registro = mysql_fetch_array($Resultado)){
+	while ($Registro = mysqli_fetch_array($Resultado)){
 	echo "<div class='dropdown'><button class='dropbtn'>$Registro[tipdes]</button>";
 	//echo "<div class='dropdown'><button class='dropbtn'>$Registro[tipdes]</button>";
 	// 3. CONSTRUIR CONSULTA MENUS
 	$Sql1="SELECT * FROM $TbNombre1 WHERE mensta='1' AND mentip=$Registro[tipid]";
 	// 4 EJECUTAR LA CONSULTA
-	$Resultado1 = mysql_query($Sql1) or die( "Error en $Sql1: " . mysql_error() );
+	$Resultado1 = mysqli_query($conectar,$Sql1) or die( "Error en $Sql1: " . mysqli_error() );
 	// 5 RECORRER EL RESULTADO
 	echo "<div class='dropdown-content'>";
-	while ($Registro1 = mysql_fetch_array($Resultado1)){ echo "<a href='$Registro1[mennom].php'>$Registro1[mendes]</a>"; }
+	while ($Registro1 = mysqli_fetch_array($Resultado1)){ echo "<a href='$Registro1[mennom].php'>$Registro1[mendes]</a>"; }
     echo "</div></div>";
 	}
 ?>

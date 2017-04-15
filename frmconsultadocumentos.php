@@ -24,14 +24,16 @@ $CmbStatus = isset($_REQUEST['CmbStatus']) ? $_REQUEST['CmbStatus'] : NULL;
   
 //FUNCIONES
 
-function query($sql) {?>
+function query($sql) {
+global $conectar;	?>
+
 
     <table> <!--TABLA DE CONSULTA DE DISPOSITIVOS-->
         <?// 4 EJECUTAR LA CONSULTA
-        $resultado = mysql_query($sql) or die( "Error en $sql: " . mysql_error() );
+        $resultado = mysqli_query($conectar,$sql) or die( "Error en Sql: " . mysqli_error() );
         // 5. VERIFICA SI ENCONTRO REGISTROS
-        $registro=mysql_fetch_array($resultado);
-        if(mysql_num_rows($resultado)>0){?>
+        $registro=mysqli_fetch_array($resultado);
+        if(mysqli_num_rows($resultado)>0){?>
 
           <tr> <!--ENCABEZADO DE LA CONSULTA-->
             <th>#</th>
@@ -54,7 +56,7 @@ function query($sql) {?>
             <td><?echo $registro[camdes]?></td>  <!-- MODELO -->
             <td><?echo $registro[valcam]?></td>  <!-- SERIAL -->
       </tr><?
-                  }while($registro=mysql_fetch_array($resultado));
+                  }while($registro=mysqli_fetch_array($resultado));
         } else {
          ?>
          <script>alert ("No existen registros con esa condición!!!");</script>
@@ -63,7 +65,7 @@ function query($sql) {?>
          return $sql;
 
   echo"</table>";
-  mysql_close($conectar);}
+  mysqli_close($conectar);}
 
 ?>
 <!DOCTYPE html>
@@ -72,7 +74,7 @@ function query($sql) {?>
 <head>
 <title><? echo $FrmDescripcion ?></title>
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
-<meta name="generator" content="HAPedit 3.1">
+<meta name="generator" content="Bluefish 2.2.7" >
 <link rel="stylesheet" type="text/css" href="css/miestilo.css" />
 <script type="text/javascript">
 </script>
@@ -109,9 +111,9 @@ function query($sql) {?>
                   <?// 3. CONSTRUIR CONSULTA DE EMPRESAS
                   $sql="SELECT * FROM tbempresas;";
                   // 4 EJECUTAR LA CONSULTA
-                  $resultado = mysql_query($sql) or die( "Error en $sql: " . mysql_error() );
+                  $resultado = mysqli_query($conectar,$sql) or die( "Error en Sql: " . mysqli_error() );
                   // 5 RECORRER EL RESULTADO
-                  while ($registro = mysql_fetch_array($resultado)) {
+                  while ($registro = mysqli_fetch_array($resultado)) {
                     echo "<option value='$registro[empid]'>$registro[empnom]</option>";}?>
                 </select>
               </td>
@@ -122,9 +124,9 @@ function query($sql) {?>
                 <?// 3. CONSTRUIR CONSULTA TIPO DE DOCUMENTO
                 $sql="SELECT * FROM tbtipodocumentos;";
                 // 4 EJECUTAR LA CONSULTA
-                $resultado = mysql_query($sql) or die( "Error en $sql: " . mysql_error() );
+                $resultado = mysqli_query($conectar,$sql) or die( "Error en Sql: " . mysqli_error() );
                 // 5 RECORRER EL RESULTADO
-                while ($registro = mysql_fetch_array($resultado)) {
+                while ($registro = mysqli_fetch_array($resultado)) {
                   echo "<option  value='$registro[tipid]'>$registro[tipdes]</option>";}?>
                 </select>
               </td>

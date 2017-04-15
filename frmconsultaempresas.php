@@ -20,12 +20,14 @@ $CmbStatus = isset($_REQUEST['CmbStatus']) ? $_REQUEST['CmbStatus'] : NULL;
   
 //FUNCIONES
 function query($Sql) {
+global $conectar;
+
     echo "<table>"; //<!--TABLA DE CONSULTA DE EMPRESAS-->
     // 4 EJECUTAR LA CONSULTA
-    $Resultado = mysql_query($Sql) or die( "Error en $Sql: " . mysql_error() );
+    $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error() );
     // 5. VERIFICA SI ENCONTRO REGISTROS
-    $Registro=mysql_fetch_array($Resultado);
-    if(mysql_num_rows($Resultado)>0){
+    $Registro=mysqli_fetch_array($Resultado);
+    if(mysqli_num_rows($Resultado)>0){
 
     echo "<tr>"; //<!--ENCABEZADO DE LA CONSULTA-->
     echo "<th>#</th>";
@@ -47,7 +49,7 @@ function query($Sql) {
     echo "<td>".$Registro['camdes']."</td>";  //<!-- DESCRIPCION DEL CAMPO -->
     echo "<td>".$Registro['valcam']."</td>";  //<!-- VALOR DEL CAMPO -->
     echo "</tr>"; 
-    }while($Registro=mysql_fetch_array($Resultado));
+    }while($Registro=mysqli_fetch_array($Resultado));
         } else {
          ?><script>alert ("No existen registros con esa condición!!!");</script>
 		 <?php }
@@ -63,7 +65,7 @@ function query($Sql) {
 <head>
 <title><?php echo $FrmDescripcion ?></title>
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
-<meta name="generator" content="HAPedit 3.1">
+<meta name="generator" content="Bluefish 2.2.7" >
 <link rel="stylesheet" type="text/css" href="css/miestilo.css" />
 <script type="text/javascript">
 
@@ -73,7 +75,7 @@ function cambiartipodocumento(que){
     cadena='Alexis';
     <?php  echo 'cadena';
     $val = "<script> document.write(valorid) </script>";
-    $resultado = mysql_query("SELECT * FROM tbtipodocumentos;");
+    $resultado = mysqli_query("SELECT * FROM tbtipodocumentos;");
     echo 'cadena+="<option value='.$row[0].'>'.$row[2].'</option>";';
     while($row = mysql_fetch_array($resultado)){
 
@@ -108,7 +110,7 @@ function cambiartipodocumento(que){
                   <?php // 3. CONSTRUIR CONSULTA DE EMPRESAS
                   $Sql="SELECT * FROM tbempresas ORDER BY tbempresas.empnom ASC;";
                   // 4 EJECUTAR LA CONSULTA
-                  $Resultado = mysql_query($Sql) or die( "Error en $Sql: " . mysql_error() );
+                  $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error() );
                   // 5 RECORRER EL RESULTADO
                   while ($Registro = mysql_fetch_array($Resultado)) {
                     echo "<option value='$Registro[empid]'>$Registro[empnom]</option>";}?>
@@ -120,7 +122,7 @@ function cambiartipodocumento(que){
                 <?php // 3. CONSTRUIR CONSULTA TIPO DE DOCUMENTO
                 $Sql="SELECT * FROM tbtipodocumentos ORDER BY tbtipodocumentos.tipdes ASC;";
                 // 4 EJECUTAR LA CONSULTA
-                $Resultado = mysql_query($Sql) or die( "Error en $Sql: " . mysql_error() );
+                $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error() );
                 // 5 RECORRER EL RESULTADO
                 while ($Registro = mysql_fetch_array($Resultado)) {
                   echo "<option  value='$Registro[tipid]'>$Registro[tipdes]</option>";}?>
