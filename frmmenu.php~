@@ -33,8 +33,8 @@ case 'Buscar':
      //4. Ejecutar la consulta
      $Resultado=mysqli_query($conectar,$sql);
      // 5. verificar si lo encontro
-     $Registro=mysqli_fetch_array($Resultado);
-     if(mysqli_num_rows($Resultado)>0){
+     $Registro=mysql_fetch_array($Resultado);
+     if(mysql_num_rows($Resultado)>0){
          //6. recuperar registros
          $TxtNombre=$Registro['mennom'];
          $TxtDescripcion=$Registro['mendes'];
@@ -51,8 +51,8 @@ case 'Agregar':
 
      $Sql="SELECT * FROM $TbNombre WHERE mendes='$TxtDescripcion';";
      $Resultado=mysqli_query($conectar,$sql);
-     $Registro=mysqli_fetch_array($Resultado);
-     if(mysqli_num_rows($Resultado)==0){
+     $Registro=mysql_fetch_array($Resultado);
+     if(mysql_num_rows($Resultado)==0){
      $sql="INSERT INTO $TbNombre VALUES('',
                                         '$TxtNombre',
                                         '$TxtDescripcion',
