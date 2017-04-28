@@ -27,10 +27,10 @@ case 'Buscar':
      //3. Contruir la consulta (Query)
      $sql="SELECT * FROM tbstatus WHERE staid='$TxtId'";
      //4. Ejecutar la consulta
-     $resultado = mysql_query($sql) or die( "Error en $sql: " . mysql_error() );
+     $resultado = mysqli_query($conectar,$sql) or die( "Error en $sql: " . mysqli_error() );
      // 5. verificar si lo encontro
-     $registro=mysql_fetch_array($resultado);
-     if(mysql_num_rows($resultado)>0){
+     $registro=mysqli_fetch_array($resultado);
+     if(mysqli_num_rows($resultado)>0){
          //6. recuperar registros
          //$TxtId=$registro['staid'];
 		 $TxtDescripcion=$registro['stades'];
@@ -44,11 +44,11 @@ case 'Buscar':
 
 case 'Agregar':
      $sql="SELECT * FROM tbstatus WHERE stades='$TxtDescripcion';";
-     $resultado = mysql_query($sql) or die( "Error en $sql: " . mysql_error() );
-     $registro=mysql_fetch_array($resultado);
-     if(mysql_num_rows($resultado)==0){
+     $resultado = mysqli_query($conectar,$sql) or die( "Error en $sql: " . mysqli_error() );
+     $registro=mysqli_fetch_array($resultado);
+     if(mysqli_num_rows($resultado)==0){
        $sql="INSERT INTO tbstatus VALUES('','$TxtDescripcion');";
-     mysql_query($sql);
+     mysqli_query($sql);
      ?>
        <script>alert ("Los datos fueron registrados con éxito!!!");</script>
      <?php 
@@ -84,7 +84,7 @@ if ($BtnAccion=='Limpiar'){
 <head>
 <title>REGISTRO DE STATUS</title>
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
-<meta name="generator" content="HAPedit 3.1">
+<meta name="generator" content="Bluefish 2.2.7" >
 <link rel="stylesheet" type="text/css" href="css/miestilo.css" />
 
 <script type="text/javascript">
