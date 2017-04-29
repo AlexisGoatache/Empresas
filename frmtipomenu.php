@@ -2,23 +2,20 @@
 //INICIO DE SESSION DE USUARIO
 session_start();
 
-//SEGURIDAD DE ACCESO
-require_once("seguridad.php");
-
 //1. CONECTAR CON MYSQL
 //2. CONECTAR CON BD
 require_once("conexion.php");
 
 // VARIABLES DEL FORMULARIO
 $FrmNombre="TipoMenu";
-$FrmDescripcion="Tipo de Menú";
+$FrmDescripcion="Tipos de Men&uacute;";
 $TbNombre="tbtipomenu";
 
 // RESCATAR LAS VARIABLES DEL FORMULARIO
-$TxtId=$_REQUEST['TxtId'];
-$TxtDescripcion=$_REQUEST['TxtDescripcion'];
-$CmbStatus=$_REQUEST['CmbStatus'];
-$BtnAccion=$_REQUEST['BtnAccion'];
+$BtnAccion = isset($_REQUEST['BtnAccion']) ? $_REQUEST['BtnAccion'] : NULL;
+$TxtId = isset($_REQUEST['TxtId']) ? $_REQUEST['TxtId'] : NULL;
+$TxtDescripcion = isset($_REQUEST['TxtDescripcion']) ? $_REQUEST['TxtDescripcion'] : NULL;
+$CmbStatus = isset($_REQUEST['CmbStatus']) ? $_REQUEST['CmbStatus'] : NULL;
 
 //DESARROLLAR LA LOGICA DE LOS BOTONES
 
@@ -26,16 +23,16 @@ switch($BtnAccion){
 
 case 'Buscar':
      //3. Contruir la consulta (Query)
-     $sql="SELECT * FROM $TbNombre WHERE tipid='$TxtId';";
+     $Sql="SELECT * FROM $TbNombre WHERE tipid='$TxtId';";
      //4. Ejecutar la consulta
-     $resultado=mysql_query($sql);
+     $Resultado=mysqli_query($conectar,$Sql);
      // 5. verificar si lo encontro
-     $registro=mysql_fetch_array($resultado);
-     if(mysql_num_rows($resultado)>0){
+     $Registro=mysqli_fetch_array($Resultado);
+     if(mysqli_num_rows($Resultado)>0){
          //6. recuperar registros
-         $TxtId=$registro['tipid'];
-         $TxtDescripcion=$registro['tipdes'];
-         $CmbStatus=$registro['tipsta'];
+         $TxtId=$Registro['tipid'];
+         $TxtDescripcion=$Registro['tipdes'];
+         $CmbStatus=$Registro['tipsta'];
          } else {
          ?>
          <script>alert ("Registro No encontrado!!!");</script>
@@ -45,14 +42,14 @@ case 'Buscar':
 
 case 'Agregar':
 
-     $sql="SELECT * FROM $TbNombre WHERE tipdes='$TxtDescripcion';";
-     $resultado=mysql_query($sql);
-     $registro=mysql_fetch_array($resultado);
-     if(mysql_num_rows($resultado)==0){
-     $sql="INSERT INTO $TbNombre VALUES('',
+     $Sql="SELECT * FROM $TbNombre WHERE tipdes='$TxtDescripcion';";
+     $Resultado=mysqli_query($Sql);
+     $Registro=mysqli_fetch_array($Resultado);
+     if(mysqli_num_rows($Resultado)==0){
+     $Sql="INSERT INTO $TbNombre VALUES('',
                                          '$TxtDescripcion',
                                          '$CmbStatus');";
-     mysql_query($sql);
+     mysqli_query($Sql);
      ?>
        <script>alert ("Los datos fueron registrados con éxito!!!");</script>
      <?
@@ -65,11 +62,11 @@ case 'Agregar':
 
 case 'Modificar':
      //3. Contruir la consulta (Query)
-     $sql="UPDATE $TbNombre SET `tipdes`='$TxtDescripcion',
+     $Sql="UPDATE $TbNombre SET `tipdes`='$TxtDescripcion',
                                  `tipsta`='$CmbStatus' WHERE tipid='$TxtId'";
 
      //4. Ejecutar la consulta
-     $resultado = mysql_query($sql) or die( "Error en $sql: " . mysql_error() );
+     $Resultado = mysqli_query($Sql) or die( "Error en Sql: " . mysqli_error() );
      ?>
      <script>alert ("Los datos fueron modificado con éxito!!!")</script>
      <?
@@ -90,25 +87,17 @@ if ($BtnAccion=='Limpiar'){
 
 <head>
 <title><? echo $FrmDescripcion ?></title>
-<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
-<meta name="generator" content="HAPedit 3.1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="Bluefish 2.2.7" >
 <link rel="stylesheet" type="text/css" href="css/miestilo.css" />
-
-<style type="text/css">
-.fila{background-color:#ffffcc;}
-.filaalterna{background-color:#ffcc99;}
-.fdg_sortable {cursor:pointer;text-decoration:underline;color:#00c;}
-</style> 
 
 <script type="text/javascript">
 
 function validar(form){
           if (form.TxtDescripcion.value==0){
-               alert('Debe introducir la descripción del <? echo $FrmDescripcion ?>');
+               <script>alert ("Debe introducir la descripción del "<?php $FrmDescripcion?>" !!!");</script>
                form.TxtDescripcion.focus();
-               return false;}
-
-               else if (form.CmbStatus.value==0){
+               return false;} else if (form.CmbStatus.value==0){
                  alert('Debe introducir un Status');
                  form.CmbStatus.focus();
                  return false;}
@@ -129,10 +118,10 @@ function validabuscar(form){
 </head>
 <body bgcolor="#FFFFFF">
 
-<form action="<? $PHP_SELF ?>" name="Frm.<? echo $FrmNombre ?>" method="post">
+<form action="<? $PHP_SELF ?>" name="Frm.<?php echo $FrmNombre ?>" method="post">
       <fieldset>
 
-          <legend> TIPO DE MENÚ </legend>
+          <legend> <?php  echo $FrmDescripcion ?> </legend>
 
           <label>ID:</label>
           <input type="text"
@@ -153,13 +142,13 @@ function validabuscar(form){
           <option value="0">Seleccione</option>
           <?//carga el combo con status de dispositivos
           // 3. CONSTRUIR CONSULTA
-          $sql="SELECT * FROM tbstatus;";
+          $Sql="SELECT * FROM tbstatus;";
           // 4 ejecutar la consulta
-          $resultado = mysql_query($sql) or die( "Error en $sql: " . mysql_error() );
+          $Resultado = mysqli_query($Sql) or die( "Error en Sql: " . mysqli_error() );
           // 5 recorrer el resultado
-          while ($registro = mysql_fetch_array($resultado)) {
-              if ($CmbStatus==$registro['staid']){$x='Selected'; }else{$x='';}
-                echo "<option value=\"$registro[staid]\" $x>$registro[stades]</option>";}?>
+          while ($Registro = mysqli_fetch_array($Resultado)) {
+              if ($CmbStatus==$Registro['staid']){$x='Selected'; }else{$x='';}
+                echo "<option value=\"$Registro[staid]\" $x>$Registro[stades]</option>";}?>
           </select><br />
 
           <hr />

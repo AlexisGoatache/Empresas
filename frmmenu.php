@@ -9,7 +9,7 @@ require_once("seguridad.php");
 
 // VARIABLES DEL FORMULARIO
 $FrmNombre="Menu";
-$FrmDescripcion="Men&uacute;";
+$FrmDescripcion="Menú;";
 $TbNombre="tbmenu";
 
 // RESCATAR LAS VARIABLES DEL FORMULARIO
@@ -102,7 +102,7 @@ if ($BtnAccion=='Limpiar'){
 
 <head>
 <title><?php echo $FrmDescripcion?></title>
-<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="generator" content="Bluefish 2.2.7" >
 <link rel="stylesheet" type="text/css" href="css/miestilo.css" />
 
