@@ -69,13 +69,8 @@ case 'Modificar':
      //3. Contruir la consulta (Query)
      $Sql="UPDATE $TbNombre SET `tipdes`='$TxtDescripcion',
                                  `tipsta`='$CmbStatus' WHERE tipid='$TxtId'";
-
      //4. Ejecutar la consulta
-<<<<<<< HEAD
-     $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysql_error() );
-=======
      $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error() );
->>>>>>> master
      ?>
      <script>alert ("Los datos fueron modificado con éxito!!!")</script>
      <?php
@@ -95,18 +90,13 @@ if ($BtnAccion=='Limpiar'){
 
 <head>
 <title><?php echo $FrmDescripcion ?></title>
-<<<<<<< HEAD
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
 <meta name="generator" content="Bluefish 2.2.7" >
 <link rel="stylesheet" type="text/css" href="css/miestilo.css" />
-
-=======
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="generator" content="Bluefish 2.2.7" >
 <link rel="stylesheet" type="text/css" href="css/miestilo.css" />
 
-
->>>>>>> master
 <script type="text/javascript">
 
 function validar(form){
@@ -186,9 +176,3 @@ function validabuscar(form){
 </body>
 
 </html>
-
-
-
-
-
-
