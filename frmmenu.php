@@ -1,19 +1,15 @@
-<?php
-
-//INICIO DE SESSION DE USUARIO
-session_start();
-
-//SEGURIDAD DE ACCESO
-//require_once("seguridad.php");
+<?php 
 
 //1. CONECTAR CON MYSQL
-
 //2. CONECTAR CON BD
 require_once("conexion.php");
 
+//SEGURIDAD DE ACCESO
+require_once("seguridad.php");
+
 // VARIABLES DEL FORMULARIO
 $FrmNombre="Menu";
-$FrmDescripcion="Menú";
+$FrmDescripcion="Men&uacute;";
 $TbNombre="tbmenu";
 
 // RESCATAR LAS VARIABLES DEL FORMULARIO
@@ -24,14 +20,18 @@ $TxtDescripcion = isset($_REQUEST['TxtDescripcion']) ? $_REQUEST['TxtDescripcion
 $CmbTipo = isset($_REQUEST['CmbTipo']) ? $_REQUEST['CmbTipo'] : NULL;
 $CmbStatus = isset($_REQUEST['CmbStatus']) ? $_REQUEST['CmbStatus'] : NULL;
 
-// DESARROLLAR LA LOGICA DE LOS BOTONES
+
+//DESARROLLAR LA LOGICA DE LOS BOTONES
+
 switch($BtnAccion){
+
+case 'Buscar':
 
 case 'Buscar':
      //3. Contruir la consulta (Query)
      $Sql="SELECT * FROM $TbNombre WHERE menid='$TxtId'";
      //4. Ejecutar la consulta
-     $Resultado=mysqli_query($conectar,$sql);
+     $Resultado=mysqli_query($conectar,$Sql);
      // 5. verificar si lo encontro
      $Registro=mysqli_fetch_array($Resultado);
      if(mysqli_num_rows($Resultado)>0){
@@ -69,7 +69,7 @@ case 'Agregar':
      <?php
      }
      break;
-
+     
 case 'Modificar':
      //3. Contruir la consulta (Query)
      $sql="UPDATE $TbNombre SET  `mennom`='$TxtNombre',
@@ -83,6 +83,7 @@ case 'Modificar':
      <script>alert ("Los datos fueron modificado con éxito!!!")</script>
      <?php
      break;
+     
 }
 
 if ($BtnAccion=='Limpiar'){
@@ -105,43 +106,21 @@ if ($BtnAccion=='Limpiar'){
 <meta name="generator" content="Bluefish 2.2.7" >
 <link rel="stylesheet" type="text/css" href="css/miestilo.css" />
 
-<style type="text/css">
-.fila{background-color:#ffffcc;}
-.filaalterna{background-color:#ffcc99;}
-.fdg_sortable {cursor:pointer;text-decoration:underline;color:#00c;}
-</style> 
-
 <script type="text/javascript">
 
 function validar(form){
 
-          if (form.TxtNombre.value==0 ){
-               alert('Debe introducir el Nombre');
-               form.TxtNombre.focus();
+          if (form.TxtDescripcion.value==0 ){
+               alert('Debe introducir la descripción del Status');
+               form.TxtDescripcion.focus();
                return false;}
-
-          else if (form.TxtDescripcion.value==0 ){
-                 alert('Debe introducir una Descripción');
-                 form.TxtDescripcion.focus();
-                 return false;}
-
-          else if (form.CmbTipo.value==0 ){
-                 alert('Debe introducir un Tipo de Menú');
-                 form.CmbTipo.focus();
-                 return false;}
-
-          else if (form.CmbStatus.value==0 ){
-                 alert('Debe introducir un Status');
-                 form.CmbStatus.focus();
-                 return false;}
-
 
 else {return true;}
 }
 
 function validabuscar(form){
     if (form.TxtId.value==0 ){
-       alert('Debe introducir el Código');
+       alert('Debe introducir el Código del Status');
        return false;}
     else {
 
@@ -152,61 +131,55 @@ function validabuscar(form){
 </head>
 <body bgcolor="#FFFFFF">
 
-<form action="<?php echo $PHP_SELF ?>" name="Frm.<?php echo $FrmNombre?>" method="post">
+<form action="<?php $PHP_SELF ?>" name="Frm.<?php echo $FrmNombre?>" method="post">
       <fieldset>
-
-          <legend><?php echo $FrmDescripcion?></legend>
-
-          <label>ID:</label>
+          <legend> <?php  echo $FrmDescripcion ?> </legend>
+				<label>ID:</label>
           <input type="text"
                  name="TxtId"
-                 value="<?php echo $TxtId?>"
-                 size="4"
-                 maxlength="4" /><br />
-
-          <label>TIPO MENÚ:</label>
-          <select name="CmbTipo">
-          <option value="0">Seleccione</option>
-          <?php
-		  //carga el combo con status de dispositivos
-          // 3. CONSTRUIR CONSULTA
-          $Sql="SELECT * FROM tbtipomenu";
-          // 4 ejecutar la consulta
-          $resultado = mysqli_query($conectar,$sql) or die( "Error en Sql: " . mysqli_error() );
-          // 5 recorrer el resultado
-          while ($Registro = mysqli_fetch_array($Resultado)) {
-              if ($CmbTipo==$Registro['tipid']){$x='Selected'; }else{$x='';}
-                echo "<option value=\"$Registro[tipid]\" $x>$Registro[tipdes]</option>";}?>
-          </select><br />
-
-          <label>NOMBRE:</label>
+                 value="<?php echo $TxtId ?>"
+                 
+                 size="5"
+                 maxlength="3" /><br />
+                 
+          	<label>NOMBRE:</label>
           <input type="text"
                  name="TxtNombre"
                  value="<?php echo $TxtNombre ?>"
                  size="35"
                  maxlength="35" /><br />
 
-          <label>DESCRIPCIÓN:</label>
+          	<label>DESCRIPCI&Oacute;N:</label>
           <input type="text"
                  name="TxtDescripcion"
                  value="<?php echo $TxtDescripcion ?>"
                  size="35"
                  maxlength="35" /><br />
 
-          <label>STATUS:</label>
-          <select name="CmbStatus">
+
+          <label>TIPO MEN&Uacute;:</label>
+          <select name="CmbTipo">
           <option value="0">Seleccione</option>
-                   <?php
-		  //carga el combo con status de dispositivos
-          // 3. CONSTRUIR CONSULTA
-          $Sql="SELECT * FROM tbstatus";
+          <?php
+          $Sql="SELECT * FROM tbtipomenu";
           // 4 ejecutar la consulta
-          $resultado = mysqli_query($conectar,$sql) or die( "Error en Sql: " . mysqli_error() );
-          // 5 recorrer el resultado
+          $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error() );
+          while ($Registro = mysqli_fetch_array($Resultado)) {
+              if ($CmbTipo==$Registro['tipid']){$x='Selected'; }else{$x='';}
+                echo "<option value=\"$Registro[tipid]\" $x>$Registro[tipdes]</option>";}?>
+          </select><br />
+          
+          <label>STATUS:</label>
+          <select name="CmbStatus" >
+          <option value="0">Seleccione</option>
+          <?php 
+          $Sql="SELECT * FROM tbstatus";
+          $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error() );
           while ($Registro = mysqli_fetch_array($Resultado)) {
               if ($CmbStatus==$Registro['staid']){$x='Selected'; }else{$x='';}
                 echo "<option value=\"$Registro[staid]\" $x>$Registro[stades]</option>";}?>
           </select><br />
+          
           <hr />
 
           <div align=center>
@@ -215,8 +188,9 @@ function validabuscar(form){
                <input type="submit" name="BtnAccion" value="Modificar" onclick="return validar(this.form);"/>
                <input type="submit" name="BtnAccion" value="Limpiar" />
           </div>
-      </fieldset>
 
+      </fieldset>
+      
       <a href='frmmenucss.php'><img src='imagenes/back.gif' border=0></a>
 
 </form>

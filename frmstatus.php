@@ -8,9 +8,9 @@ require_once("conexion.php");
 require_once("seguridad.php");
 
 // VARIABLES DEL FORMULARIO
-$FrmNombre="";
-$FrmDescripcion="";
-$TbNombre="";
+$FrmNombre="Status";
+$FrmDescripcion="Estatus";
+$TbNombre="tbstatus";
 
 // RESCATAR LAS VARIABLES DEL FORMULARIO
 $BtnAccion = isset($_REQUEST['BtnAccion']) ? $_REQUEST['BtnAccion'] : NULL;
@@ -25,14 +25,14 @@ switch($BtnAccion){
 case 'Buscar':
 
      //3. Contruir la consulta (Query)
-     $sql="SELECT * FROM tbstatus WHERE staid='$TxtId'";
+     $sql="SELECT * FROM $TbNombre WHERE staid='$TxtId'";
      //4. Ejecutar la consulta
-     $resultado = mysql_query($sql) or die( "Error en $sql: " . mysql_error() );
+     $resultado = mysqli_query($conectar,$sql) or die( "Error en Sql: " . mysqli_error() );
      // 5. verificar si lo encontro
-     $registro=mysql_fetch_array($resultado);
-     if(mysql_num_rows($resultado)>0){
+     $registro=mysqli_fetch_array($resultado);
+     if(mysqli_num_rows($resultado)>0){
          //6. recuperar registros
-         //$TxtId=$registro['staid'];
+       $TxtId=$registro['staid'];
 		 $TxtDescripcion=$registro['stades'];
          }
          else {
@@ -43,12 +43,12 @@ case 'Buscar':
      break;
 
 case 'Agregar':
-     $sql="SELECT * FROM tbstatus WHERE stades='$TxtDescripcion';";
-     $resultado = mysql_query($sql) or die( "Error en $sql: " . mysql_error() );
-     $registro=mysql_fetch_array($resultado);
-     if(mysql_num_rows($resultado)==0){
+     $sql="SELECT * FROM $TbNombre WHERE stades='$TxtDescripcion';";
+     $resultado = mysqli_query($conectar,$sql) or die( "Error en Sql: " . mysqli_error() );
+     $registro=mysqli_fetch_array($resultado);
+     if(mysqli_num_rows($resultado)==0){
        $sql="INSERT INTO tbstatus VALUES('','$TxtDescripcion');";
-     mysql_query($sql);
+     mysqli_query($conectar,$sql);
      ?>
        <script>alert ("Los datos fueron registrados con éxito!!!");</script>
      <?php 
@@ -63,7 +63,7 @@ case 'Modificar':
      //3. Contruir la consulta (Query)
      $sql="UPDATE tbstatus SET `stades`='$TxtDescripcion' WHERE staid='$TxtId'";
      //4. Ejecutar la consulta
-     $resultado = mysql_query($sql) or die( "Error en $sql: " . mysql_error() );
+     $resultado = mysqli_query($conectar,$sql) or die( "Error en Sql: " . mysqli_error() );
      ?>
      <script>alert ("Los datos fueron modificado con éxito!!!")</script>
      <?php 
@@ -82,9 +82,9 @@ if ($BtnAccion=='Limpiar'){
 <html>
 
 <head>
-<title>REGISTRO DE STATUS</title>
+<title><?php echo $FrmDescripcion?></title>
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
-<meta name="generator" content="HAPedit 3.1">
+<meta name="generator" content="Bluefish 2.2.7" >
 <link rel="stylesheet" type="text/css" href="css/miestilo.css" />
 
 <script type="text/javascript">
@@ -112,15 +112,15 @@ function validabuscar(form){
 </head>
 <body bgcolor="#FFFFFF">
 
-<form action="<?php $PHP_SELF ?>" name="FrmStatus" method="post">
+<form action="<?php $PHP_SELF ?>" name="Frm.<?php echo $FrmNombre?>" method="post">
       <fieldset>
 
-          <legend> AGREGAR STATUS </legend>
+          <legend> <?php  echo $FrmDescripcion ?> </legend>
 
           <label>ID:</label>
           <input type="text"
                  name="TxtId"
-                 value="<?php ($TxtId <> " " ? $TxtId : "*Proximo")?>"
+                 value="<?php echo $TxtId ?>"
                  size="5"
                  maxlength="3" /><br />
 
