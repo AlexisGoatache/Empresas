@@ -142,8 +142,9 @@ function cambiartipodocumento(que){
 	if($CmbTipoDocumentos != 0){
 		$Consulta= $Consulta." AND tbtipodocumentos.tipid='$CmbTipoDocumentos'";}
 		
-		$Sql="SELECT * FROM tbempresas,tbtipodocumentos,tbcamposdoc,tbcamposval WHERE
-          tbcamposdoc.camid=tbcamposval.camid AND tbempresas.empid=tbcamposval.empid AND
+		$Sql="SELECT DISTINCT * FROM tbempresas,tbtipodocumentos,tbcamposdoc,tbcamposval WHERE
+          tbempresas.empid=tbcamposval.empid AND 
+          tbcamposdoc.camid=tbcamposval.camid AND 
           tbempresas.empsta=1 AND tbtipodocumentos.tipsta=1 AND
           tbcamposdoc.camsta=1 AND tbcamposval.valsta=1 $Consulta ORDER BY $TbNombre.empnom ASC";
 

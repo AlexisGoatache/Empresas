@@ -29,12 +29,11 @@ case 'Buscar':
      //3. Contruir la consulta (Query)
      $Sql="SELECT * FROM $TbNombre WHERE camid='$TxtId';";
      //4. Ejecutar la consulta
-     $Resultado=mySql_query($Sql);
+     $Resultado=mysqli_query($conectar,$Sql);
      // 5. verificar si lo encontro
-     $Registro=mySql_fetch_array($Resultado);
-     if(mySql_num_rows($Resultado)>0){
+     $Registro=mysqli_fetch_array($Resultado);
+     if(mysqli_num_rows($Resultado)>0){
          //6. recuperar Registros
-         $CmbTipId=$Registro['tipid'];
          $TxtDescripcion=$Registro['camdes'];
          $CmbStatus=$Registro['camsta'];
          } else {
@@ -47,14 +46,14 @@ case 'Buscar':
 case 'Agregar':
 
      $Sql="SELECT * FROM $TbNombre WHERE tipid='$CmbTipId' AND camdes='$TxtDescripcion';";
-     $Resultado=mySql_query($Sql);
-     $Registro=mySql_fetch_array($Resultado);
+     $Resultado=mysqli_query($conectar,$Sql);
+     $Registro=mysqli_fetch_array($Resultado);
      if(mySql_num_rows($Resultado)==0){
      $Sql="INSERT INTO $TbNombre VALUES('',
                                         '$CmbTipId',
                                         '$TxtDescripcion',
                                          '$CmbStatus');";
-     mySql_query($Sql);
+     mysqli_query($conectar,$Sql);
      ?>
        <script>alert ("Los datos fueron registrados con éxito!!!");</script>
      <?php 
@@ -73,7 +72,7 @@ case 'Modificar':
                                 `camsta`='$CmbStatus' WHERE camid='$TxtId'";
 
      //4. Ejecutar la consulta
-     $Resultado = mySql_query($Sql) or die( "Error en $Sql: " . mySql_error() );
+     $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error() );
      ?>
      <script>alert ("Los datos fueron modificado con éxito!!!")</script>
      <?php 
@@ -97,11 +96,6 @@ if ($BtnAccion=='Limpiar'){
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
 <link rel="stylesheet" type="text/css" href="css/miestilo.css" />
 
-<style type="text/css">
-.fila{background-color:#ffffcc;}
-.filaalterna{background-color:#ffcc99;}
-.fdg_sortable {cursor:pointer;text-decoration:underline;color:#00c;}
-</style> 
 
 <script type="text/javascript">
 
@@ -156,9 +150,9 @@ function validabuscar(form){
           // 3. CONSTRUIR CONSULTA
           $Sql="SELECT * FROM tbtipodocumentos WHERE tipsta='1';";
           // 4 ejecutar la consulta
-          $Resultado = mySql_query($Sql) or die( "Error en $Sql: " . mySql_error() );
+          $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error() );
           // 5 recorrer el Resultado
-          while ($Registro = mySql_fetch_array($Resultado)) {
+          while ($Registro = mysqli_fetch_array($Resultado)) {
               if ($CmbTipId==$Registro['tipid']){$x='Selected'; }else{$x='';}
                 echo "<option value=\"$Registro[tipid]\" $x>$Registro[tipdes]</option>";}?>
           </select><br />
@@ -178,9 +172,9 @@ function validabuscar(form){
           // 3. CONSTRUIR CONSULTA
           $Sql="SELECT * FROM tbstatus";
           // 4 ejecutar la consulta
-          $Resultado = mySql_query($Sql) or die( "Error en $Sql: " . mySql_error() );
+          $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error() );
           // 5 recorrer el Resultado
-          while ($Registro = mySql_fetch_array($Resultado)) {
+          while ($Registro = mysqli_fetch_array($Resultado)) {
               if ($CmbStatus==$Registro['staid']){$x='Selected'; }else{$x='';}
                 echo "<option value=\"$Registro[staid]\" $x>$Registro[stades]</option>";}?>
           </select><br />
