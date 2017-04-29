@@ -1,13 +1,12 @@
 <?php
-function idpadre($nombre,$valor)
-{
+function idpadre($nombre,$valor){
 include("conexion.php");
 $query = "SELECT * from padre order by padre";
-mysql_select_db($dbname);
-$result = mysql_query($query);
+mysqli_select_db($dbname);
+$result = mysqli_query($conectar,$query);
 echo "<select name='$nombre' id='$nombre'>";
 echo "<option value=''>Selecciona un Padre...</option>";
-while($registro=mysql_fetch_array($result))
+while($registro=mysqli_fetch_array($result))
 {
 echo "<option value='".$registro["idpadre"]."'";
 if ($registro["idpadre"]==$valor) echo " selected";
@@ -19,11 +18,11 @@ function idhijo($nombre,$valor)
 {
 include("conexion.php");
 $query = "SELECT * FROM hijo order by hijo";
-mysql_select_db($dbname);
-$result = mysql_query($query);
+mysqli_select_db($dbname);
+$result = mysqli_query($conectar,$query);
 echo "<select name='$nombre' id='$nombre'>";
 echo "<option value=''>Selecciona un Hijo...</option>";
-while($registro=mysql_fetch_array($result))
+while($registro=mysqli_fetch_array($result))
 {
 echo "<option value='".$registro["idhijo"]."'";
 if ($registro["idhijo"]==$valor) echo " selected";
@@ -35,11 +34,11 @@ function idnieto($nombre,$valor)
 {
 include("conexion.php");
 $query = "SELECT * FROM nieto order by nieto";
-mysql_select_db($dbname);
-$result = mysql_query($query);
+mysqli_select_db($dbname);
+$result = mysqli_query($conectar,$query);
 echo "<select name='$nombre' id='$nombre'>";
 echo "<option value=''>Selecciona un Nieto...</option>";
-while($registro=mysql_fetch_array($result))
+while($registro=mysqli_fetch_array($result))
 {
 echo "<option value='".$registro["idnieto"]."'";
 if ($registro["idnieto"]==$valor) echo " selected";

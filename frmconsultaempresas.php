@@ -56,7 +56,7 @@ global $conectar;
          return $Sql;
 
   echo"</table>";
-  mysql_close($conectar);}
+  mysqli_close($conectar);}
 
 ?>
 
@@ -74,12 +74,12 @@ function cambiartipodocumento(que){
     valorid=eval(que);
     cadena='Alexis';
     <?php  echo 'cadena';
-    $val = "<script> document.write(valorid) </script>";
-    $resultado = mysqli_query("SELECT * FROM tbtipodocumentos;");
-    echo 'cadena+="<option value='.$row[0].'>'.$row[2].'</option>";';
-    while($row = mysql_fetch_array($resultado)){
+    $Val = "<script> document.write(valorid) </script>";
+    $Resultado = mysqli_query("SELECT * FROM tbtipodocumentos;");
+    echo 'cadena+="<option value='.$Row[0].'>'.$Row[2].'</option>";';
+    while($Row = mysqli_fetch_array($Resultado)){
 
-        echo 'cadena+="<option value='.$row[0].'>'.$row[2].'</option>";';}?>
+        echo 'cadena+="<option value='.$Row[0].'>'.$Row[2].'</option>";';}?>
 
     document.getElementById('localidad').innerHTML="<select name="localidad">"+cadena+"</select>";
 }
@@ -112,7 +112,7 @@ function cambiartipodocumento(que){
                   // 4 EJECUTAR LA CONSULTA
                   $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error() );
                   // 5 RECORRER EL RESULTADO
-                  while ($Registro = mysql_fetch_array($Resultado)) {
+                  while ($Registro = mysqli_fetch_array($Resultado)) {
                     echo "<option value='$Registro[empid]'>$Registro[empnom]</option>";}?>
                 </select>
               </td>
@@ -124,7 +124,7 @@ function cambiartipodocumento(que){
                 // 4 EJECUTAR LA CONSULTA
                 $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error() );
                 // 5 RECORRER EL RESULTADO
-                while ($Registro = mysql_fetch_array($Resultado)) {
+                while ($Registro = mysqli_fetch_array($Resultado)) {
                   echo "<option  value='$Registro[tipid]'>$Registro[tipdes]</option>";}?>
                 </select>
               </td>

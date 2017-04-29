@@ -1,14 +1,21 @@
-<?
+<?php
+//SEGURIDAD DE ACCESO
+require_once("seguridad.php");
+
+//1. CONECTAR CON MYSQL
+//2. CONECTAR CON BD
+require_once("conexion.php");
+
 function generaPaises(){
-    include 'conexion1.php';
+
     conectar();
-    $consulta=mysql_query("SELECT * FROM tbtipodocumentos WHERE tipsta=1;");
+    $consulta=mysqli_query("SELECT * FROM tbtipodocumentos WHERE tipsta=1;");
     desconectar();
 
     // Voy imprimiendo el primer select compuesto por los paises
     echo "<select name='tbtipodocumentos' id='tipodocumentos' onChange='cargaContenido(this.id)'>";
     echo "<option value='0'>Elige</option>";
-    while($registro=mysql_fetch_row($consulta)){
+    while($registro=mysqli_fetch_row($conectar,$consulta)){
         echo "<option value='".$registro[0]."'>".$registro[1]."</option>"; }
     echo "</select>";
 }
