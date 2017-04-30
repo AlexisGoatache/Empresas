@@ -7,15 +7,14 @@ require_once("seguridad.php");
 require_once("conexion.php");
 
 // VARIABLES DEL FORMULARIO
-$FrmNombre="ConsultaEmpresas";
-$FrmDescripcion="Consulta de Empresas";
+$FrmNombre="ConsultaDocumentosEmpresa";
+$FrmDescripcion="Consulta de Docuementos de Empresas";
 $TbNombre="tbempresas";
 
 // RESCATAR LAS VARIABLES DEL FORMULARIO
 
 $BtnAccion = isset($_REQUEST['BtnAccion']) ? $_REQUEST['BtnAccion'] : NULL;
 $CmbEmpresas = isset($_REQUEST['CmbEmpresas']) ? $_REQUEST['CmbEmpresas'] : NULL;
-$CmbTipoDocumentos = isset($_REQUEST['CmbTipoDocumentos']) ? $_REQUEST['CmbTipoDocumentos'] : NULL;
 $CmbStatus = isset($_REQUEST['CmbStatus']) ? $_REQUEST['CmbStatus'] : NULL;  
   
 //FUNCIONES
@@ -33,9 +32,7 @@ global $conectar;
     echo "<th>#</th>";
     echo "<th>Id</th>";
     echo "<th>Empresa</th>";
-    echo "<th>Tipo Documento</th>";
-    echo "<th>Campo Documento</th>";
-    echo "<th>Campo Valor</th>";
+    echo "<th>Estatus</th>";
     echo "</tr>";
     $i=0;
 	// 5 RECORRER EL RESULTADO DE LA CONSULTA
@@ -45,9 +42,7 @@ global $conectar;
     echo "<td>".$i."</td>";
     echo "<td>".$Registro['empid']."</td>";  //<!-- ID EMPRESA -->
     echo "<td>".$Registro['empnom']."</td>";   //<!-- NOMBRE EMPRESA -->
-    echo "<td>".$Registro['tipdes']."</td>";  //<!-- DESCRIPCION -->
-    echo "<td>".$Registro['camdes']."</td>";  //<!-- DESCRIPCION DEL CAMPO -->
-    echo "<td>".$Registro['valcam']."</td>";  //<!-- VALOR DEL CAMPO -->
+    echo "<td>".$Registro['empsta']."</td>";  //<!-- STATUS -->
     echo "</tr>"; 
     }while($Registro=mysqli_fetch_array($Resultado));
         } else {
@@ -95,20 +90,14 @@ function cambiartipodocumento(que){
           <table>
             <tr>
               <th>Empresas</th>
-              <th>Tipo Documento</th>
+              <th>Estatus</th>
             </tr>
-           <tr>
-             <div align=center>
-               <input type="submit" name="BtnAccion" value="Buscar"/>
-               <input type="submit" name="BtnAccion" value="Limpiar" />
-             </div>
-           </tr>
             <tr>
               <td>
                 <select name="CmbEmpresas" onchange='cambiartipodocumento(this.value)'>
                   <option value="0">Seleccione</option>
                   <?php // 3. CONSTRUIR CONSULTA DE EMPRESAS
-                  $Sql="SELECT * FROM tbempresas ORDER BY tbempresas.empnom ASC;";
+                  $Sql="SELECT * FROM $tbNombre ORDER BY tbempresas.empnom ASC;";
                   // 4 EJECUTAR LA CONSULTA
                   $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error() );
                   // 5 RECORRER EL RESULTADO
@@ -116,19 +105,30 @@ function cambiartipodocumento(que){
                     echo "<option value='$Registro[empid]'>$Registro[empnom]</option>";}?>
                 </select>
               </td>
-              <td>
-                <select name="CmbTipoDocumentos">
-                <option value="0">Seleccione</option>
-                <?php // 3. CONSTRUIR CONSULTA TIPO DE DOCUMENTO
-                $Sql="SELECT * FROM tbtipodocumentos ORDER BY tbtipodocumentos.tipdes ASC;";
-                // 4 EJECUTAR LA CONSULTA
-                $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error() );
-                // 5 RECORRER EL RESULTADO
-                while ($Registro = mysqli_fetch_array($Resultado)) {
-                  echo "<option  value='$Registro[tipid]'>$Registro[tipdes]</option>";}?>
+
+				<td>
+                <select name="CmbStatus" onchange='cambiarstatus(this.value)'>
+                  <option value="0">Seleccione</option>
+                  <?php // 3. CONSTRUIR CONSULTA DE EMPRESAS
+                  $Sql="SELECT * FROM tbstatus ORDER BY tbstatus.stades ASC;";
+                  // 4 EJECUTAR LA CONSULTA
+                  $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error() );
+                  // 5 RECORRER EL RESULTADO
+                  while ($Registro = mysqli_fetch_array($Resultado)) {
+                    echo "<option value='$Registro[staid]'>$Registro[stades]</option>";}?>
                 </select>
               </td>
+
+
 			</tr>
+			<tr>
+             <div align=center>
+               <input type="submit" name="BtnAccion" value="Buscar"/>
+               <input type="submit" name="BtnAccion" value="Limpiar" />
+             </div>
+         </tr>
+          
+          
           </table>
      <hr />
 
@@ -137,16 +137,14 @@ function cambiartipodocumento(que){
     $Consulta = '';
     
 	if($CmbEmpresas != 0){
-      $Consulta = $Consulta." AND tbempresas.empid= '$CmbEmpresas'";}
+      $Consulta = $Consulta." AND $TbNombre.empid= '$CmbEmpresas'";}
     
-	if($CmbTipoDocumentos != 0){
-		$Consulta= $Consulta." AND tbtipodocumentos.tipid='$CmbTipoDocumentos'";}
+	if($CmbStatus!= 0){
+		$Consulta= $Consulta." AND tbstatus.staid='$CmbStatus'";}
 		
-		$Sql="SELECT DISTINCT * FROM tbempresas,tbtipodocumentos,tbcamposdoc,tbcamposval WHERE
-          tbempresas.empid=tbcamposval.empid AND 
-          tbcamposdoc.camid=tbcamposval.camid AND 
-          tbempresas.empsta=1 AND tbtipodocumentos.tipsta=1 AND
-          tbcamposdoc.camsta=1 AND tbcamposval.valsta=1 $Consulta ORDER BY $TbNombre.empnom ASC";
+		$Sql="SELECT DISTINCT * FROM $TbNombre,tbstatus WHERE
+          $TbNombre.empsta=tbstatus.staid AND $Consulta ORDER BY 					
+          $TbNombre.empnom ASC";
 
    query($Sql);
 ?>
