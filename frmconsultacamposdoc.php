@@ -13,7 +13,7 @@ require_once("conexion.php");
 // VARIABLES DEL FORMULARIO
 $FrmNombre="ConsultaCamposDoc";
 $FrmDescripcion="Consulta Campos del Documento";
-$TbNombre="tbcamposdoc";
+$TbNombre="tbcampos";
 
 // RESCATAR LAS VARIABLES DEL FORMULARIO
 $BtnAccion=isset($_REQUEST['BtnAccion'])? $_REQUEST['BtnAccion']: NULL;
@@ -58,7 +58,7 @@ function query($Sql) {
          return $Sql;
 
   echo"</table>";
-  mysql_close($conectar);}
+  mysqli_close($conectar);}
 
 ?>
 <!DOCTYPE html>
@@ -114,7 +114,7 @@ function query($Sql) {
                 <select name="CmbCampoDocumentos">
                 <option value="0">Seleccione</option>
                 <?php // 3. CONSTRUIR CONSULTA TIPO DE DOCUMENTO
-                $Sql="SELECT * FROM tbcamposdoc ORDER BY tbcamposdoc.camdes ASC;";
+                $Sql="SELECT * FROM tbcampos ORDER BY tbcampos.camdes ASC;";
                 // 4 EJECUTAR LA CONSULTA
                 $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error() );
                 // 5 RECORRER EL RESULTADO
@@ -151,7 +151,6 @@ function query($Sql) {
 	
 	if($CmbStatus != 0){
       $Consulta = $Consulta." AND tbstatus.staid= '$CmbStatus'";}
-    
 	
 		$Sql="SELECT * FROM $TbNombre,tbtipodocumentos,tbdetallecamposdoc,tbstatus WHERE
 			$TbNombre.camid=tbdetallecamposdoc.camid AND tbtipodocumentos.tipid=tbdetallecamposdoc.tipid AND tbtipodocumentos.tipsta=tbstatus.staid $Consulta ORDER BY tbtipodocumentos.tipdes ASC;";

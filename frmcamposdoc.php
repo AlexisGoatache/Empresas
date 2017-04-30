@@ -67,8 +67,7 @@ case 'Agregar':
 
 case 'Modificar':
      //3. Contruir la consulta (Query)
-     $Sql="UPDATE $TbNombre SET `tipid`='$CmbTipId',
-                                `camdes`='$TxtDescripcion',
+     $Sql="UPDATE $TbNombre SET `camdes`='$TxtDescripcion',
                                 `camsta`='$CmbStatus' WHERE camid='$TxtId'";
 
      //4. Ejecutar la consulta
@@ -81,7 +80,6 @@ case 'Modificar':
 
 if ($BtnAccion=='Limpiar'){
          $TxtId='';
-         $CmbTipId='';
          $TxtDescripcion='';
          $CmbStatus='';
      unset($BtnAccion);
@@ -100,11 +98,6 @@ if ($BtnAccion=='Limpiar'){
 <script type="text/javascript">
 
 function validar(form){
-         if (form.CmbTipId.value==0){
-            alert('Debe introducir un tipo del <?php echo $FrmDescripcion?>');
-            form.CmbTipId.focus();
-            return false;}
-
          else if (form.TxtDescripcion.value==0){
            alert('Debe introducir la descripción del <?php echo $FrmDescripcion?>');
            form.TxtDescripcion.focus();
@@ -142,21 +135,6 @@ function validabuscar(form){
                  value="<?php  echo $TxtId; ?>"
                  size="6"
                  maxlength="6" /><br />
-
-          <label>Tipo de campo:</label>
-          <select name="CmbTipId">
-          <option value="0">Seleccione</option>
-          <?php //carga el combo con status de dispositivos
-          // 3. CONSTRUIR CONSULTA
-          $Sql="SELECT * FROM tbtipodocumentos WHERE tipsta='1';";
-          // 4 ejecutar la consulta
-          $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error() );
-          // 5 recorrer el Resultado
-          while ($Registro = mysqli_fetch_array($Resultado)) {
-              if ($CmbTipId==$Registro['tipid']){$x='Selected'; }else{$x='';}
-                echo "<option value=\"$Registro[tipid]\" $x>$Registro[tipdes]</option>";}?>
-          </select><br />
-
 
           <label>Descripción:</label>
           <input type="text"
