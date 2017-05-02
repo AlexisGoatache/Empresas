@@ -70,7 +70,7 @@ case 'Modificar':
      $Sql="UPDATE $TbNombre SET `tipdes`='$TxtDescripcion',
                                  `tipsta`='$CmbStatus' WHERE tipid='$TxtId'";
      //4. Ejecutar la consulta
-     $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error() );
+     $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error($conectar) );
      ?>
      <script>alert ("Los datos fueron modificado con éxito!!!")</script>
      <?php
@@ -152,7 +152,7 @@ function validabuscar(form){
           // 3. CONSTRUIR CONSULTA
           $Sql="SELECT * FROM tbstatus;";
           // 4 ejecutar la consulta
-          $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error() );
+          $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error($conectar) );
           // 5 recorrer el resultado
           while ($Registro = mysqli_fetch_array($Resultado)) {
               if ($CmbStatus==$Registro['staid']){$x='Selected'; }else{$x='';}

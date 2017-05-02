@@ -27,7 +27,7 @@ case 'Buscar':
      //3. Contruir la consulta (Query)
      $sql="SELECT * FROM $TbNombre WHERE staid='$TxtId'";
      //4. Ejecutar la consulta
-     $resultado = mysqli_query($conectar,$sql) or die( "Error en Sql: " . mysqli_error() );
+     $resultado = mysqli_query($conectar,$sql) or die( "Error en Sql: " . mysqli_error($conectar) );
      // 5. verificar si lo encontro
      $registro=mysqli_fetch_array($resultado);
      if(mysqli_num_rows($resultado)>0){
@@ -44,7 +44,7 @@ case 'Buscar':
 
 case 'Agregar':
      $sql="SELECT * FROM $TbNombre WHERE stades='$TxtDescripcion';";
-     $resultado = mysqli_query($conectar,$sql) or die( "Error en Sql: " . mysqli_error() );
+     $resultado = mysqli_query($conectar,$sql) or die( "Error en Sql: " . mysqli_error($conectar) );
      $registro=mysqli_fetch_array($resultado);
      if(mysqli_num_rows($resultado)==0){
        $sql="INSERT INTO tbstatus VALUES('','$TxtDescripcion');";
@@ -63,7 +63,7 @@ case 'Modificar':
      //3. Contruir la consulta (Query)
      $sql="UPDATE tbstatus SET `stades`='$TxtDescripcion' WHERE staid='$TxtId'";
      //4. Ejecutar la consulta
-     $resultado = mysqli_query($conectar,$sql) or die( "Error en Sql: " . mysqli_error() );
+     $resultado = mysqli_query($conectar,$sql) or die( "Error en Sql: " . mysqli_error($conectar) );
      ?>
      <script>alert ("Los datos fueron modificado con éxito!!!")</script>
      <?php 

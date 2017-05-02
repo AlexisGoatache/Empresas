@@ -30,7 +30,7 @@ global $conectar;	?>
 
     <table> <!--TABLA DE CONSULTA DE DISPOSITIVOS-->
         <?// 4 EJECUTAR LA CONSULTA
-        $resultado = mysqli_query($conectar,$sql) or die( "Error en Sql: " . mysqli_error() );
+        $resultado = mysqli_query($conectar,$sql) or die( "Error en Sql: " . mysqli_error($conectar) );
         // 5. VERIFICA SI ENCONTRO REGISTROS
         $registro=mysqli_fetch_array($resultado);
         if(mysqli_num_rows($resultado)>0){?>
@@ -111,7 +111,7 @@ global $conectar;	?>
                   <?// 3. CONSTRUIR CONSULTA DE EMPRESAS
                   $sql="SELECT * FROM tbempresas;";
                   // 4 EJECUTAR LA CONSULTA
-                  $resultado = mysqli_query($conectar,$sql) or die( "Error en Sql: " . mysqli_error() );
+                  $resultado = mysqli_query($conectar,$sql) or die( "Error en Sql: " . mysqli_error($conectar) );
                   // 5 RECORRER EL RESULTADO
                   while ($registro = mysqli_fetch_array($resultado)) {
                     echo "<option value='$registro[empid]'>$registro[empnom]</option>";}?>
@@ -124,7 +124,7 @@ global $conectar;	?>
                 <?// 3. CONSTRUIR CONSULTA TIPO DE DOCUMENTO
                 $sql="SELECT * FROM tbtipodocumentos;";
                 // 4 EJECUTAR LA CONSULTA
-                $resultado = mysqli_query($conectar,$sql) or die( "Error en Sql: " . mysqli_error() );
+                $resultado = mysqli_query($conectar,$sql) or die( "Error en Sql: " . mysqli_error($conectar) );
                 // 5 RECORRER EL RESULTADO
                 while ($registro = mysqli_fetch_array($resultado)) {
                   echo "<option  value='$registro[tipid]'>$registro[tipdes]</option>";}?>

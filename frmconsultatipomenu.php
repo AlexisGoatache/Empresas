@@ -28,7 +28,7 @@ global $conectar;
 
     echo "<table>"; //<!--TABLA DE CONSULTA DE DISPOSITIVOS-->
         // 4 EJECUTAR LA CONSULTA
-        $resultado = mysqli_query($conectar,$sql) or die( "Error en Sql: " . mysqli_error() );
+        $resultado = mysqli_query($conectar,$sql) or die( "Error en Sql: " . mysqli_error($conectar) );
         // 5. VERIFICA SI ENCONTRO REGISTROS
         $registro=mysqli_fetch_array($resultado);
         if(mysqli_num_rows($resultado)>0){
@@ -103,7 +103,7 @@ global $conectar;
                   <?php // 3. CONSTRUIR CONSULTA DE EMPRESAS
                   $sql="SELECT * FROM tbstatus";
                   // 4 EJECUTAR LA CONSULTA
-                  $resultado = mysqli_query($conectar,$sql) or die( "Error en Sql: " . mysqli_error() );
+                  $resultado = mysqli_query($conectar,$sql) or die( "Error en Sql: " . mysqli_error($conectar) );
                   // 5 RECORRER EL RESULTADO
                   while ($registro = mysqli_fetch_array($resultado)) {
                     echo "<option value='$registro[staid]'>$registro[stades]</option>";}?>

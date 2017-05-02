@@ -1,397 +1,159 @@
-<?
-//INICIO DE SESSION DE USUARIO
-session_start();
+<?php
+//SEGURIDAD DE ACCESO
+require_once("seguridad.php");
 
 //1. CONECTAR CON MYSQL
 //2. CONECTAR CON BD
 require_once("conexion.php");
 
 // VARIABLES DEL FORMULARIO
-$FrmNombre="Empresas";
-$FrmDescripcion="Empresas";
+$FrmNombre="ConsultaDocumentosEmpresas";
+$FrmDescripcion="Consulta de Documentos de Empresas";
 $TbNombre="tbempresas";
-
 
 // RESCATAR LAS VARIABLES DEL FORMULARIO
 
 $BtnAccion = isset($_REQUEST['BtnAccion']) ? $_REQUEST['BtnAccion'] : NULL;
-$TxtId = isset($_REQUEST['TxtId']) ? $_REQUEST['TxtId'] : NULL;
-$TxtNombre = isset($_REQUEST['TxtNombre']) ? $_REQUEST['TxtNombre'] : NULL;
-$TxtPassword = isset($_REQUEST['TxtPassword']) ? $_REQUEST['TxtPassword'] : NULL;
-$CmbStatus = isset($_REQUEST['CmbStatus']) ? $_REQUEST['CmbStatus'] : NULL;
+$CmbEmpresas = isset($_REQUEST['CmbEmpresas']) ? $_REQUEST['CmbEmpresas'] : NULL;
+$CmbTipoDocumentos = isset($_REQUEST['CmbTipoDocumentos']) ? $_REQUEST['CmbTipoDocumentos'] : NULL;
+$CmbStatus = isset($_REQUEST['CmbStatus']) ? $_REQUEST['CmbStatus'] : NULL;  
+  
+//FUNCIONES
+function query($Sql) {
+global $conectar;
 
-//DESARROLLAR LA LOGICA DE LOS BOTONES
+    echo "<table>"; //<!--TABLA DE CONSULTA DE EMPRESAS-->
+    // 4 EJECUTAR LA CONSULTA
+    $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error($conectar) );
+    // 5. VERIFICA SI ENCONTRO REGISTROS
+    $Registro=mysqli_fetch_array($Resultado);
+    if(mysqli_num_rows($Resultado)>0){
 
-switch($BtnAccion){
+    echo "<tr>"; //<!--ENCABEZADO DE LA CONSULTA-->
+    echo "<th>#</th>";
+    echo "<th>Id</th>";
+    echo "<th>Empresa</th>";
+    echo "<th>Tipo Documento</th>";
+    echo "<th>Campo Documento</th>";
+    echo "<th>Campo Valor</th>";
+    echo "</tr>";
+    $i=0;
+	// 5 RECORRER EL RESULTADO DE LA CONSULTA
+    do{
+    $i=$i+1;
+	echo "<tr>";
+    echo "<td>".$i."</td>";
+    echo "<td>".$Registro['empid']."</td>";  //<!-- ID EMPRESA -->
+    echo "<td>".$Registro['empnom']."</td>";   //<!-- NOMBRE EMPRESA -->
+    echo "<td>".$Registro['tipdes']."</td>";  //<!-- DESCRIPCION -->
+    echo "<td>".$Registro['camdes']."</td>";  //<!-- DESCRIPCION DEL CAMPO -->
+    echo "<td>".$Registro['valcam']."</td>";  //<!-- VALOR DEL CAMPO -->
+    echo "</tr>"; 
+    }while($Registro=mysqli_fetch_array($Resultado));
+        } else {
+         ?><script>alert ("No existen registros con esa condición!!!");</script>
+		 <?php }
+         return $Sql;
 
-case 'Buscar':
-     //3. Contruir la consulta (Query)
-     $Sql="SELECT * FROM tbempresas WHERE empid='$TxtId';";
-     //4. Ejecutar la consulta
-     $Resultado=mysqli_query($conectar,$Sql);
-     // 5. verificar si lo encontro
-     $Registro=mysqli_fetch_array($Resultado);
-     if(mysqli_num_rows($Resultado)>0){
-         //6. recuperar registros
-         $TxtId=$Registro['empid'];
-         $TxtNombre=$Registro['empnom'];
-         $TxtPassword=$Registro['empcla'];
-         $CmbStatus=$Registro['empsta'];
-         } else {
-         ?>
-         <script>alert ("Registro No encontrado!!!");</script>
-         <?
-         $BtnAccion='Limpiar';}
-     break;
+  echo"</table>";
+  mysqli_close($conectar);}
 
-case 'Agregar':
-
-     $Sql="SELECT * FROM tbempresas WHERE empid='$TxtId';";
-     $Resultado=mysqli_query($conectar,$Sql);
-     $Registro=mysqli_fetch_array($Resultado);
-     if(mysqli_num_rows($Resultado)==0){
-     $Sql="INSERT INTO tbempresas VALUES('',
-                                           '$TxtNombre',
-                                           '$TxtPassword',
-                                           '$CmbStatus');";
-     mysqli_query($conectar,$Sql);
-     ?>
-       <script>alert ("Los datos fueron registrados con éxito!!!");</script>
-     <?
-     }else{
-     ?>
-       <script>alert ("Esta Empresa ya está registrada!!!");</script>
-     <?
-     }
-     break;
-
-case 'Modificar':
-     //3. Contruir la consulta (Query)
-     $Sql="UPDATE tbempresas SET `empnom`='$TxtNombre',
-                                 `empcla`='$TxtPassword',
-                                 `empsta`='$CmbStatus' WHERE empid='$TxtId'";
-
-     //4. Ejecutar la consulta
-     $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error() );
-     ?>
-     <script>alert ("Los datos fueron modificado con éxito!!!")</script>
-     <?
-     break;
-}
-
-if ($BtnAccion=='Limpiar'){
-         $TxtId='';
-         $TxtNombre='';
-         $TxtPassword='';
-         $CmbStatus='';
-     unset($BtnAccion);
-}
 ?>
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
-<html>
-
+<!DOCTYPE html>
+<html lang="es">
 <head>
-<title><?php echo $FrmDescripcion?></title>
+<title><?php echo $FrmDescripcion ?></title>
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
 <meta name="generator" content="Bluefish 2.2.7" >
 <link rel="stylesheet" type="text/css" href="css/miestilo.css" />
-
 <script type="text/javascript">
 
-function validar(form){
-    if (form.TxtNombre.value==0 ){
-       alert('Debe introducir el Nombre de la Empresa');
-       return false;}
+function cambiartipodocumento(que){
 
-    else if (form.TxtPassword.value==0 ){
-           alert('Debe introducir un Password');
-           return false;}
+    valorid=eval(que);
+    cadena='Alexis';
+    <?php  echo 'cadena';
+    $Val = "<script> document.write(valorid) </script>";
+    $Resultado = mysqli_query("SELECT * FROM tbtipodocumentos;");
+    echo 'cadena+="<option value='.$Row[0].'>'.$Row[2].'</option>";';
+    while($Row = mysqli_fetch_array($Resultado)){
 
-    else if (form.TxtPassword.value==form.TxtRPassword.value ){
-           alert('El Password debe coincidir');
-           return false;}
+        echo 'cadena+="<option value='.$Row[0].'>'.$Row[2].'</option>";';}?>
 
-    else {
-      return true;}
+    document.getElementById('localidad').innerHTML="<select name="localidad">"+cadena+"</select>";
 }
-
-function validabuscar(form){
-    if (form.TxtId.value==0 ){
-       alert('Debe introducir el Código de la empresa');
-       return false;}
-    else {
-      return true;}
-}
-
 </script>
+
 </head>
+
 <body bgcolor="#FFFFFF">
 
-<form action="<?php $PHP_SELF ?>" name="Frm.<?php echo $FrmNombre?>" method="post">
+<form action="<?php $PHP_SELF ?>" name="<?php echo "Frm".$FrmNombre ?>" method="post">
       <fieldset>
-
-          <legend> <?php  echo $FrmDescripcion ?> </legend>
-          <label>ID:</label>
-          <input type="text"
-                 name="TxtId"
-                 value="<? echo $TxtId; ?>"
-                 size="4"
-                 maxlength="4" /><br />
-
-          <label>NOMBRE:</label>
-          <input type="text"
-                 name="TxtNombre"
-                 value="<? echo $TxtNombre; ?>"
-                 size="35"
-                 maxlength="35" /><br />
-
-          <label>PASSWORD:</label>
-          <input type="password"
-                 name="TxtPassword"
-                 value="<? echo $TxtPassword; ?>"
-                 size="50"
-                 maxlength="50" /><br />
-
-          <label>RE-PASSWORD:</label>
-          <input type="password"
-                 name="TxtRpassword"
-                 value="<? echo $TxtRpassword; ?>"
-                 size="50"
-                 maxlength="50" /><br />
-
-          <label>STATUS:</label>
-          <select name="CmbStatus">
-          <option value="0">Seleccione</option>
-          <?php
-          $Sql="SELECT * FROM tbstatus;";
-          // 4 ejecutar la consulta
-          $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error() );
-          // 5 recorrer el resultado
-          while ($Registro = mysqli_fetch_array($Resultado)) {
-              if ($CmbStatus==$Registro['staid']){$x='Selected'; }else{$x='';}
-                echo "<option value=\"$Registro[staid]\" $x>$Registro[stades]</option>";}?>
-          </select><br />
-
-          <hr />
-
-          <div align=center>
-               <input type="submit" name="BtnAccion" value="Buscar" onclick="return validabuscar(this.form);"/>
-               <input type="submit" name="BtnAccion" value="Agregar"  onclick="return validar(this.form);"/>
-               <input type="submit" name="BtnAccion" value="Modificar" onclick="return validar(this.form);"/>
+        <legend><?php echo $FrmDescripcion ?></legend>
+          <table>
+            <tr>
+              <th>Empresas</th>
+              <th>Tipo Documento</th>
+            </tr>
+            <tr>
+              <td>
+                <select name="CmbEmpresas" onchange='cambiartipodocumento(this.value)'>
+                  <option value="0">Seleccione</option>
+                  <?php // 3. CONSTRUIR CONSULTA DE EMPRESAS
+                  $Sql="SELECT * FROM tbempresas ORDER BY tbempresas.empnom ASC;";
+                  // 4 EJECUTAR LA CONSULTA
+                  $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error($conectar) );
+                  // 5 RECORRER EL RESULTADO
+                  while ($Registro = mysqli_fetch_array($Resultado)) {
+                    echo "<option value='$Registro[empid]'>$Registro[empnom]</option>";}?>
+                </select>
+              </td>
+              <td>
+                <select name="CmbTipoDocumentos">
+                <option value="0">Seleccione</option>
+                <?php // 3. CONSTRUIR CONSULTA TIPO DE DOCUMENTO
+                $Sql="SELECT * FROM tbtipodocumentos ORDER BY tbtipodocumentos.tipdes ASC;";
+                // 4 EJECUTAR LA CONSULTA
+                $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error($conectar) );
+                // 5 RECORRER EL RESULTADO
+                while ($Registro = mysqli_fetch_array($Resultado)) {
+                  echo "<option  value='$Registro[tipid]'>$Registro[tipdes]</option>";}?>
+                </select>
+              </td>
+			</tr>
+			<tr>
+             <div align=center>
+               <input type="submit" name="BtnAccion" value="Buscar"/>
                <input type="submit" name="BtnAccion" value="Limpiar" />
-          </div>
+             </div>
+         </tr>
+          
+          
+          </table>
+     <hr />
 
-      </fieldset>       
+ <?php // 3. CONSTRUIR CONSULTA
 
-      <a href='frmmenucss.php'><img src='imagenes/back.gif' border=0></a>
+    $Consulta = '';
+    
+	if($CmbEmpresas != 0){
+      $Consulta = $Consulta." AND $TbNombre.empid= '$CmbEmpresas'";}
+    
+	if($CmbTipoDocumentos != 0){
+		$Consulta= $Consulta." AND tbtipodocumentos.tipid='$CmbTipoDocumentos'";}
+		
+		$Sql="SELECT DISTINCT * FROM $TbNombre,tbtipodocumentos,tbcampos,tbcamposval WHERE
+          $TbNombre.empid=tbcamposval.empid AND tbcamposval.camid=tbcampos.camid AND
+          tbcampos.camid=tbcamposval.camid AND tbcamposval.tipid=tbtipodocumentos.tipid AND
+          $TbNombre.empsta=1 AND tbtipodocumentos.tipsta=1 AND tbcampos.camsta=1 AND 
+          tbcamposval.valsta=1 $Consulta ORDER BY $TbNombre.empnom,tbtipodocumentos.tipdes,tbcampos.camdes  ASC";
 
-</form>
-</body>
-</html>
-
-
-
-
-
-
-<?
-
-//INICIO DE SESSION DE USUARIO
-session_start();
-
-//1. CONECTAR CON MYSQL
-//2. CONECTAR CON BD
-require_once("conexion.php");
-
-// VARIABLES DEL FORMULARIO
-$FrmNombre="Empresas";
-$FrmDescripcion="Empresas";
-$TbNombre="tbempresas";
-
-
-// RESCATAR LAS VARIABLES DEL FORMULARIO
-
-$BtnAccion = isset($_REQUEST['BtnAccion']) ? $_REQUEST['BtnAccion'] : NULL;
-$TxtId = isset($_REQUEST['TxtId']) ? $_REQUEST['TxtId'] : NULL;
-$TxtNombre = isset($_REQUEST['TxtNombre']) ? $_REQUEST['TxtNombre'] : NULL;
-$TxtPassword = isset($_REQUEST['TxtPassword']) ? $_REQUEST['TxtPassword'] : NULL;
-$CmbStatus = isset($_REQUEST['CmbStatus']) ? $_REQUEST['CmbStatus'] : NULL;
-
-//DESARROLLAR LA LOGICA DE LOS BOTONES
-
-switch($BtnAccion){
-
-case 'Buscar':
-     //3. Contruir la consulta (Query)
-     $Sql="SELECT * FROM tbempresas WHERE empid='$TxtId';";
-     //4. Ejecutar la consulta
-     $Resultado=mysqli_query($conectar,$Sql);
-     // 5. verificar si lo encontro
-     $Registro=mysqli_fetch_array($Resultado);
-     if(mysqli_num_rows($Resultado)>0){
-         //6. recuperar registros
-         $TxtId=$Registro['empid'];
-         $TxtNombre=$Registro['empnom'];
-         $TxtPassword=$Registro['empcla'];
-         $CmbStatus=$Registro['empsta'];
-         } else {
-         ?>
-         <script>alert ("Registro No encontrado!!!");</script>
-         <?
-         $BtnAccion='Limpiar';}
-     break;
-
-case 'Agregar':
-
-     $Sql="SELECT * FROM tbempresas WHERE empid='$TxtId';";
-     $Resultado=mysqli_query($conectar,$Sql);
-     $Registro=mysqli_fetch_array($Resultado);
-     if(mysqli_num_rows($Resultado)==0){
-     $Sql="INSERT INTO tbempresas VALUES('',
-                                           '$TxtNombre',
-                                           '$TxtPassword',
-                                           '$CmbStatus');";
-     mysqli_query($conectar,$Sql);
-     ?>
-       <script>alert ("Los datos fueron registrados con éxito!!!");</script>
-     <?
-     }else{
-     ?>
-       <script>alert ("Esta Empresa ya está registrada!!!");</script>
-     <?
-     }
-     break;
-
-case 'Modificar':
-     //3. Contruir la consulta (Query)
-     $Sql="UPDATE tbempresas SET `empnom`='$TxtNombre',
-                                 `empcla`='$TxtPassword',
-                                 `empsta`='$CmbStatus' WHERE empid='$TxtId'";
-
-     //4. Ejecutar la consulta
-     $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error() );
-     ?>
-     <script>alert ("Los datos fueron modificado con éxito!!!")</script>
-     <?
-     break;
-}
-
-if ($BtnAccion=='Limpiar'){
-         $TxtId='';
-         $TxtNombre='';
-         $TxtPassword='';
-         $CmbStatus='';
-     unset($BtnAccion);
-}
+   query($Sql);
 ?>
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
-<html>
-
-<head>
-<title><?php echo $FrmDescripcion?></title>
-<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
-<meta name="generator" content="Bluefish 2.2.7" >
-<link rel="stylesheet" type="text/css" href="css/miestilo.css" />
-
-<script type="text/javascript">
-
-function validar(form){
-    if (form.TxtNombre.value==0 ){
-       alert('Debe introducir el Nombre de la Empresa');
-       return false;}
-
-    else if (form.TxtPassword.value==0 ){
-           alert('Debe introducir un Password');
-           return false;}
-
-    else if (form.TxtPassword.value==form.TxtRPassword.value ){
-           alert('El Password debe coincidir');
-           return false;}
-
-    else {
-      return true;}
-}
-
-function validabuscar(form){
-    if (form.TxtId.value==0 ){
-       alert('Debe introducir el Código de la empresa');
-       return false;}
-    else {
-      return true;}
-}
-
-</script>
-</head>
-<body bgcolor="#FFFFFF">
-
-<form action="<?php $PHP_SELF ?>" name="Frm.<?php echo $FrmNombre?>" method="post">
-      <fieldset>
-
-          <legend> <?php  echo $FrmDescripcion ?> </legend>
-          <label>ID:</label>
-          <input type="text"
-                 name="TxtId"
-                 value="<? echo $TxtId; ?>"
-                 size="4"
-                 maxlength="4" /><br />
-
-          <label>NOMBRE:</label>
-          <input type="text"
-                 name="TxtNombre"
-                 value="<? echo $TxtNombre; ?>"
-                 size="35"
-                 maxlength="35" /><br />
-
-          <label>PASSWORD:</label>
-          <input type="password"
-                 name="TxtPassword"
-                 value="<? echo $TxtPassword; ?>"
-                 size="50"
-                 maxlength="50" /><br />
-
-          <label>RE-PASSWORD:</label>
-          <input type="password"
-                 name="TxtRpassword"
-                 value="<? echo $TxtRpassword; ?>"
-                 size="50"
-                 maxlength="50" /><br />
-
-          <label>STATUS:</label>
-          <select name="CmbStatus">
-          <option value="0">Seleccione</option>
-          <?php
-          $Sql="SELECT * FROM tbstatus;";
-          // 4 ejecutar la consulta
-          $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error() );
-          // 5 recorrer el resultado
-          while ($Registro = mysqli_fetch_array($Resultado)) {
-              if ($CmbStatus==$Registro['staid']){$x='Selected'; }else{$x='';}
-                echo "<option value=\"$Registro[staid]\" $x>$Registro[stades]</option>";}?>
-          </select><br />
-
-          <hr />
-
-          <div align=center>
-               <input type="submit" name="BtnAccion" value="Buscar" onclick="return validabuscar(this.form);"/>
-               <input type="submit" name="BtnAccion" value="Agregar"  onclick="return validar(this.form);"/>
-               <input type="submit" name="BtnAccion" value="Modificar" onclick="return validar(this.form);"/>
-               <input type="submit" name="BtnAccion" value="Limpiar" />
-          </div>
-
-      </fieldset>       
-
-      <a href='frmmenucss.php'><img src='imagenes/back.gif' border=0></a>
-
-</form>
 </body>
+</table>
+    <a href='frmmenucss.php'><img src='imagenes/back.gif' border=0></a>
 </html>
-
-
-
-
-
-

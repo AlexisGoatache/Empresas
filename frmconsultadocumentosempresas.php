@@ -24,7 +24,7 @@ global $conectar;
 
     echo "<table>"; //<!--TABLA DE CONSULTA DE EMPRESAS-->
     // 4 EJECUTAR LA CONSULTA
-    $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error() );
+    $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error($conectar) );
     // 5. VERIFICA SI ENCONTRO REGISTROS
     $Registro=mysqli_fetch_array($Resultado);
     if(mysqli_num_rows($Resultado)>0){
@@ -104,7 +104,7 @@ function cambiartipodocumento(que){
                   <?php // 3. CONSTRUIR CONSULTA DE EMPRESAS
                   $Sql="SELECT * FROM tbempresas ORDER BY tbempresas.empnom ASC;";
                   // 4 EJECUTAR LA CONSULTA
-                  $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error() );
+                  $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error($conectar) );
                   // 5 RECORRER EL RESULTADO
                   while ($Registro = mysqli_fetch_array($Resultado)) {
                     echo "<option value='$Registro[empid]'>$Registro[empnom]</option>";}?>
@@ -116,7 +116,7 @@ function cambiartipodocumento(que){
                 <?php // 3. CONSTRUIR CONSULTA TIPO DE DOCUMENTO
                 $Sql="SELECT * FROM tbtipodocumentos ORDER BY tbtipodocumentos.tipdes ASC;";
                 // 4 EJECUTAR LA CONSULTA
-                $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error() );
+                $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error($conectar) );
                 // 5 RECORRER EL RESULTADO
                 while ($Registro = mysqli_fetch_array($Resultado)) {
                   echo "<option  value='$Registro[tipid]'>$Registro[tipdes]</option>";}?>

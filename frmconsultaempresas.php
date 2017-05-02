@@ -7,8 +7,8 @@ require_once("seguridad.php");
 require_once("conexion.php");
 
 // VARIABLES DEL FORMULARIO
-$FrmNombre="ConsultaDocumentosEmpresa";
-$FrmDescripcion="Consulta de Docuementos de Empresas";
+$FrmNombre="ConsultaEmpresas";
+$FrmDescripcion="Consulta de Empresas";
 $TbNombre="tbempresas";
 
 // RESCATAR LAS VARIABLES DEL FORMULARIO
@@ -19,11 +19,11 @@ $CmbStatus = isset($_REQUEST['CmbStatus']) ? $_REQUEST['CmbStatus'] : NULL;
   
 //FUNCIONES
 function query($Sql) {
-global $conectar;
+global $conectar,$Consulta;
 
     echo "<table>"; //<!--TABLA DE CONSULTA DE EMPRESAS-->
     // 4 EJECUTAR LA CONSULTA
-    $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error() );
+    $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error($conectar) );
     // 5. VERIFICA SI ENCONTRO REGISTROS
     $Registro=mysqli_fetch_array($Resultado);
     if(mysqli_num_rows($Resultado)>0){
@@ -42,7 +42,7 @@ global $conectar;
     echo "<td>".$i."</td>";
     echo "<td>".$Registro['empid']."</td>";  //<!-- ID EMPRESA -->
     echo "<td>".$Registro['empnom']."</td>";   //<!-- NOMBRE EMPRESA -->
-    echo "<td>".$Registro['empsta']."</td>";  //<!-- STATUS -->
+    echo "<td>".$Registro['stades']."</td>";  //<!-- ESTATUS -->
     echo "</tr>"; 
     }while($Registro=mysqli_fetch_array($Resultado));
         } else {
@@ -97,29 +97,26 @@ function cambiartipodocumento(que){
                 <select name="CmbEmpresas" onchange='cambiartipodocumento(this.value)'>
                   <option value="0">Seleccione</option>
                   <?php // 3. CONSTRUIR CONSULTA DE EMPRESAS
-                  $Sql="SELECT * FROM $tbNombre ORDER BY tbempresas.empnom ASC;";
+                  $Sql="SELECT * FROM tbempresas ORDER BY tbempresas.empnom ASC;";
                   // 4 EJECUTAR LA CONSULTA
-                  $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error() );
+                  $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error($conectar) );
                   // 5 RECORRER EL RESULTADO
                   while ($Registro = mysqli_fetch_array($Resultado)) {
                     echo "<option value='$Registro[empid]'>$Registro[empnom]</option>";}?>
                 </select>
               </td>
-
-				<td>
-                <select name="CmbStatus" onchange='cambiarstatus(this.value)'>
-                  <option value="0">Seleccione</option>
-                  <?php // 3. CONSTRUIR CONSULTA DE EMPRESAS
-                  $Sql="SELECT * FROM tbstatus ORDER BY tbstatus.stades ASC;";
-                  // 4 EJECUTAR LA CONSULTA
-                  $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error() );
-                  // 5 RECORRER EL RESULTADO
-                  while ($Registro = mysqli_fetch_array($Resultado)) {
-                    echo "<option value='$Registro[staid]'>$Registro[stades]</option>";}?>
+              <td>
+                <select name="CmbStatus">
+                <option value="0">Seleccione</option>
+                <?php // 3. CONSTRUIR CONSULTA TIPO DE DOCUMENTO
+                $Sql="SELECT * FROM tbstatus ORDER BY tbstatus.stades ASC;";
+                // 4 EJECUTAR LA CONSULTA
+                $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error($conectar) );
+                // 5 RECORRER EL RESULTADO
+                while ($Registro = mysqli_fetch_array($Resultado)) {
+                  echo "<option  value='$Registro[staid]'>$Registro[stades]</option>";}?>
                 </select>
               </td>
-
-
 			</tr>
 			<tr>
              <div align=center>
@@ -139,12 +136,12 @@ function cambiartipodocumento(que){
 	if($CmbEmpresas != 0){
       $Consulta = $Consulta." AND $TbNombre.empid= '$CmbEmpresas'";}
     
-	if($CmbStatus!= 0){
+	if($CmbStatus != 0){
 		$Consulta= $Consulta." AND tbstatus.staid='$CmbStatus'";}
 		
-		$Sql="SELECT DISTINCT * FROM $TbNombre,tbstatus WHERE
-          $TbNombre.empsta=tbstatus.staid AND $Consulta ORDER BY 					
-          $TbNombre.empnom ASC";
+		$Sql="SELECT * FROM $TbNombre,tbstatus WHERE
+          $TbNombre.empsta=tbstatus.staid $Consulta ORDER BY 				 
+          $TbNombre.empnom  ASC";
 
    query($Sql);
 ?>

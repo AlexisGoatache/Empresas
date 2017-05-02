@@ -78,7 +78,7 @@ case 'Modificar':
                               `mensta`='$CmbStatus' WHERE menid='$TxtId'";
 
      //4. Ejecutar la consulta
-     $resultado = mysqli_query($conectar,$sql) or die( "Error en Sql: " . mysqli_error() );
+     $resultado = mysqli_query($conectar,$sql) or die( "Error en Sql: " . mysqli_error($conectar) );
      ?>
      <script>alert ("Los datos fueron modificado con éxito!!!")</script>
      <?php
@@ -163,7 +163,7 @@ function validabuscar(form){
           <?php
           $Sql="SELECT * FROM tbtipomenu";
           // 4 ejecutar la consulta
-          $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error() );
+          $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error($conectar) );
           while ($Registro = mysqli_fetch_array($Resultado)) {
               if ($CmbTipo==$Registro['tipid']){$x='Selected'; }else{$x='';}
                 echo "<option value=\"$Registro[tipid]\" $x>$Registro[tipdes]</option>";}?>
@@ -174,7 +174,7 @@ function validabuscar(form){
           <option value="0">Seleccione</option>
           <?php 
           $Sql="SELECT * FROM tbstatus";
-          $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error() );
+          $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error($conectar) );
           while ($Registro = mysqli_fetch_array($Resultado)) {
               if ($CmbStatus==$Registro['staid']){$x='Selected'; }else{$x='';}
                 echo "<option value=\"$Registro[staid]\" $x>$Registro[stades]</option>";}?>
