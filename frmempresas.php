@@ -107,23 +107,20 @@ if ($BtnAccion=='Limpiar'){
           <input type="text"
                  name="TxtId"
                  value="<?php echo $TxtId; ?>"
-                 size="4"
-                 maxlength="4" 
+                 maxlength="6" 
                  placeholder="Id Empresa"/><br />
 
           <label>NOMBRE:</label>
           <input type="text"
                  name="TxtNombre"
                  value="<?php echo $TxtNombre; ?>"
-                 size="35"
-                 maxlength="35" 
+                 maxlength="60" 
                  placeholder="Nombre de la empresa"/><br />
 
           <label>PASSWORD:</label>
           <input type="password"
                  name="TxtPassword"
                  value="<?php echo $TxtPassword; ?>"
-                 size="50"
                  maxlength="50" 
                  placeholder="Password"/><br />
 
@@ -131,7 +128,6 @@ if ($BtnAccion=='Limpiar'){
           <input type="password"
                  name="TxtRpassword"
                  value="<?php echo $TxtRpassword; ?>"
-                 size="50"
                  maxlength="50" /><br />
 
           <label>STATUS:</label>

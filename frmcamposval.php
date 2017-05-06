@@ -123,7 +123,6 @@ if ($BtnAccion=='Limpiar'){
           <input type="text"
                  name="TxtId"
                  value="<?php echo $TxtId; ?>"
-                 size="6"
                  maxlength="6" 
                  placeholder="Id Campo Valor"
                  /><br />
@@ -163,7 +162,6 @@ if ($BtnAccion=='Limpiar'){
           <input type="text"
                  name="TxtValor"
                  value="<?php echo $TxtValor; ?>"
-                 size="60"
                  maxlength="60" 
                  placeholder="Valor"/><br />
 

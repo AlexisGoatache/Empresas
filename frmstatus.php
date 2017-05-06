@@ -100,7 +100,6 @@ if ($BtnAccion=='Limpiar'){
           <input type="text"
                  name="TxtId"
                  value="<?php echo $TxtId ?>"
-                 size="5"
                  maxlength="3" 
                  placeholder="Id Status"/><br />
 
@@ -108,7 +107,6 @@ if ($BtnAccion=='Limpiar'){
           <input type="text"
                  name="TxtDescripcion"
                  value="<?php echo $TxtDescripcion ?>"
-                 size="35"
                  maxlength="35" 
                  placeholder="Descripci&oacute;n del men&uacute;"/><br />
 

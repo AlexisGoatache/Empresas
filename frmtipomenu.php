@@ -104,7 +104,6 @@ if ($BtnAccion=='Limpiar'){
           <input type="text"
                  name="TxtId"
                  value="<? echo $TxtId; ?>"
-                 size="6"
                  maxlength="6" 
                  placeholder="Id Tipo Men&uacute;"/><br />
 
@@ -112,7 +111,6 @@ if ($BtnAccion=='Limpiar'){
           <input type="text"
                  name="TxtDescripcion"
                  value="<? echo $TxtDescripcion; ?>"
-                 size="60"
                  maxlength="60" 
                  placeholder="Descripci&oacute;n Men&uacute;"/><br />
 

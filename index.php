@@ -70,7 +70,6 @@ if ($BtnAccion=='Enviar'){
     <input type="text"
            name="TxtUsuario"
            value="<?php echo $TxtUsuario?>"
-           size="10"
            maxlength="10" 
            placeholder="Usuario"/><br />
   </td>
@@ -82,7 +81,6 @@ if ($BtnAccion=='Enviar'){
     <input type="password"
            name="TxtPassword"
            value="<?php echo $TxtPassword?>"
-           size="10"
            maxlength="10" /><br />
   </td>
 </tr>

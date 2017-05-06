@@ -119,7 +119,6 @@ if ($BtnAccion=='Limpiar'){
           <input type="text"
                  name="TxtId"
                  value="<?php echo $TxtId ?>"
-                 size="5"
                  maxlength="3" 
                  placeholder="Id Men&uacute;"/><br />
                  
@@ -127,7 +126,6 @@ if ($BtnAccion=='Limpiar'){
           <input type="text"
                  name="TxtNombre"
                  value="<?php echo $TxtNombre ?>"
-                 size="35"
                  maxlength="35" 
                  placeholder="Nombre del Men&uacute;"/><br />
 
@@ -135,7 +133,6 @@ if ($BtnAccion=='Limpiar'){
           <input type="text"
                  name="TxtDescripcion"
                  value="<?php echo $TxtDescripcion ?>"
-                 size="35"
                  maxlength="35" 
                  placeholder="Descripci&oacute; del Men&uacute;"/><br />
 
