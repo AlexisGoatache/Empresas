@@ -1,18 +1,10 @@
 <?php 
-//INICIO DE SESSION DE USUARIO
-//session_start();
-
 //SEGURIDAD DE ACCESO
 require_once("seguridad.php");
 
 //1. CONECTAR CON MYSql
 //2. CONECTAR CON BD
 require_once("conexion.php");
-
-//VARIABLES DEL FORMULARIO
-//$FrmNombre="CamposDocumento";
-//$FrmDescripcion="Campo del Documento";
-//$TbNombre="tbcamposdoc";
 
 //RESCATE DE VARIABLES
 $BtnAccion = isset($_REQUEST['BtnAccion']) ? $_REQUEST['BtnAccion'] : NULL;
@@ -68,12 +60,12 @@ case 'Agregar':
                                          '$CmbStatus');";
      mysqli_query($conectar,$Sql);
      ?>
-       <script>alert ("Los datos fueron registrados con éxito!!!");</script>
+       <script>alert ("Los datos fueron registrados con ï¿½xito!!!");</script>
      <?php 
      $BtnAccion='Limpiar';
      }else{
      ?>
-       <script>alert ("Este <?php  echo $FrmDescripcion;?> ya está registrado!!!");</script>
+       <script>alert ("Este <?php  echo $FrmDescripcion;?> ya estï¿½ registrado!!!");</script>
      <?php 
      }
      break;
@@ -86,7 +78,7 @@ case 'Modificar':
      //4. Ejecutar la consulta
      $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error($conectar) );
      ?>
-     <script>alert ("Los datos fueron modificado con éxito!!!")</script>
+     <script>alert ("Los datos fueron modificado con ï¿½xito!!!")</script>
      <?php 
      break;
 }
@@ -106,35 +98,8 @@ if ($BtnAccion=='Limpiar'){
 <title><?php  echo $FrmDescripcion ?></title>
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
 <link rel="stylesheet" type="text/css" href="css/miestilo.css" />
-
-
-<script type="text/javascript">
-
-function validar(form){
-         else if (form.TxtDescripcion.value==0){
-           alert('Debe introducir la descripción del <?php echo $FrmDescripcion?>');
-           form.TxtDescripcion.focus();
-           return false;}
-
-           else if (form.CmbStatus.value==0){
-             alert('Debe introducir un Status');
-             form.CmbStatus.focus();
-             return false;}
-
-else {return true;}
-}
-
-function validabuscar(form){
-    if (TxtId.value==0 ){
-       alert('Debe introducir el Código del <?php echo $_SESSION[$FrmDescripcion]?>');
-       return false;}
-    else {
-
-      return true;}
-}
-
-</script>
 </head>
+
 <body bgcolor="#FFFFFF">
 
 <form action="<?php  $PHP_SELF ?>" name="$_SESSION[$FrmNombre] ?>" method="post">
@@ -149,7 +114,7 @@ function validabuscar(form){
                  size="6"
                  maxlength="6" /><br />
 
-          <label>Descripción:</label>
+          <label>Descripciï¿½n:</label>
           <input type="text"
                  name="TxtDescripcion"
                  value="<?php  echo $TxtDescripcion; ?>"
@@ -184,12 +149,33 @@ function validabuscar(form){
       <a href='frmmenucss.php'><img src='imagenes/back.gif' border=0></a>
              
 </form>
+
+<script>
+
+function validar(form){
+         else if (form.TxtDescripcion.value==0){
+           alert('Debe introducir la descripciï¿½n del <?php echo $FrmDescripcion?>');
+           form.TxtDescripcion.focus();
+           return false;}
+
+           else if (form.CmbStatus.value==0){
+             alert('Debe introducir un Status');
+             form.CmbStatus.focus();
+             return false;}
+
+else {return true;}
+}
+
+function validabuscar(form){
+    if (TxtId.value==0 ){
+       alert('Debe introducir el Cï¿½digo del <?php echo $_SESSION[$FrmDescripcion]?>');
+       return false;}
+    else {
+
+      return true;}
+}
+
+</script>
 </body>
 
 </html>
-
-
-
-
-
-

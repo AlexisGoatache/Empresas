@@ -9,12 +9,6 @@
 //2. CONECTAR CON BD
 require_once("conexion.php");
 
-//VARIABLES DEL FORMULARIO
-//$FrmNombre="Menu";
-//$FrmDescripcion="Menú";
-//$_SESSION[TbNombre]="tbtipomenu";
-//$_SESSION[TbNombre]1="tbmenu";
-
 $_SESSION['FrmNombre']= isset($_REQUEST['FrmNombre']) ? $_REQUEST['FrmNombre'] : NULL;
 $_SESSION['FrmDescripcion']= isset($_REQUEST['FrmDescripcion']) ? $_REQUEST['FrmDescripcion'] : NULL;
 $_SESSION['TbNombre']= isset($_REQUEST['TbNombre']) ? $_REQUEST['TbNombre'] : NULL;

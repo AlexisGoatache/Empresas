@@ -1,3 +1,19 @@
+<body>
+<form>
+<select name="conti" onChange="ponPaises(this.form)">
+	<option selected>elige continente...</option>
+	<option>Europa</option>
+	<option>Asia</option>
+	<option>América</option>
+</select>
+
+<select name="pais" onChange="ponProvincias(this.form)">
+<option></option>
+</select>
+<select name="provincia">
+<option></option>
+</select>
+</form> 
 <script>
 var paises = new Array()
 paises[1] = ["elige país...","España","Francia","Alemania"]
@@ -24,18 +40,4 @@ function ponProvincias(formu){
 		formu.provincia.options[i].text = provincias[elConti][elPais][i]}
 }
 </script>
-<form>
-<select name="conti" onChange="ponPaises(this.form)">
-	<option selected>elige continente...</option>
-	<option>Europa</option>
-	<option>Asia</option>
-	<option>América</option>
-</select>
-
-<select name="pais" onChange="ponProvincias(this.form)">
-<option></option>
-</select>
-<select name="provincia">
-<option></option>
-</select>
-</form> 
+</body>

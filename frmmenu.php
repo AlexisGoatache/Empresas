@@ -7,11 +7,6 @@ require_once("conexion.php");
 //SEGURIDAD DE ACCESO
 require_once("seguridad.php");
 
-// VARIABLES DEL FORMULARIO
-//$FrmNombre="Menu";
-//$FrmDescripcion="Menú;";
-//$_SESSION[TbNombre]="tbmenu";
-
 // RESCATAR LAS VARIABLES DEL FORMULARIO
 $BtnAccion = isset($_REQUEST['BtnAccion']) ? $_REQUEST['BtnAccion'] : NULL;
 $TxtId = isset($_REQUEST['TxtId']) ? $_REQUEST['TxtId'] : NULL;
@@ -71,12 +66,12 @@ case 'Agregar':
                                         '$CmbStatus');";
      mysqli_query($conectar,$sql);
      ?>
-       <script>alert ("Los datos fueron registrados con éxito!!!");</script>
+       <script>alert ("Los datos fueron registrados con ï¿½xito!!!");</script>
      <?php
      $BtnAccion='Limpiar';
      }else{
      ?>
-       <script>alert ("Este Menú ya está registrado!!!");</script>
+       <script>alert ("Este Menï¿½ ya estï¿½ registrado!!!");</script>
      <?php
      }
      break;
@@ -91,7 +86,7 @@ case 'Modificar':
      //4. Ejecutar la consulta
      $resultado = mysqli_query($conectar,$sql) or die( "Error en Sql: " . mysqli_error($conectar) );
      ?>
-     <script>alert ("Los datos fueron modificado con éxito!!!")</script>
+     <script>alert ("Los datos fueron modificado con ï¿½xito!!!")</script>
      <?php
      break;
      
@@ -114,31 +109,8 @@ if ($BtnAccion=='Limpiar'){
 <head>
 <title><?php echo $_SESSION['FrmDescripcion']?></title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta name="generator" content="Bluefish 2.2.7" >
 <link rel="stylesheet" type="text/css" href="css/miestilo.css" />
 
-<script type="text/javascript">
-
-function validar(form){
-
-          if (form.TxtDescripcion.value==0 ){
-               alert('Debe introducir la descripción del Status');
-               form.TxtDescripcion.focus();
-               return false;}
-
-else {return true;}
-}
-
-function validabuscar(form){
-    if (form.TxtId.value==0 ){
-       alert('Debe introducir el Código del Status');
-       return false;}
-    else {
-
-      return true;}
-}
-
-</script>
 </head>
 <body bgcolor="#FFFFFF">
 
@@ -205,6 +177,30 @@ function validabuscar(form){
       <a href='frmmenucss.php'><img src='imagenes/back.gif' border=0></a>
 
 </form>
+
+<script>
+
+function validar(form){
+
+          if (form.TxtDescripcion.value==0 ){
+               alert('Debe introducir la descripciï¿½n del Status');
+               form.TxtDescripcion.focus();
+               return false;}
+
+else {return true;}
+}
+
+function validabuscar(form){
+    if (form.TxtId.value==0 ){
+       alert('Debe introducir el Cï¿½digo del Status');
+       return false;}
+    else {
+
+      return true;}
+}
+
+</script>
+
 </body>
 
 </html>

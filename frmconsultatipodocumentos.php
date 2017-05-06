@@ -23,10 +23,6 @@ while ($Registro = mysqli_fetch_array($Resultado)) {
 	$_SESSION['TbNombre']=$Registro['tbmaestra'];
 	}
 
-//$FrmNombre="ConsultaTipoDocumentos";
-//$FrmDescripcion="Consulta Tipo de Documentos";
-//$TbNombre="tbtipodocumentos";
-
   
 //FUNCIONES
 function query($Sql) {
@@ -57,7 +53,7 @@ function query($Sql) {
     echo "</tr>"; 
     }while($Registro=mysqli_fetch_array($Resultado));
         } else {
-         ?><script>alert ("No existen registros con esa condición!!!");</script>
+         ?><script>alert ("No existen registros con esa condiciï¿½n!!!");</script>
 		 <?php }
          return $Sql;
 
@@ -71,10 +67,8 @@ function query($Sql) {
 <head>
 <title><?php echo $_SESSION['FrmDescripcion'] ?></title>
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
-<meta name="generator" content="Bluefish 2.2.7" >
+ 
 <link rel="stylesheet" type="text/css" href="css/miestilo.css" />
-<script type="text/javascript">
-</script>
 
 </head>
 
@@ -136,8 +130,11 @@ function query($Sql) {
 		$Sql="SELECT * FROM $_SESSION[TbNombre],tbstatus WHERE
 			tbtipodocumentos.tipsta=tbstatus.staid $Consulta ORDER BY $_SESSION[TbNombre].tipid ASC;";
 
-			query($Sql);
-?>
+			query($Sql);?>
+
+<script>
+
+</script>
 
 </body>
 </table>

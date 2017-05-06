@@ -1,15 +1,9 @@
 <?
-//INICIO DE SESSION DE USUARIO
-session_start();
 
 //1. CONECTAR CON MYSQL
 //2. CONECTAR CON BD
 require_once("conexion.php");
 
-// VARIABLES DEL FORMULARIO
-//$FrmNombre="TipoMenu";
-//$FrmDescripcion="Tipos de Men&uacute;";
-//$_SESSION[TbNombre]="tbtipomenu";
 
 // RESCATAR LAS VARIABLES DEL FORMULARIO
 $BtnAccion = isset($_REQUEST['BtnAccion']) ? $_REQUEST['BtnAccion'] : NULL;
@@ -62,11 +56,11 @@ case 'Agregar':
                                          '$CmbStatus');";
      mysqli_query($Sql);
      ?>
-       <script>alert ("Los datos fueron registrados con éxito!!!");</script>
+       <script>alert ("Los datos fueron registrados con ï¿½xito!!!");</script>
      <?
      }else{
      ?>
-       <script>alert ("Este <? echo $_SESSION['FrmDescripcion'];?> ya está registrado!!!");</script>
+       <script>alert ("Este <? echo $_SESSION['FrmDescripcion'];?> ya estï¿½ registrado!!!");</script>
      <?
      }
      break;
@@ -79,7 +73,7 @@ case 'Modificar':
      //4. Ejecutar la consulta
      $Resultado = mysqli_query($Sql) or die( "Error en Sql: " . mysqli_error($conectar) );
      ?>
-     <script>alert ("Los datos fueron modificado con éxito!!!")</script>
+     <script>alert ("Los datos fueron modificado con ï¿½xito!!!")</script>
      <?
      break;
 }
@@ -99,14 +93,8 @@ if ($BtnAccion=='Limpiar'){
 <head>
 <title><? echo $_SESSION['FrmDescripcion'] ?></title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta name="generator" content="Bluefish 2.2.7" >
 <link rel="stylesheet" type="text/css" href="css/miestilo.css" />
 
-<script type="text/javascript">
-
-
-
-</script>
 </head>
 <body bgcolor="#FFFFFF">
 
@@ -122,7 +110,7 @@ if ($BtnAccion=='Limpiar'){
                  size="6"
                  maxlength="6" /><br />
 
-          <label>DESCRIPCIÓN:</label>
+          <label>DESCRIPCIï¿½N:</label>
           <input type="text"
                  name="TxtDescripcion"
                  value="<? echo $TxtDescripcion; ?>"
@@ -156,7 +144,12 @@ if ($BtnAccion=='Limpiar'){
 
       <a href='frmmenucss.php'><img src='imagenes/back.gif' border=0></a>
            
+
 </form>
+<script>
+
+</script>
+
 </body>
 
 </html>

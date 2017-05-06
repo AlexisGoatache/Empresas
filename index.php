@@ -45,7 +45,7 @@ if ($BtnAccion=='Enviar'){
       $_SESSION['empid']=$TxtUsuario; //APERTURA LA SESION DEL USUARIO
       $_SESSION['empdes']=$Registro['empnom'];
 		  ?><script>window.location='frmmenucss.php'; </script><?php
-	  }else{?><script>alert('La contraseña no conincide');</script><?php } 
+	  }else{?><script>alert('La contraseï¿½a no conincide');</script><?php } 
 	  }else{?><script>alert('El usuario: << '+'<?php echo $TxtUsuario?>'+' >> no existe' );</script><?php }
 	  }
   ?>	
@@ -57,7 +57,6 @@ if ($BtnAccion=='Enviar'){
 <head>
 <title> <?php echo $_SESSION['FrmDescripcion']?> </title>
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
-<meta name="generator" content="Bluefish 2.2.7" >
 <link rel="stylesheet" type="text/css" href="css/miestilo.css" />
 </head>
 <body bgcolor="#FFFFFF">
@@ -97,4 +96,9 @@ if ($BtnAccion=='Enviar'){
 <img src="imagenes/image001.gif" alt="" title="construccionx" width="222" height="301" border="0" />
 </div>
 </body>
+
+<script>
+
+</script>
+
 </html>

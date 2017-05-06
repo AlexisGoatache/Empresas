@@ -10,11 +10,6 @@ require_once("seguridad.php");
 //2. CONECTAR CON BD
 require_once("conexion.php");
 
-// VARIABLES DEL FORMULARIO
-//$FrmNombre="ConsultaCamposDoc";
-//$FrmDescripcion="Consulta Campos del Documento";
-//$TbNombre="tbcampos";
-
 // RESCATAR LAS VARIABLES DEL FORMULARIO
 $BtnAccion=isset($_REQUEST['BtnAccion'])? $_REQUEST['BtnAccion']: NULL;
 $CmbTipoDocumentos=isset($_REQUEST['CmbTipoDocumentos'])?$_REQUEST['CmbTipoDocumentos']: NULL;
@@ -65,7 +60,7 @@ function query($Sql) {
     echo "</tr>"; 
     }while($Registro=mysqli_fetch_array($Resultado));
         } else {
-         ?><script>alert ("No existen registros con esa condición!!!");</script>
+         ?><script>alert ("No existen registros con esa condiciï¿½n!!!");</script>
 		 <?php }
          return $Sql;
 
@@ -79,10 +74,6 @@ function query($Sql) {
 <title><?php echo $_SESSION['FrmDescripcion'] ?></title>
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
 <link rel="stylesheet" type="text/css" href="css/miestilo.css" />
-<script type="text/javascript">
-</script>
-
-
 </head>
 
 <body bgcolor="#FFFFFF">
@@ -170,6 +161,9 @@ function query($Sql) {
 			tbtipodocumentos.tipdes ASC;";
 		query($Sql);
 ?>
+
+<script>
+</script>
 
 </body>
 </table>

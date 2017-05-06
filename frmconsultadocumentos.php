@@ -10,11 +10,6 @@ require_once("seguridad.php");
 //2. CONECTAR CON BD
 require_once("conexion.php");
 
-// VARIABLES DEL FORMULARIO
-//$FrmNombre="ConsultaEmpresas";
-//$FrmDescripcion="Consulta de Empresas";
-//$TbNombre="tbempresas";
-
 // RESCATAR LAS VARIABLES DEL FORMULARIO
 $BtnAccion = isset($_REQUEST['BtnAccion']) ? $_REQUEST['BtnAccion'] : NULL;
 $CmbEmpresas = isset($_REQUEST['CmbEmpresas']) ? $_REQUEST['CmbEmpresas'] : NULL;
@@ -70,7 +65,7 @@ global $conectar;	?>
                   }while($registro=mysqli_fetch_array($resultado));
         } else {
          ?>
-         <script>alert ("No existen registros con esa condición!!!");</script>
+         <script>alert ("No existen registros con esa condiciï¿½n!!!");</script>
          <?}
 
          return $sql;
@@ -85,11 +80,8 @@ global $conectar;	?>
 <head>
 <title><? echo $FrmDescripcion ?></title>
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
-<meta name="generator" content="Bluefish 2.2.7" >
+ 
 <link rel="stylesheet" type="text/css" href="css/miestilo.css" />
-<script type="text/javascript">
-</script>
-
 
 </head>
 
@@ -163,6 +155,9 @@ global $conectar;	?>
 
    query($sql);
   ?>
+<script>
+
+</script>
 
 </body>
 </table>

@@ -6,11 +6,6 @@ require_once("seguridad.php");
 //2. CONECTAR CON BD
 require_once("conexion.php");
 
-// VARIABLES DEL FORMULARIO
-//$FrmNombre="ConsultaDocumentosEmpresas";
-//$FrmDescripcion="Consulta de Documentos de Empresas";
-//$_SESSION[TbNombre]="tbempresas";
-
 // RESCATAR LAS VARIABLES DEL FORMULARIO
 
 $BtnAccion = isset($_REQUEST['BtnAccion']) ? $_REQUEST['BtnAccion'] : NULL;
@@ -65,11 +60,11 @@ case 'Agregar':
                                            '$CmbStatus');";
      mysqli_query($conectar,$Sql);
      ?>
-       <script>alert ("Los datos fueron registrados con éxito!!!");</script>
+       <script>alert ("Los datos fueron registrados con ï¿½xito!!!");</script>
      <?
      }else{
      ?>
-       <script>alert ("Esta Empresa ya está registrada!!!");</script>
+       <script>alert ("Esta Empresa ya estï¿½ registrada!!!");</script>
      <?
      }
      break;
@@ -81,7 +76,7 @@ case 'Modificar':
      //4. Ejecutar la consulta
      $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error() );
      ?>
-     <script>alert ("Los datos fueron modificado con éxito!!!")</script>
+     <script>alert ("Los datos fueron modificado con ï¿½xito!!!")</script>
      <?
      break;
 }
@@ -101,31 +96,8 @@ if ($BtnAccion=='Limpiar'){
 <head>
 <title><?php echo $FrmDescripcion?></title>
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
-<meta name="generator" content="Bluefish 2.2.7" >
 <link rel="stylesheet" type="text/css" href="css/miestilo.css" />
 
-<script type="text/javascript">
-function validar(form){
-    if (form.TxtNombre.value==0 ){
-       alert('Debe introducir el Nombre de la Empresa');
-       return false;}
-    else if (form.TxtPassword.value==0 ){
-           alert('Debe introducir un Password');
-           return false;}
-    else if (form.TxtPassword.value==form.TxtRPassword.value ){
-           alert('El Password debe coincidir');
-           return false;}
-    else {
-      return true;}
-}
-function validabuscar(form){
-    if (form.TxtId.value==0 ){
-       alert('Debe introducir el Código de la empresa');
-       return false;}
-    else {
-      return true;}
-}
-</script>
 </head>
 <body bgcolor="#FFFFFF">
 
@@ -186,7 +158,30 @@ function validabuscar(form){
       </fieldset>       
 
       <a href='frmmenucss.php'><img src='imagenes/back.gif' border=0></a>
+      
+      </form>
 
-</form>
+<script>
+function validar(form){
+    if (form.TxtNombre.value==0 ){
+       alert('Debe introducir el Nombre de la Empresa');
+       return false;}
+    else if (form.TxtPassword.value==0 ){
+           alert('Debe introducir un Password');
+           return false;}
+    else if (form.TxtPassword.value==form.TxtRPassword.value ){
+           alert('El Password debe coincidir');
+           return false;}
+    else {
+      return true;}
+}
+function validabuscar(form){
+    if (form.TxtId.value==0 ){
+       alert('Debe introducir el Cï¿½digo de la empresa');
+       return false;}
+    else {
+      return true;}
+}
+</script>
 </body>
 </html>

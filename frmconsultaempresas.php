@@ -6,11 +6,6 @@ require_once("seguridad.php");
 //2. CONECTAR CON BD
 require_once("conexion.php");
 
-// VARIABLES DEL FORMULARIO
-//$FrmNombre="ConsultaEmpresas";
-//$FrmDescripcion="Consulta de Empresas";
-//$_SESSION[TbNombre]="tbempresas";
-
 // RESCATAR LAS VARIABLES DEL FORMULARIO
 
 $BtnAccion = isset($_REQUEST['BtnAccion']) ? $_REQUEST['BtnAccion'] : NULL;
@@ -58,7 +53,7 @@ global $conectar,$Consulta;
     echo "</tr>"; 
     }while($Registro=mysqli_fetch_array($Resultado));
         } else {
-         ?><script>alert ("No existen registros con esa condición!!!");</script>
+         ?><script>alert ("No existen registros con esa condiciï¿½n!!!");</script>
 		 <?php }
          return $Sql;
 
@@ -72,25 +67,8 @@ global $conectar,$Consulta;
 <head>
 <title><?php echo $_SESSION['FrmDescripcion'] ?></title>
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
-<meta name="generator" content="Bluefish 2.2.7" >
+ 
 <link rel="stylesheet" type="text/css" href="css/miestilo.css" />
-<script type="text/javascript">
-
-function cambiartipodocumento(que){
-
-    valorid=eval(que);
-    cadena='Alexis';
-    <?php  echo 'cadena';
-    $Val = "<script> document.write(valorid) </script>";
-    $Resultado = mysqli_query("SELECT * FROM tbtipodocumentos;");
-    echo 'cadena+="<option value='.$Row[0].'>'.$Row[2].'</option>";';
-    while($Row = mysqli_fetch_array($Resultado)){
-
-        echo 'cadena+="<option value='.$Row[0].'>'.$Row[2].'</option>";';}?>
-
-    document.getElementById('localidad').innerHTML="<select name="localidad">"+cadena+"</select>";
-}
-</script>
 
 </head>
 
@@ -158,7 +136,25 @@ function cambiartipodocumento(que){
    query($Sql);
 ?>
 
+<script>
+
+function cambiartipodocumento(que){
+
+    valorid=eval(que);
+    cadena='Alexis';
+    <?php  echo 'cadena';
+    $Val = "<script> document.write(valorid) </script>";
+    $Resultado = mysqli_query("SELECT * FROM tbtipodocumentos;");
+    echo 'cadena+="<option value='.$Row[0].'>'.$Row[2].'</option>";';
+    while($Row = mysqli_fetch_array($Resultado)){
+
+        echo 'cadena+="<option value='.$Row[0].'>'.$Row[2].'</option>";';}?>
+
+    document.getElementById('localidad').innerHTML="<select name="localidad">"+cadena+"</select>";
+}
+</script>
 </body>
+
 </table>
     <a href='frmmenucss.php'><img src='imagenes/back.gif' border=0></a>
 </html>

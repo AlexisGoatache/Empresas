@@ -10,11 +10,6 @@ require_once("seguridad.php");
 //2. CONECTAR CON BD
 require_once("conexion.php");
 
-// VARIABLES DEL FORMULARIO
-//$FrmNombre="ConsultaMenu";
-//$FrmDescripcion="Consulta de Menú";
-//$_SESSION[TbNombre]="tbmenu";
-
 // RESCATAR LAS VARIABLES DEL FORMULARIO
   
 $BtnAccion = isset($_REQUEST['BtnAccion']) ? $_REQUEST['BtnAccion'] : NULL;
@@ -49,8 +44,8 @@ global $conectar;
         echo"<th>#</th>";
         echo"<th>Id</th>";
         echo"<th>Nombre</th>";
-        echo"<th>Descripción</th>";
-        echo"<th>Tipo de Menú</th>";
+        echo"<th>Descripciï¿½n</th>";
+        echo"<th>Tipo de Menï¿½</th>";
         echo"<th>Status</th>";
         echo"</tr>";
 
@@ -70,7 +65,7 @@ global $conectar;
                   }while($registro=mysqli_fetch_array($resultado));
         } else {
          ?>
-         <script>alert ("No existen registros con esa condición!!!");</script>
+         <script>alert ("No existen registros con esa condiciï¿½n!!!");</script>
          <?php }
 
          return $sql;
@@ -84,11 +79,8 @@ global $conectar;
 <head>
 <title><?php  echo $_SESSION['FrmDescripcion'] ?></title>
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
-<meta name="generator" content="Bluefish 2.2.7" >
+ 
 <link rel="stylesheet" type="text/css" href="css/miestilo.css" />
-<script type="text/javascript">
-</script>
-
 
 </head>
 
@@ -102,7 +94,7 @@ global $conectar;
           <table>
 
             <tr>
-              <th>Tipo de Menú</th>
+              <th>Tipo de Menï¿½</th>
               <th>Status</th>
             </tr>
 
@@ -160,6 +152,9 @@ global $conectar;
 
    query($sql);
   ?>
+<script>
+
+</script>
 
 </body>
 </table>

@@ -1,18 +1,10 @@
 <?php
-//INICIO DE SESSION DE USUARIO
-//session_start();
-
 //SEGURIDAD DE ACCESO
 require_once("seguridad.php");
 
 //1. CONECTAR CON mysqli
 //2. CONECTAR CON BD
 require_once("conexion.php");
-
-//VARIABLES DEL FORMULARIO
-//$FrmNombre="TipoDocumentos";
-//$FrmDescripcion="Tipo de Documentos";
-//$_SESSION[TbNombre]="tbtipodocumentos";
 
 
 // RESCATAR LAS VARIABLES DEL FORMULARIO
@@ -67,11 +59,11 @@ case 'Agregar':
                                          '$CmbStatus');";
      mysqli_query($conectar,$Sql);
      ?>
-       <script>alert ("Los datos fueron registrados con éxito!!!");</script>
+       <script>alert ("Los datos fueron registrados con ï¿½xito!!!");</script>
      <?php
      }else{
      ?>
-       <script>alert ("Este <?php echo $_SESSION['FrmDescripcion'];?> ya está registrado!!!");</script>
+       <script>alert ("Este <?php echo $_SESSION['FrmDescripcion'];?> ya estï¿½ registrado!!!");</script>
      <?php
      }
      break;
@@ -83,7 +75,7 @@ case 'Modificar':
      //4. Ejecutar la consulta
      $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error($conectar) );
      ?>
-     <script>alert ("Los datos fueron modificado con éxito!!!")</script>
+     <script>alert ("Los datos fueron modificado con ï¿½xito!!!")</script>
      <?php
      break;
 }
@@ -102,42 +94,12 @@ if ($BtnAccion=='Limpiar'){
 <head>
 <title><?php echo $_SESSION['FrmDescripcion'] ?></title>
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
-<meta name="generator" content="Bluefish 2.2.7" >
-<link rel="stylesheet" type="text/css" href="css/miestilo.css" />
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta name="generator" content="Bluefish 2.2.7" >
 <link rel="stylesheet" type="text/css" href="css/miestilo.css" />
 
-<script type="text/javascript">
-
-function validar(form){
-          if (form.TxtDescripcion.value==0){
-               alert('Debe introducir la descripción del <?php echo $_SESSION['FrmDescripcion']?>');
-               form.TxtDescripcion.focus();
-               return false;}
-
-               else if (form.CmbStatus.value==0){
-                 alert('Debe introducir un Status');
-                 form.CmbStatus.focus();
-                 return false;}
-
-          else {return true;}
-}
-
-function validabuscar(form){
-    if (TxtId.value==0 ){
-       alert('Debe introducir el Código del <?php echo $_SESSION['FrmDescripcion']?>');
-       return false;}
-    else {
-
-      return true;}
-}
-
-</script>
 </head>
 <body bgcolor="#FFFFFF">
 
-<form action="<?php  $PHP_SELF ?>" name="Frm.<?php  echo $FrmNombre ?>" method="post">
+<form action="<?php  $PHP_SELF ?>" name="<?php  echo $_SESSION[FrmNombre] ?>" method="post">
       <fieldset>
 
           <legend> <?php  echo $_SESSION['FrmDescripcion'] ?> </legend>
@@ -149,7 +111,7 @@ function validabuscar(form){
                  size="6"
                  maxlength="6" /><br />
 
-          <label>DESCRIPCIÓN:</label>
+          <label>DESCRIPCIï¿½N:</label>
           <input type="text"
                  name="TxtDescripcion"
                  value="<?php  echo $TxtDescripcion; ?>"
@@ -183,7 +145,36 @@ function validabuscar(form){
 
       <a href='frmmenucss.php'><img src='imagenes/back.gif' border=0></a>
 
+
 </form>
+
+<script>
+
+function validar(form){
+          if (form.TxtDescripcion.value==0){
+               alert('Debe introducir la descripciï¿½n del <?php echo $_SESSION['FrmDescripcion']?>');
+               form.TxtDescripcion.focus();
+               return false;}
+
+               else if (form.CmbStatus.value==0){
+                 alert('Debe introducir un Status');
+                 form.CmbStatus.focus();
+                 return false;}
+
+          else {return true;}
+}
+
+function validabuscar(form){
+    if (TxtId.value==0 ){
+       alert('Debe introducir el Cï¿½digo del <?php echo $_SESSION['FrmDescripcion']?>');
+       return false;}
+    else {
+
+      return true;}
+}
+
+</script>
+
 </body>
 
 </html>

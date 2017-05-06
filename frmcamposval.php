@@ -9,10 +9,6 @@ require_once("seguridad.php");
 //2. CONECTAR CON BD
 require_once("conexion.php");
 
-//$FrmNombre="CamposValDocumento";
-//$FrmDescripcion="Campo del Documento";
-//$TbNombre="tbcamposval";
-
 //RESCATE DE VARIABLES
 
 $BtnAccion = isset($_REQUEST['BtnAccion']) ? $_REQUEST['BtnAccion'] : NULL;
@@ -70,12 +66,12 @@ case 'Agregar':
                                         '$CmbStatus');";
      mysqli_query($conectar,$Sql);
      ?>
-       <script>alert ("Los datos fueron registrados con éxito!!!");</script>
+       <script>alert ("Los datos fueron registrados con ï¿½xito!!!");</script>
      <?php
      $BtnAccion='Limpiar';
      }else{
      ?>
-       <script>alert ("Este <?php echo $FrmDescripcion;?> ya está registrado!!!");</script>
+       <script>alert ("Este <?php echo $FrmDescripcion;?> ya estï¿½ registrado!!!");</script>
      <?php
      }
      break;
@@ -89,7 +85,7 @@ case 'Modificar':
      //4. Ejecutar la consulta
      $Resultado = mysqli_query($conectar,$Sql) or die( "Error en $Sql: " . mysqli_error($conectar) );
      ?>
-     <script>alert ("Los datos fueron modificado con éxito!!!")</script>
+     <script>alert ("Los datos fueron modificado con ï¿½xito!!!")</script>
      <?php
      break;
 }
@@ -111,62 +107,10 @@ if ($BtnAccion=='Limpiar'){
 <head>
 <title><?php echo $_SESSION['FrmDescripcion'] ?></title>
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
-<meta name="generator" content="Bluefish 2.2.7" >
+ 
 <link rel="stylesheet" type="text/css" href="css/miestilo.css" />
 
-<style type="text/css">
-.fila{background-color:#ffffcc;}
-.filaalterna{background-color:#ffcc99;}
-.fdg_sortable {cursor:pointer;text-decoration:underline;color:#00c;}
-</style> 
 
-<script type="text/javascript">
-
-function validar(form){
-         if (form.CmbTipId.value==0){
-            alert('Debe introducir un tipo del <?php echo $FrmDescripcion?>');
-            form.CmbTipId.focus();
-            return false;}
-
-         else if (form.TxtValor.value==0){
-           alert('Debe introducir Valor del <?php echo $FrmDescripcion?>');
-           form.TxtValor.focus();
-           return false;}
-
-           else if (form.CmbCamId.value==0){
-             alert('Debe introducir un Campo');
-             form.CmbCamId.focus();
-             return false;}
-
-           else if (form.CmbStatus.value==0){
-             alert('Debe introducir un Status');
-             form.CmbStatus.focus();
-             return false;}
-
-else {return true;}
-}
-
-function validabuscar(form){
-    if (TxtId.value==0 ){
-       alert('Debe introducir el Código del <?php echo $FrmDescripcion?>');
-       return false;}
-    else {
-
-      return true;}
-}
-
-function CamposDocumento(form){	
-var TipDoc = form.CmbTipId.value;
-var CamposDocumento = form.CmbCamId.selectedIndex
-	var arrayResult = mysqli_select_query ("SELECT * FROM tbcamposdoc WHERE tipid=TipDoc AND camsta='1'");
-	for (i=0; i< arrayResult.length i++) {
-		form.CmbCamId.options[i].text = arrayResult[i][0];
-		var fila = arrayResult[i];
-		var columna = arrayResult[i][0];
-	}
-	}
-
-</script>
 </head>
 <body bgcolor="#FFFFFF">
 
@@ -249,12 +193,54 @@ var CamposDocumento = form.CmbCamId.selectedIndex
       <a href='frmmenucss.php'><img src='imagenes/back.gif' border=0></a>
              
 </form>
+
+<script>
+
+function validar(form){
+         if (form.CmbTipId.value==0){
+            alert('Debe introducir un tipo del <?php echo $FrmDescripcion?>');
+            form.CmbTipId.focus();
+            return false;}
+
+         else if (form.TxtValor.value==0){
+           alert('Debe introducir Valor del <?php echo $FrmDescripcion?>');
+           form.TxtValor.focus();
+           return false;}
+
+           else if (form.CmbCamId.value==0){
+             alert('Debe introducir un Campo');
+             form.CmbCamId.focus();
+             return false;}
+
+           else if (form.CmbStatus.value==0){
+             alert('Debe introducir un Status');
+             form.CmbStatus.focus();
+             return false;}
+
+else {return true;}
+}
+
+function validabuscar(form){
+    if (TxtId.value==0 ){
+       alert('Debe introducir el Cï¿½digo del <?php echo $FrmDescripcion?>');
+       return false;}
+    else {
+
+      return true;}
+}
+
+function CamposDocumento(form){	
+var TipDoc = form.CmbTipId.value;
+var CamposDocumento = form.CmbCamId.selectedIndex
+	var arrayResult = mysqli_select_query ("SELECT * FROM tbcamposdoc WHERE tipid=TipDoc AND camsta='1'");
+	for (i=0; i< arrayResult.length i++) {
+		form.CmbCamId.options[i].text = arrayResult[i][0];
+		var fila = arrayResult[i];
+		var columna = arrayResult[i][0];
+	}
+	}
+</script>
+
 </body>
 
 </html>
-
-
-
-
-
-
