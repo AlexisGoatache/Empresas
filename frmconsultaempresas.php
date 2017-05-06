@@ -154,6 +154,6 @@ function cambiartipodocumento(que){
 </script>
 </body>
 </table>
-		<a href='frmmenucss.php'><img src='imagenes/back.gif' border=0/></a>
+		<a href='frmmenucss.php'><img src='imagenes/back.gif' border="0"/></a>
 		 </fieldset>
 </html>

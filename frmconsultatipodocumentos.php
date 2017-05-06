@@ -136,5 +136,5 @@ function query($Sql) {
 
 </body>
 </table>
-    <a href='frmmenucss.php'><img src='imagenes/back.gif' border=0></a>
+    <a href='frmmenucss.php'><img src='imagenes/back.gif' border="0"></a>
 </html>
