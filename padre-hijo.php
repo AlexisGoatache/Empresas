@@ -6,11 +6,11 @@ mysqli_select_db($dbname);
 $result = mysqli_query($conectar,$query);
 echo "<select name='$nombre' id='$nombre'>";
 echo "<option value=''>Selecciona un Padre...</option>";
-while($registro=mysqli_fetch_array($result))
+while($Registro=mysqli_fetch_array($result))
 {
-echo "<option value='".$registro["idpadre"]."'";
-if ($registro["idpadre"]==$valor) echo " selected";
-echo ">".$registro["padre"]."</option>\r\n";
+echo "<option value='".$Registro["idpadre"]."'";
+if ($Registro["idpadre"]==$valor) echo " selected";
+echo ">".$Registro["padre"]."</option>\r\n";
 }
 echo "</select>";
 }
@@ -22,11 +22,11 @@ mysqli_select_db($dbname);
 $result = mysqli_query($conectar,$query);
 echo "<select name='$nombre' id='$nombre'>";
 echo "<option value=''>Selecciona un Hijo...</option>";
-while($registro=mysqli_fetch_array($result))
+while($Registro=mysqli_fetch_array($result))
 {
-echo "<option value='".$registro["idhijo"]."'";
-if ($registro["idhijo"]==$valor) echo " selected";
-echo ">".$registro["hijo"]."</option>\r\n";
+echo "<option value='".$Registro["idhijo"]."'";
+if ($Registro["idhijo"]==$valor) echo " selected";
+echo ">".$Registro["hijo"]."</option>\r\n";
 }
 echo "</select>";
 }
@@ -38,11 +38,11 @@ mysqli_select_db($dbname);
 $result = mysqli_query($conectar,$query);
 echo "<select name='$nombre' id='$nombre'>";
 echo "<option value=''>Selecciona un Nieto...</option>";
-while($registro=mysqli_fetch_array($result))
+while($Registro=mysqli_fetch_array($result))
 {
-echo "<option value='".$registro["idnieto"]."'";
-if ($registro["idnieto"]==$valor) echo " selected";
-echo ">".$registro["nieto"]."</option>\r\n";
+echo "<option value='".$Registro["idnieto"]."'";
+if ($Registro["idnieto"]==$valor) echo " selected";
+echo ">".$Registro["nieto"]."</option>\r\n";
 }
 echo "</select>";
 }

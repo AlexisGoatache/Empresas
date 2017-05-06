@@ -31,12 +31,12 @@ if(validaSelect($selectDestino) && validaOpcion($opcionSeleccionada))
     // Comienzo a imprimir el select
     echo "<select name='".$selectDestino."' id='".$selectDestino."' onChange='cargaContenido(this.id)'>";
     echo "<option value='0'>Elige</option>";
-    while($registro=mysqli_fetch_row($consulta))
+    while($Registro=mysqli_fetch_row($consulta))
     {
         // Convierto los caracteres conflictivos a sus entidades HTML correspondientes para su correcta visualizacion
-        $registro[1]=htmlentities($registro[1]);
+        $Registro[1]=htmlentities($Registro[1]);
         // Imprimo las opciones del select
-        echo "<option value='".$registro[0]."'>".$registro[1]."</option>";
+        echo "<option value='".$Registro[0]."'>".$Registro[1]."</option>";
     }           
     echo "</select>";
 }
