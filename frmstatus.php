@@ -83,18 +83,15 @@ if ($BtnAccion=='Limpiar'){
 ?>
 
 <!DOCTYPE html>
-
 <html lang="es">
-
 <head>
+<meta charset="UTF-8">
 <title><?php echo $_SESSION['FrmDescripcion']?></title>
-<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
 <link rel="stylesheet" type="text/css" href="css/miestilo.css" />
-
 </head>
 <body bgcolor="#FFFFFF">
 
-<form action="<?php $PHP_SELF ?>" name="Frm.<?php echo $FrmNombre?>" method="post">
+<form action="<?php $PHP_SELF ?>" name="<?php echo $_SESSION[FrmNombre] ?>" method="post">
       <fieldset>
 
           <legend> <?php  echo $_SESSION['FrmDescripcion'] ?> </legend>

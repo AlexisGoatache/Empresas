@@ -27,11 +27,9 @@ while ($Registro = mysqli_fetch_array($Resultado)) {
 
 <!DOCTYPE html>
 <html lang="es">
-     
 <head>
-<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<meta charset="UTF-8">
 <link rel="stylesheet" type="text/css" href="css/miestilo.css" />   
-
 <style>
 </style>
 </head>

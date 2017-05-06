@@ -69,16 +69,11 @@ global $conectar;
 
 ?>
 <!DOCTYPE html>
-
 <html lang="es">
-
 <head>
+<meta charset="UTF-8">
 <title><?php  echo $_SESSION['FrmDescripcion'] ?></title>
-<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
- 
 <link rel="stylesheet" type="text/css" href="css/miestilo.css" />
-
-
 </head>
 
 <body bgcolor="#FFFFFF">

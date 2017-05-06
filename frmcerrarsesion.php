@@ -3,13 +3,10 @@
     session_destroy();
 ?>
 <!DOCTYPE html>
-
 <html lang="es">
-
 <head>
+<meta charset="UTF-8">
 <title>Cierre de Sesion</title>
-<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
-<meta name="generator" content="HAPedit 3.1">
 </head>
 <body bgcolor="#FFFFFF">
 <script>

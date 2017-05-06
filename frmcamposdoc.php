@@ -96,7 +96,7 @@ if ($BtnAccion=='Limpiar'){
 <head>
 <meta charset="UTF-8">
 <title><?php  echo $FrmDescripcion ?></title>
-<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+
 <link rel="stylesheet" type="text/css" href="css/miestilo.css" />
 </head>
 
@@ -114,7 +114,7 @@ if ($BtnAccion=='Limpiar'){
                  size="6"
                  maxlength="6" /><br />
 
-          <label>Descripci�n:</label>
+          <label>DESCRIPCI&Oacute;N:</label>
           <input type="text"
                  name="TxtDescripcion"
                  value="<?php  echo $TxtDescripcion; ?>"

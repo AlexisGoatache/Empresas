@@ -87,14 +87,11 @@ if ($BtnAccion=='Limpiar'){
 ?>
 
 <!DOCTYPE html>
-
 <html lang="es">
-
 <head>
+<meta charset="UTF-8">
 <title><? echo $_SESSION['FrmDescripcion'] ?></title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="stylesheet" type="text/css" href="css/miestilo.css" />
-
 </head>
 <body bgcolor="#FFFFFF">
 
@@ -110,7 +107,7 @@ if ($BtnAccion=='Limpiar'){
                  size="6"
                  maxlength="6" /><br />
 
-          <label>DESCRIPCI�N:</label>
+          <label>DESCRIPCI&Oacute;N:</label>
           <input type="text"
                  name="TxtDescripcion"
                  value="<? echo $TxtDescripcion; ?>"
@@ -153,9 +150,3 @@ if ($BtnAccion=='Limpiar'){
 </body>
 
 </html>
-
-
-
-
-
-

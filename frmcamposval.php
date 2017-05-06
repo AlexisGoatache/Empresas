@@ -103,10 +103,10 @@ if ($BtnAccion=='Limpiar'){
 <!DOCTYPE html>
 
 <html lang="es">
-
+<meta charset="UTF-8">
 <head>
 <title><?php echo $_SESSION['FrmDescripcion'] ?></title>
-<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+
  
 <link rel="stylesheet" type="text/css" href="css/miestilo.css" />
 
