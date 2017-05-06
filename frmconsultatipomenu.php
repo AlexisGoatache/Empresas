@@ -35,10 +35,10 @@ global $conectar;
 
     echo "<table>"; //<!--TABLA DE CONSULTA DE DISPOSITIVOS-->
         // 4 EJECUTAR LA CONSULTA
-        $resultado = mysqli_query($conectar,$sql) or die( "Error en Sql: " . mysqli_error($conectar) );
+        $Resultado = mysqli_query($conectar,$sql) or die( "Error en Sql: " . mysqli_error($conectar) );
         // 5. VERIFICA SI ENCONTRO REGISTROS
-        $registro=mysqli_fetch_array($resultado);
-        if(mysqli_num_rows($resultado)>0){
+        $Registro=mysqli_fetch_array($Resultado);
+        if(mysqli_num_rows($Resultado)>0){
 
          echo "<tr>"; //<!--ENCABEZADO DE LA CONSULTA-->
          echo "<th>#</th>";
@@ -52,12 +52,12 @@ global $conectar;
 			$i=$i+1;
 			echo "<tr>";
             echo"<td>".$i."</td>";
-            echo"<td>".$registro['tipid']."</td>";
-            echo "<td>".$registro['tipdes']."</td>";
-            echo "<td>".$registro['stades']."</td>";
+            echo"<td>".$Registro['tipid']."</td>";
+            echo "<td>".$Registro['tipdes']."</td>";
+            echo "<td>".$Registro['stades']."</td>";
 			echo "</tr>";
 			
-             }while($registro=mysqli_fetch_array($resultado));
+             }while($Registro=mysqli_fetch_array($Resultado));
         } else {
          ?>
          <script>alert ("No existen registros con esa condici�n!!!");</script>
@@ -90,7 +90,7 @@ global $conectar;
             </tr>
 
            <tr>
-             <div align=center>
+             <div align="center">
                <input type="submit" name="BtnAccion" value="Buscar"/>
                <input type="submit" name="BtnAccion" value="Limpiar" />
              </div>
@@ -103,10 +103,10 @@ global $conectar;
                   <?php // 3. CONSTRUIR CONSULTA DE EMPRESAS
                   $sql="SELECT * FROM tbstatus";
                   // 4 EJECUTAR LA CONSULTA
-                  $resultado = mysqli_query($conectar,$sql) or die( "Error en Sql: " . mysqli_error($conectar) );
+                  $Resultado = mysqli_query($conectar,$sql) or die( "Error en Sql: " . mysqli_error($conectar) );
                   // 5 RECORRER EL RESULTADO
-                  while ($registro = mysqli_fetch_array($resultado)) {
-                    echo "<option value='$registro[staid]'>$registro[stades]</option>";}?>
+                  while ($Registro = mysqli_fetch_array($Resultado)) {
+                    echo "<option value='$Registro[staid]'>$Registro[stades]</option>";}?>
                 </select>
               </td>
 
