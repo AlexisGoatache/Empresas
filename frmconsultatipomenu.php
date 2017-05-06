@@ -130,12 +130,13 @@ global $conectar;
 
    query($sql);?>
 
+  </fieldset>
+</table>
+      <a href='frmmenucss.php'><img src='imagenes/back.gif' border=0></a>
+                   
+</form>
+
 <script>
 </script>
-
 </body>
-</table>
-
-    <a href='frmmenucss.php'><img src='imagenes/back.gif' border=0></a>
-
 </html>
