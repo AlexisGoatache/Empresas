@@ -7,16 +7,28 @@ require_once("seguridad.php");
 require_once("conexion.php");
 
 // VARIABLES DEL FORMULARIO
-$FrmNombre="ConsultaEmpresas";
-$FrmDescripcion="Consulta de Empresas";
-$TbNombre="tbempresas";
+//$FrmNombre="ConsultaEmpresas";
+//$FrmDescripcion="Consulta de Empresas";
+//$_SESSION[TbNombre]="tbempresas";
 
 // RESCATAR LAS VARIABLES DEL FORMULARIO
 
 $BtnAccion = isset($_REQUEST['BtnAccion']) ? $_REQUEST['BtnAccion'] : NULL;
 $CmbEmpresas = isset($_REQUEST['CmbEmpresas']) ? $_REQUEST['CmbEmpresas'] : NULL;
 $CmbStatus = isset($_REQUEST['CmbStatus']) ? $_REQUEST['CmbStatus'] : NULL;  
-  
+$_SESSION['FrmNombre']= isset($_REQUEST['FrmNombre']) ? $_REQUEST['FrmNombre'] : NULL;
+$_SESSION['FrmDescripcion']= isset($_REQUEST['FrmDescripcion']) ? $_REQUEST['FrmDescripcion'] : NULL;
+$_SESSION['TbNombre']= isset($_REQUEST['TbNombre']) ? $_REQUEST['TbNombre'] : NULL;
+
+// VARIABLES DEL FORMULARIO
+$Sql="SELECT * FROM tbmenu WHERE mennom='frmconsultaempresas'";
+$Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error($conectar) );
+while ($Registro = mysqli_fetch_array($Resultado)) {
+	$_SESSION['FrmNombre']=$Registro['mennom'];
+	$_SESSION['FrmDescripcion']=$Registro['mendes'];
+	$_SESSION['TbNombre']=$Registro['tbmaestra'];
+	}
+	  
 //FUNCIONES
 function query($Sql) {
 global $conectar,$Consulta;
@@ -58,7 +70,7 @@ global $conectar,$Consulta;
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<title><?php echo $FrmDescripcion ?></title>
+<title><?php echo $_SESSION['FrmDescripcion'] ?></title>
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
 <meta name="generator" content="Bluefish 2.2.7" >
 <link rel="stylesheet" type="text/css" href="css/miestilo.css" />
@@ -84,9 +96,9 @@ function cambiartipodocumento(que){
 
 <body bgcolor="#FFFFFF">
 
-<form action="<?php $PHP_SELF ?>" name="<?php echo "Frm".$FrmNombre ?>" method="post">
+<form action="<?php $PHP_SELF ?>" name="<?php echo $_SESSION[FrmNombre] ?>" method="post">
       <fieldset>
-        <legend><?php echo $FrmDescripcion ?></legend>
+        <legend><?php echo $_SESSION['FrmDescripcion'] ?></legend>
           <table>
             <tr>
               <th>Empresas</th>
@@ -134,14 +146,14 @@ function cambiartipodocumento(que){
     $Consulta = '';
     
 	if($CmbEmpresas != 0){
-      $Consulta = $Consulta." AND $TbNombre.empid= '$CmbEmpresas'";}
+      $Consulta = $Consulta." AND $_SESSION[TbNombre].empid= '$CmbEmpresas'";}
     
 	if($CmbStatus != 0){
 		$Consulta= $Consulta." AND tbstatus.staid='$CmbStatus'";}
 		
-		$Sql="SELECT * FROM $TbNombre,tbstatus WHERE
-          $TbNombre.empsta=tbstatus.staid $Consulta ORDER BY 				 
-          $TbNombre.empnom  ASC";
+		$Sql="SELECT * FROM $_SESSION[TbNombre],tbstatus WHERE
+          $_SESSION[TbNombre].empsta=tbstatus.staid $Consulta ORDER BY 				 
+          $_SESSION[TbNombre].empnom  ASC";
 
    query($Sql);
 ?>

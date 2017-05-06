@@ -11,16 +11,27 @@ require_once("seguridad.php");
 require_once("conexion.php");
 
 // VARIABLES DEL FORMULARIO
-$FrmNombre="ConsultaEmpresas";
-$FrmDescripcion="Consulta de Empresas";
-$TbNombre="tbempresas";
+//$FrmNombre="ConsultaEmpresas";
+//$FrmDescripcion="Consulta de Empresas";
+//$TbNombre="tbempresas";
 
 // RESCATAR LAS VARIABLES DEL FORMULARIO
 $BtnAccion = isset($_REQUEST['BtnAccion']) ? $_REQUEST['BtnAccion'] : NULL;
 $CmbEmpresas = isset($_REQUEST['CmbEmpresas']) ? $_REQUEST['CmbEmpresas'] : NULL;
 $CmbTipoDocumentos = isset($_REQUEST['CmbTipoDocumentos']) ? $_REQUEST['CmbTipoDocumentos'] : NULL;
 $CmbStatus = isset($_REQUEST['CmbStatus']) ? $_REQUEST['CmbStatus'] : NULL; 
-  
+$_SESSION['FrmNombre']= isset($_REQUEST['FrmNombre']) ? $_REQUEST['FrmNombre'] : NULL;
+$_SESSION['FrmDescripcion']= isset($_REQUEST['FrmDescripcion']) ? $_REQUEST['FrmDescripcion'] : NULL;
+$_SESSION['TbNombre']= isset($_REQUEST['TbNombre']) ? $_REQUEST['TbNombre'] : NULL;
+
+// VARIABLES DEL FORMULARIO
+$Sql="SELECT * FROM tbmenu WHERE mennom='frmconsultadocumentos'";
+$Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error($conectar) );
+while ($Registro = mysqli_fetch_array($Resultado)) {
+	$_SESSION['FrmNombre']=$Registro['mennom'];
+	$_SESSION['FrmDescripcion']=$Registro['mendes'];
+	$_SESSION['TbNombre']=$Registro['tbmaestra'];
+	}  
   
 //FUNCIONES
 

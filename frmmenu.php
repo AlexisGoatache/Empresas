@@ -8,9 +8,9 @@ require_once("conexion.php");
 require_once("seguridad.php");
 
 // VARIABLES DEL FORMULARIO
-$FrmNombre="Menu";
-$FrmDescripcion="Menú;";
-$TbNombre="tbmenu";
+//$FrmNombre="Menu";
+//$FrmDescripcion="Menú;";
+//$_SESSION[TbNombre]="tbmenu";
 
 // RESCATAR LAS VARIABLES DEL FORMULARIO
 $BtnAccion = isset($_REQUEST['BtnAccion']) ? $_REQUEST['BtnAccion'] : NULL;
@@ -19,17 +19,28 @@ $TxtNombre = isset($_REQUEST['TxtNombre']) ? $_REQUEST['TxtNombre'] : NULL;
 $TxtDescripcion = isset($_REQUEST['TxtDescripcion']) ? $_REQUEST['TxtDescripcion'] : NULL;
 $CmbTipo = isset($_REQUEST['CmbTipo']) ? $_REQUEST['CmbTipo'] : NULL;
 $CmbStatus = isset($_REQUEST['CmbStatus']) ? $_REQUEST['CmbStatus'] : NULL;
+$_SESSION['FrmNombre']= isset($_REQUEST['FrmNombre']) ? $_REQUEST['FrmNombre'] : NULL;
+$_SESSION['FrmDescripcion']= isset($_REQUEST['FrmDescripcion']) ? $_REQUEST['FrmDescripcion'] : NULL;
+$_SESSION['TbNombre']= isset($_REQUEST['TbNombre']) ? $_REQUEST['TbNombre'] : NULL;
 
+// VARIABLES DEL FORMULARIO
+$Sql="SELECT * FROM tbmenu WHERE mennom='frmmenu'";
+$Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error($conectar) );
+while ($Registro = mysqli_fetch_array($Resultado)) {
+	$_SESSION['FrmNombre']=$Registro['mennom'];
+	$_SESSION['FrmDescripcion']=$Registro['mendes'];
+	$_SESSION['TbNombre']=$Registro['tbmaestra'];
+	}
 
 //DESARROLLAR LA LOGICA DE LOS BOTONES
 
 switch($BtnAccion){
 
-case 'Buscar':
+case 'Buscar1':
 
 case 'Buscar':
      //3. Contruir la consulta (Query)
-     $Sql="SELECT * FROM $TbNombre WHERE menid='$TxtId'";
+     $Sql="SELECT * FROM $_SESSION[TbNombre] WHERE menid='$TxtId'";
      //4. Ejecutar la consulta
      $Resultado=mysqli_query($conectar,$Sql);
      // 5. verificar si lo encontro
@@ -49,11 +60,11 @@ case 'Buscar':
 
 case 'Agregar':
 
-     $Sql="SELECT * FROM $TbNombre WHERE mendes='$TxtDescripcion';";
+     $Sql="SELECT * FROM $_SESSION[TbNombre] WHERE mendes='$TxtDescripcion';";
      $Resultado=mysqli_query($conectar,$sql);
      $Registro=mysqli_fetch_array($Resultado);
      if(mysqli_num_rows($Resultado)==0){
-     $sql="INSERT INTO $TbNombre VALUES('',
+     $sql="INSERT INTO $_SESSION[TbNombre] VALUES('',
                                         '$TxtNombre',
                                         '$TxtDescripcion',
                                         '$CmbTipo',
@@ -72,7 +83,7 @@ case 'Agregar':
      
 case 'Modificar':
      //3. Contruir la consulta (Query)
-     $sql="UPDATE $TbNombre SET  `mennom`='$TxtNombre',
+     $sql="UPDATE $_SESSION[TbNombre] SET  `mennom`='$TxtNombre',
                               `mendes`='$TxtDescripcion',
                               `mentip`='$CmbTipo',
                               `mensta`='$CmbStatus' WHERE menid='$TxtId'";
@@ -101,7 +112,7 @@ if ($BtnAccion=='Limpiar'){
 <html>
 
 <head>
-<title><?php echo $FrmDescripcion?></title>
+<title><?php echo $_SESSION['FrmDescripcion']?></title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="generator" content="Bluefish 2.2.7" >
 <link rel="stylesheet" type="text/css" href="css/miestilo.css" />
@@ -133,7 +144,7 @@ function validabuscar(form){
 
 <form action="<?php $PHP_SELF ?>" name="Frm.<?php echo $FrmNombre?>" method="post">
       <fieldset>
-          <legend> <?php  echo $FrmDescripcion ?> </legend>
+          <legend> <?php  echo $_SESSION['FrmDescripcion'] ?> </legend>
 				<label>ID:</label>
           <input type="text"
                  name="TxtId"

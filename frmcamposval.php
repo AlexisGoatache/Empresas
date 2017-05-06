@@ -9,9 +9,9 @@ require_once("seguridad.php");
 //2. CONECTAR CON BD
 require_once("conexion.php");
 
-$FrmNombre="CamposValDocumento";
-$FrmDescripcion="Campo del Documento";
-$TbNombre="tbcamposval";
+//$FrmNombre="CamposValDocumento";
+//$FrmDescripcion="Campo del Documento";
+//$TbNombre="tbcamposval";
 
 //RESCATE DE VARIABLES
 
@@ -21,7 +21,19 @@ $CmbStatus = isset($_REQUEST['CmbStatus']) ? $_REQUEST['CmbStatus'] : NULL;
 $TxtDescripcion = isset($_REQUEST['TxtDescripcion']) ? $_REQUEST['TxtDescripcion'] : NULL;  
 $TxtId = isset($_REQUEST['TxtId']) ? $_REQUEST['TxtId'] : NULL;  
 $CmbCamId = isset($_REQUEST['CmbCamId']) ? $_REQUEST['CmbCamId'] : NULL;  
-$TxtValor = isset($_REQUEST['TxtValor']) ? $_REQUEST['TxtValor'] : NULL;  
+$TxtValor = isset($_REQUEST['TxtValor']) ? $_REQUEST['TxtValor'] : NULL;
+$_SESSION['FrmNombre']= isset($_REQUEST['FrmNombre']) ? $_REQUEST['FrmNombre'] : NULL;
+$_SESSION['FrmDescripcion']= isset($_REQUEST['FrmDescripcion']) ? $_REQUEST['FrmDescripcion'] : NULL;
+$_SESSION['TbNombre']= isset($_REQUEST['TbNombre']) ? $_REQUEST['TbNombre'] : NULL;
+
+// VARIABLES DEL FORMULARIO
+$Sql="SELECT * FROM tbmenu WHERE mennom='frmcamposval'";
+$Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error($conectar) );
+while ($Registro = mysqli_fetch_array($Resultado)) {
+	$_SESSION['FrmNombre']=$Registro['mennom'];
+	$_SESSION['FrmDescripcion']=$Registro['mendes'];
+	$_SESSION['TbNombre']=$Registro['tbmaestra'];
+	}  
 
 //DESARROLLAR LA LOGICA DE LOS BOTONES
 
@@ -29,12 +41,12 @@ switch($BtnAccion){
 
 case 'Buscar':
      //3. Contruir la consulta (Query)
-     $Sql="SELECT * FROM $TbNombre WHERE camid='$TxtId';";
+     $Sql="SELECT * FROM $_SESSION[TbNombre] WHERE camid='$TxtId';";
      //4. Ejecutar la consulta
-     $Resultado=mySql_query($Sql);
+     $Resultado=mysqli_query($conectar,$Sql);
      // 5. verificar si lo encontro
-     $Registro=mySql_fetch_array($Resultado);
-     if(mySql_num_rows($Resultado)>0){
+     $Registro=mysqli_fetch_array($Resultado);
+     if(mysqli_num_rows($Resultado)>0){
          //6. recuperar Registros
          $CmbTipId=$Registro['tipid'];
          $TxtDescripcion=$Registro['camdes'];
@@ -48,15 +60,15 @@ case 'Buscar':
 
 case 'Agregar':
 
-     $Sql="SELECT * FROM $TbNombre WHERE valid='$CmbTipId'";
-     $Resultado = mySql_query($Sql) or die( "Error en $Sql: " . mySql_error() );
-	 $Registro=mySql_fetch_array($Resultado);
-     if(mySql_num_rows($Resultado)==0){
-     $Sql="INSERT INTO $TbNombre VALUES('',
+     $Sql="SELECT * FROM $_SESSION[TbNombre] WHERE valid='$CmbTipId'";
+     $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error($conectar) );
+	 $Registro=mysqli_fetch_array($Resultado);
+     if(mysqli_num_rows($Resultado)==0){
+     $Sql="INSERT INTO $_SESSION[TbNombre] VALUES('',
                                         '$CmbTipId',
                                         '$TxtDescripcion',
                                         '$CmbStatus');";
-     mySql_query($Sql);
+     mysqli_query($conectar,$Sql);
      ?>
        <script>alert ("Los datos fueron registrados con éxito!!!");</script>
      <?php
@@ -70,12 +82,12 @@ case 'Agregar':
 
 case 'Modificar':
      //3. Contruir la consulta (Query)
-     $Sql="UPDATE $TbNombre SET `tipid`='$CmbTipId',
+     $Sql="UPDATE $_SESSION[TbNombre] SET `tipid`='$CmbTipId',
                                 `camdes`='$TxtDescripcion',
                                 `camsta`='$CmbStatus' WHERE camid='$TxtId'";
 
      //4. Ejecutar la consulta
-     $Resultado = mySql_query($Sql) or die( "Error en $Sql: " . mySql_error() );
+     $Resultado = mysqli_query($conectar,$Sql) or die( "Error en $Sql: " . mysqli_error($conectar) );
      ?>
      <script>alert ("Los datos fueron modificado con éxito!!!")</script>
      <?php
@@ -97,9 +109,9 @@ if ($BtnAccion=='Limpiar'){
 <html>
 
 <head>
-<title><?php echo $FrmDescripcion ?></title>
+<title><?php echo $_SESSION['FrmDescripcion'] ?></title>
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
-<meta name="generator" content="HAPedit 3.1">
+<meta name="generator" content="Bluefish 2.2.7" >
 <link rel="stylesheet" type="text/css" href="css/miestilo.css" />
 
 <style type="text/css">
@@ -146,7 +158,7 @@ function validabuscar(form){
 function CamposDocumento(form){	
 var TipDoc = form.CmbTipId.value;
 var CamposDocumento = form.CmbCamId.selectedIndex
-	var arrayResult = mysql_select_query ("SELECT * FROM tbcamposdoc WHERE tipid=TipDoc AND camsta='1'");
+	var arrayResult = mysqli_select_query ("SELECT * FROM tbcamposdoc WHERE tipid=TipDoc AND camsta='1'");
 	for (i=0; i< arrayResult.length i++) {
 		form.CmbCamId.options[i].text = arrayResult[i][0];
 		var fila = arrayResult[i];
@@ -161,7 +173,7 @@ var CamposDocumento = form.CmbCamId.selectedIndex
 <form action="<?php $PHP_SELF ?>" name="Frm.<?php echo $FrmNombre ?>" method="post">
       <fieldset>
 
-          <legend> <?php echo $FrmDescripcion ?> </legend>
+          <legend> <?php echo $_SESSION['FrmDescripcion'] ?> </legend>
 
           <label>Id:</label>
           <input type="text"
@@ -177,9 +189,9 @@ var CamposDocumento = form.CmbCamId.selectedIndex
           // 3. CONSTRUIR CONSULTA
           $Sql="SELECT * FROM tbtipodocumentos WHERE tipsta='1';";
           // 4 ejecutar la consulta
-          $Resultado = mySql_query($Sql) or die( "Error en $Sql: " . mySql_error() );
+          $Resultado = mysqli_query($conectar,$Sql) or die( "Error en $Sql: " . mysqli_error() );
           // 5 recorrer el Resultado
-          while ($Registro = mySql_fetch_array($Resultado)) {
+          while ($Registro = mysqli_fetch_array($Resultado)) {
               if ($CmbTipId==$Registro['tipid']){$x='Selected'; }else{$x='';}
                 echo "<option value=\"$Registro[tipid]\" $x>$Registro[tipdes]</option>";}?>
           </select><br />
@@ -193,9 +205,9 @@ var CamposDocumento = form.CmbCamId.selectedIndex
 		  echo "$TipDoc";
 		  //$Sql="SELECT * FROM tbcamposdoc WHERE camsta='1'";
           // 4 ejecutar la consulta
-          //$Resultado = mySql_query($Sql) or die( "Error en $Sql: " . mySql_error() );
+          //$Resultado = mysqli_query($conectar,$Sql) or die( "Error en $Sql: " . mysqli_error() );
           // 5 recorrer el Resultado
-          //while ($Registro = mySql_fetch_array($Resultado)) {
+          //while ($Registro = mysqli_fetch_array($Resultado)) {
           //    if ($CmbCamId==$Registro['camid']){$x='Selected'; }else{$x='';}
           //      echo "<option value=\"$Registro[camid]\" $x>$Registro[camdes]</option>";}?>
           </select><br />
@@ -215,9 +227,9 @@ var CamposDocumento = form.CmbCamId.selectedIndex
           // 3. CONSTRUIR CONSULTA
           $Sql="SELECT * FROM tbstatus";
           // 4 ejecutar la consulta
-          $Resultado = mySql_query($Sql) or die( "Error en $Sql: " . mySql_error() );
+          $Resultado = mysqli_query($conectar,$Sql) or die( "Error en $Sql: " . mysqli_error($conectar) );
           // 5 recorrer el Resultado
-          while ($Registro = mySql_fetch_array($Resultado)) {
+          while ($Registro = mysqli_fetch_array($Resultado)) {
               if ($CmbStatus==$Registro['staid']){$x='Selected'; }else{$x='';}
                 echo "<option value=\"$Registro[staid]\" $x>$Registro[stades]</option>";}?>
           </select><br />

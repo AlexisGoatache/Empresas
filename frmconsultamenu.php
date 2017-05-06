@@ -11,16 +11,28 @@ require_once("seguridad.php");
 require_once("conexion.php");
 
 // VARIABLES DEL FORMULARIO
-$FrmNombre="ConsultaMenu";
-$FrmDescripcion="Consulta de Menú";
-$TbNombre="tbmenu";
+//$FrmNombre="ConsultaMenu";
+//$FrmDescripcion="Consulta de Menú";
+//$_SESSION[TbNombre]="tbmenu";
 
 // RESCATAR LAS VARIABLES DEL FORMULARIO
   
 $BtnAccion = isset($_REQUEST['BtnAccion']) ? $_REQUEST['BtnAccion'] : NULL;
 $CmbTipoMenu = isset($_REQUEST['CmbTipoMenu']) ? $_REQUEST['CmbTipoMenu'] : NULL;
 $CmbStatus = isset($_REQUEST['CmbStatus']) ? $_REQUEST['CmbStatus'] : NULL;  
+$_SESSION['FrmNombre']= isset($_REQUEST['FrmNombre']) ? $_REQUEST['FrmNombre'] : NULL;
+$_SESSION['FrmDescripcion']= isset($_REQUEST['FrmDescripcion']) ? $_REQUEST['FrmDescripcion'] : NULL;
+$_SESSION['TbNombre']= isset($_REQUEST['TbNombre']) ? $_REQUEST['TbNombre'] : NULL;
 
+// VARIABLES DEL FORMULARIO
+$Sql="SELECT * FROM tbmenu WHERE mennom='frmconsultamenu'";
+$Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error($conectar) );
+while ($Registro = mysqli_fetch_array($Resultado)) {
+	$_SESSION['FrmNombre']=$Registro['mennom'];
+	$_SESSION['FrmDescripcion']=$Registro['mendes'];
+	$_SESSION['TbNombre']=$Registro['tbmaestra'];
+	}
+	
 //FUNCIONES
 
 function query($sql) {
@@ -70,7 +82,7 @@ global $conectar;
 <html>
 
 <head>
-<title><?php  echo $FrmDescripcion ?></title>
+<title><?php  echo $_SESSION['FrmDescripcion'] ?></title>
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
 <meta name="generator" content="Bluefish 2.2.7" >
 <link rel="stylesheet" type="text/css" href="css/miestilo.css" />
@@ -82,10 +94,10 @@ global $conectar;
 
 <body bgcolor="#FFFFFF">
 
-<form action="<?php  $PHP_SELF ?>" name="<?php  echo "Frm".$FrmNombre ?>" method="post">
+<form action="<?php  $PHP_SELF ?>" name="<?php  echo $_SESSION[FrmNombre] ?>" method="post">
       <fieldset>
 
-        <legend><?php  echo $FrmDescripcion ?></legend>
+        <legend><?php  echo $_SESSION['FrmDescripcion'] ?></legend>
 
           <table>
 
@@ -144,7 +156,7 @@ global $conectar;
       $consulta = $consulta." AND tbstatus.staid= '$CmbStatus'";}
 
     $sql="SELECT * FROM tbmenu,tbtipomenu,tbstatus WHERE
-          tbmenu.mensta=tbstatus.staid AND tbmenu.mentip=tbtipomenu.tipid $consulta ORDER BY $TbNombre.menid asc;";
+          tbmenu.mensta=tbstatus.staid AND tbmenu.mentip=tbtipomenu.tipid $consulta ORDER BY $_SESSION[TbNombre].menid asc;";
 
    query($sql);
   ?>

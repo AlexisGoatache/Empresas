@@ -7,9 +7,9 @@ require_once("seguridad.php");
 require_once("conexion.php");
 
 // VARIABLES DEL FORMULARIO
-$FrmNombre="ConsultaDocumentosEmpresas";
-$FrmDescripcion="Consulta de Documentos de Empresas";
-$TbNombre="tbempresas";
+//$FrmNombre="ConsultaDocumentosEmpresas";
+//$FrmDescripcion="Consulta de Documentos de Empresas";
+//$_SESSION[TbNombre]="tbempresas";
 
 // RESCATAR LAS VARIABLES DEL FORMULARIO
 
@@ -17,7 +17,19 @@ $BtnAccion = isset($_REQUEST['BtnAccion']) ? $_REQUEST['BtnAccion'] : NULL;
 $CmbEmpresas = isset($_REQUEST['CmbEmpresas']) ? $_REQUEST['CmbEmpresas'] : NULL;
 $CmbTipoDocumentos = isset($_REQUEST['CmbTipoDocumentos']) ? $_REQUEST['CmbTipoDocumentos'] : NULL;
 $CmbStatus = isset($_REQUEST['CmbStatus']) ? $_REQUEST['CmbStatus'] : NULL;  
-  
+$_SESSION['FrmNombre']= isset($_REQUEST['FrmNombre']) ? $_REQUEST['FrmNombre'] : NULL;
+$_SESSION['FrmDescripcion']= isset($_REQUEST['FrmDescripcion']) ? $_REQUEST['FrmDescripcion'] : NULL;
+$_SESSION['TbNombre']= isset($_REQUEST['TbNombre']) ? $_REQUEST['TbNombre'] : NULL;
+
+// VARIABLES DEL FORMULARIO
+$Sql="SELECT * FROM tbmenu WHERE mennom='frmconsultadocumentosempresas'";
+$Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error($conectar) );
+while ($Registro = mysqli_fetch_array($Resultado)) {
+	$_SESSION['FrmNombre']=$Registro['mennom'];
+	$_SESSION['FrmDescripcion']=$Registro['mendes'];
+	$_SESSION['TbNombre']=$Registro['tbmaestra'];
+	}
+	  
 //FUNCIONES
 function query($Sql) {
 global $conectar;
@@ -63,7 +75,7 @@ global $conectar;
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<title><?php echo $FrmDescripcion ?></title>
+<title><?php echo $_SESSION['FrmDescripcion'] ?></title>
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
 <meta name="generator" content="Bluefish 2.2.7" >
 <link rel="stylesheet" type="text/css" href="css/miestilo.css" />
@@ -89,9 +101,9 @@ function cambiartipodocumento(que){
 
 <body bgcolor="#FFFFFF">
 
-<form action="<?php $PHP_SELF ?>" name="<?php echo "Frm".$FrmNombre ?>" method="post">
+<form action="<?php $PHP_SELF ?>" name="<?php echo $_SESSION[FrmNombre] ?>" method="post">
       <fieldset>
-        <legend><?php echo $FrmDescripcion ?></legend>
+        <legend><?php echo $_SESSION['FrmDescripcion'] ?></legend>
           <table>
             <tr>
               <th>Empresas</th>
@@ -99,10 +111,10 @@ function cambiartipodocumento(que){
             </tr>
             <tr>
               <td>
-                <select name="CmbEmpresas" onchange='cambiartipodocumento(this.value)'>
+                <select name="CmbEmpresas">
                   <option value="0">Seleccione</option>
                   <?php // 3. CONSTRUIR CONSULTA DE EMPRESAS
-                  $Sql="SELECT * FROM tbempresas ORDER BY tbempresas.empnom ASC;";
+                  $Sql="SELECT * FROM $_SESSION[TbNombre] ORDER BY $_SESSION[TbNombre].empnom ASC;";
                   // 4 EJECUTAR LA CONSULTA
                   $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error($conectar) );
                   // 5 RECORRER EL RESULTADO
@@ -139,16 +151,17 @@ function cambiartipodocumento(que){
     $Consulta = '';
     
 	if($CmbEmpresas != 0){
-      $Consulta = $Consulta." AND $TbNombre.empid= '$CmbEmpresas'";}
+      $Consulta = $Consulta." AND $_SESSION[TbNombre].empid= '$CmbEmpresas'";}
     
 	if($CmbTipoDocumentos != 0){
 		$Consulta= $Consulta." AND tbtipodocumentos.tipid='$CmbTipoDocumentos'";}
 		
-		$Sql="SELECT DISTINCT * FROM $TbNombre,tbtipodocumentos,tbcampos,tbcamposval WHERE
-          $TbNombre.empid=tbcamposval.empid AND tbcamposval.camid=tbcampos.camid AND
+		$Sql="SELECT DISTINCT * FROM $_SESSION[TbNombre],tbtipodocumentos,tbcampos,tbcamposval WHERE
+          $_SESSION[TbNombre].empid=tbcamposval.empid AND tbcamposval.camid=tbcampos.camid AND
           tbcampos.camid=tbcamposval.camid AND tbcamposval.tipid=tbtipodocumentos.tipid AND
-          $TbNombre.empsta=1 AND tbtipodocumentos.tipsta=1 AND tbcampos.camsta=1 AND 
-          tbcamposval.valsta=1 $Consulta ORDER BY $TbNombre.empnom,tbtipodocumentos.tipdes,tbcampos.camdes  ASC";
+          $_SESSION[TbNombre].empsta=1 AND tbtipodocumentos.tipsta=1 AND tbcampos.camsta=1 AND 
+          tbcamposval.valsta=1 $Consulta ORDER BY 	
+          $_SESSION[TbNombre].empnom,tbtipodocumentos.tipdes,tbcampos.camid  ASC";
 
    query($Sql);
 ?>

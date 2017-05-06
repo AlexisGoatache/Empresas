@@ -8,15 +8,26 @@ require_once("conexion.php");
 require_once("seguridad.php");
 
 // VARIABLES DEL FORMULARIO
-$FrmNombre="Status";
-$FrmDescripcion="Estatus";
-$TbNombre="tbstatus";
+//$FrmNombre="Status";
+//$FrmDescripcion="Estatus";
+//$_SESSION[TbNombre]="tbstatus";
 
 // RESCATAR LAS VARIABLES DEL FORMULARIO
 $BtnAccion = isset($_REQUEST['BtnAccion']) ? $_REQUEST['BtnAccion'] : NULL;
 $TxtId = isset($_REQUEST['TxtId']) ? $_REQUEST['TxtId'] : NULL;
 $TxtDescripcion = isset($_REQUEST['TxtDescripcion']) ? $_REQUEST['TxtDescripcion'] : NULL;
+$_SESSION['FrmNombre']= isset($_REQUEST['FrmNombre']) ? $_REQUEST['FrmNombre'] : NULL;
+$_SESSION['FrmDescripcion']= isset($_REQUEST['FrmDescripcion']) ? $_REQUEST['FrmDescripcion'] : NULL;
+$_SESSION['TbNombre']= isset($_REQUEST['TbNombre']) ? $_REQUEST['TbNombre'] : NULL;
 
+// VARIABLES DEL FORMULARIO
+$Sql="SELECT * FROM tbmenu WHERE mennom='frmstatus'";
+$Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error($conectar) );
+while ($Registro = mysqli_fetch_array($Resultado)) {
+	$_SESSION['FrmNombre']=$Registro['mennom'];
+	$_SESSION['FrmDescripcion']=$Registro['mendes'];
+	$_SESSION['TbNombre']=$Registro['tbmaestra'];
+	}
 
 //DESARROLLAR LA LOGICA DE LOS BOTONES
 
@@ -25,7 +36,7 @@ switch($BtnAccion){
 case 'Buscar':
 
      //3. Contruir la consulta (Query)
-     $sql="SELECT * FROM $TbNombre WHERE staid='$TxtId'";
+     $sql="SELECT * FROM $_SESSION[TbNombre] WHERE staid='$TxtId'";
      //4. Ejecutar la consulta
      $resultado = mysqli_query($conectar,$sql) or die( "Error en Sql: " . mysqli_error($conectar) );
      // 5. verificar si lo encontro
@@ -43,7 +54,7 @@ case 'Buscar':
      break;
 
 case 'Agregar':
-     $sql="SELECT * FROM $TbNombre WHERE stades='$TxtDescripcion';";
+     $sql="SELECT * FROM $_SESSION[TbNombre] WHERE stades='$TxtDescripcion';";
      $resultado = mysqli_query($conectar,$sql) or die( "Error en Sql: " . mysqli_error($conectar) );
      $registro=mysqli_fetch_array($resultado);
      if(mysqli_num_rows($resultado)==0){
@@ -82,7 +93,7 @@ if ($BtnAccion=='Limpiar'){
 <html>
 
 <head>
-<title><?php echo $FrmDescripcion?></title>
+<title><?php echo $_SESSION['FrmDescripcion']?></title>
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
 <meta name="generator" content="Bluefish 2.2.7" >
 <link rel="stylesheet" type="text/css" href="css/miestilo.css" />
@@ -115,7 +126,7 @@ function validabuscar(form){
 <form action="<?php $PHP_SELF ?>" name="Frm.<?php echo $FrmNombre?>" method="post">
       <fieldset>
 
-          <legend> <?php  echo $FrmDescripcion ?> </legend>
+          <legend> <?php  echo $_SESSION['FrmDescripcion'] ?> </legend>
 
           <label>ID:</label>
           <input type="text"

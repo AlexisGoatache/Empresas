@@ -10,10 +10,24 @@
 require_once("conexion.php");
 
 //VARIABLES DEL FORMULARIO
-$FrmNombre="Menu";
-$FrmDescripcion="Menú";
-$TbNombre="tbtipomenu";
-$TbNombre1="tbmenu";
+//$FrmNombre="Menu";
+//$FrmDescripcion="Menú";
+//$_SESSION[TbNombre]="tbtipomenu";
+//$_SESSION[TbNombre]1="tbmenu";
+
+$_SESSION['FrmNombre']= isset($_REQUEST['FrmNombre']) ? $_REQUEST['FrmNombre'] : NULL;
+$_SESSION['FrmDescripcion']= isset($_REQUEST['FrmDescripcion']) ? $_REQUEST['FrmDescripcion'] : NULL;
+$_SESSION['TbNombre']= isset($_REQUEST['TbNombre']) ? $_REQUEST['TbNombre'] : NULL;
+
+// VARIABLES DEL FORMULARIO
+$Sql="SELECT * FROM tbmenu WHERE mennom='frmmenu'";
+$Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error($conectar) );
+while ($Registro = mysqli_fetch_array($Resultado)) {
+	$_SESSION['FrmNombre']=$Registro['mennom'];
+	$_SESSION['FrmDescripcion']=$Registro['mendes'];
+	$_SESSION['TbNombre']=$Registro['tbmaestra'];
+	}
+
 ?>
 
 
@@ -31,17 +45,17 @@ $TbNombre1="tbmenu";
 	
 <?php
 	// 3. CONSTRUIR CONSULTA DE LOS TIPOS DE MENU
-	$Sql="SELECT * FROM $TbNombre WHERE tipsta='1'";
+	$Sql="SELECT * FROM tbtipomenu WHERE tipsta='1'";
 	// 4 EJECUTAR LA CONSULTA
-	$Resultado = mysqli_query($conectar,$Sql) or die( "Error en $Sql: " . mysqli_error() );
+	$Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error($conectar) );
 	// 5 RECORRER EL RESULTADO
 	while ($Registro = mysqli_fetch_array($Resultado)){
 	echo "<div class='dropdown'><button class='dropbtn'>$Registro[tipdes]</button>";
 	//echo "<div class='dropdown'><button class='dropbtn'>$Registro[tipdes]</button>";
 	// 3. CONSTRUIR CONSULTA MENUS
-	$Sql1="SELECT * FROM $TbNombre1 WHERE mensta='1' AND mentip=$Registro[tipid]";
+	$Sql1="SELECT * FROM $_SESSION[TbNombre] WHERE $_SESSION[TbNombre].mensta='1' AND $_SESSION[TbNombre].mentip=$Registro[tipid]";
 	// 4 EJECUTAR LA CONSULTA
-	$Resultado1 = mysqli_query($conectar,$Sql1) or die( "Error en $Sql1: " . mysqli_error() );
+	$Resultado1 = mysqli_query($conectar,$Sql1) or die( "Error en Sql: " . mysqli_error($conectar) );
 	// 5 RECORRER EL RESULTADO
 	echo "<div class='dropdown-content'>";
 	while ($Registro1 = mysqli_fetch_array($Resultado1)){ echo "<a href='$Registro1[mennom].php'>$Registro1[mendes]</a>"; }

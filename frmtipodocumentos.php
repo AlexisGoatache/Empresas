@@ -10,9 +10,9 @@ require_once("seguridad.php");
 require_once("conexion.php");
 
 //VARIABLES DEL FORMULARIO
-$FrmNombre="TipoDocumentos";
-$FrmDescripcion="Tipo de Documentos";
-$TbNombre="tbtipodocumentos";
+//$FrmNombre="TipoDocumentos";
+//$FrmDescripcion="Tipo de Documentos";
+//$_SESSION[TbNombre]="tbtipodocumentos";
 
 
 // RESCATAR LAS VARIABLES DEL FORMULARIO
@@ -20,7 +20,18 @@ $BtnAccion=isset($_REQUEST['BtnAccion'])? $_REQUEST['BtnAccion']: NULL;
 $TxtId=isset($_REQUEST['TxtId'])? $_REQUEST['TxtId'] : NULL;
 $TxtDescripcion=isset($_REQUEST['TxtDescripcion'])? $_REQUEST['TxtDescripcion']: NULL;
 $CmbStatus=isset($_REQUEST['CmbStatus'])? $_REQUEST['CmbStatus']: NULL;
+$_SESSION['FrmNombre']= isset($_REQUEST['FrmNombre']) ? $_REQUEST['FrmNombre'] : NULL;
+$_SESSION['FrmDescripcion']= isset($_REQUEST['FrmDescripcion']) ? $_REQUEST['FrmDescripcion'] : NULL;
+$_SESSION['TbNombre']= isset($_REQUEST['TbNombre']) ? $_REQUEST['TbNombre'] : NULL;
 
+// VARIABLES DEL FORMULARIO
+$Sql="SELECT * FROM tbmenu WHERE mennom='frmtipodocumentos'";
+$Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error($conectar) );
+while ($Registro = mysqli_fetch_array($Resultado)) {
+	$_SESSION['FrmNombre']=$Registro['mennom'];
+	$_SESSION['FrmDescripcion']=$Registro['mendes'];
+	$_SESSION['TbNombre']=$Registro['tbmaestra'];
+	}
 
 //DESARROLLAR LA LOGICA DE LOS BOTONES
 
@@ -28,7 +39,7 @@ switch($BtnAccion){
 
 case 'Buscar':
      //3. Contruir la consulta (Query)
-     $Sql="SELECT * FROM $TbNombre WHERE tipid='$TxtId';";
+     $Sql="SELECT * FROM $_SESSION[TbNombre] WHERE tipid='$TxtId';";
      //4. Ejecutar la consulta
      $Resultado=mysqli_query($conectar,$Sql);
      // 5. verificar si lo encontro
@@ -47,11 +58,11 @@ case 'Buscar':
 
 case 'Agregar':
 
-     $Sql="SELECT * FROM $TbNombre WHERE docdes='$TxtDescripcion';";
+     $Sql="SELECT * FROM $_SESSION[TbNombre] WHERE docdes='$TxtDescripcion';";
      $Resultado=mysqli_query($conectar,$Sql);
      $Registro=mysqli_fetch_array($Resultado);
      if(mysqli_num_rows($Resultado)==0){
-     $Sql="INSERT INTO $TbNombre VALUES('',
+     $Sql="INSERT INTO $_SESSION[TbNombre] VALUES('',
                                          '$TxtDescripcion',
                                          '$CmbStatus');";
      mysqli_query($conectar,$Sql);
@@ -60,14 +71,14 @@ case 'Agregar':
      <?php
      }else{
      ?>
-       <script>alert ("Este <?php echo $FrmDescripcion;?> ya está registrado!!!");</script>
+       <script>alert ("Este <?php echo $_SESSION['FrmDescripcion'];?> ya está registrado!!!");</script>
      <?php
      }
      break;
 
 case 'Modificar':
      //3. Contruir la consulta (Query)
-     $Sql="UPDATE $TbNombre SET `tipdes`='$TxtDescripcion',
+     $Sql="UPDATE $_SESSION[TbNombre] SET `tipdes`='$TxtDescripcion',
                                  `tipsta`='$CmbStatus' WHERE tipid='$TxtId'";
      //4. Ejecutar la consulta
      $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error($conectar) );
@@ -89,7 +100,7 @@ if ($BtnAccion=='Limpiar'){
 <html lang="es">
 
 <head>
-<title><?php echo $FrmDescripcion ?></title>
+<title><?php echo $_SESSION['FrmDescripcion'] ?></title>
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
 <meta name="generator" content="Bluefish 2.2.7" >
 <link rel="stylesheet" type="text/css" href="css/miestilo.css" />
@@ -101,7 +112,7 @@ if ($BtnAccion=='Limpiar'){
 
 function validar(form){
           if (form.TxtDescripcion.value==0){
-               alert('Debe introducir la descripción del <?php echo $FrmDescripcion?>');
+               alert('Debe introducir la descripción del <?php echo $_SESSION['FrmDescripcion']?>');
                form.TxtDescripcion.focus();
                return false;}
 
@@ -115,7 +126,7 @@ function validar(form){
 
 function validabuscar(form){
     if (TxtId.value==0 ){
-       alert('Debe introducir el Código del <?php echo $FrmDescripcion?>');
+       alert('Debe introducir el Código del <?php echo $_SESSION['FrmDescripcion']?>');
        return false;}
     else {
 
@@ -129,7 +140,7 @@ function validabuscar(form){
 <form action="<?php  $PHP_SELF ?>" name="Frm.<?php  echo $FrmNombre ?>" method="post">
       <fieldset>
 
-          <legend> <?php  echo $FrmDescripcion ?> </legend>
+          <legend> <?php  echo $_SESSION['FrmDescripcion'] ?> </legend>
 
           <label>ID:</label>
           <input type="text"

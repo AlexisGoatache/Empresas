@@ -52,7 +52,7 @@ td {
 
 /* Style Barra de menú horizontal Dropdown */
 .dropbtn {
-    background-color: #4CAF50;
+    background-color: #4CAF50;/*cambia el color de la barra de menú*/
     color: white;
     padding: 16px;
     font-size: 16px;
@@ -70,8 +70,8 @@ td {
 .dropdown-content {
     display: none;
     position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
+    background-color: #f9f9f9;/*cambia el color del submenu*/
+    min-width: 260px;/*Cambia el tamaño de los submenus*/
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 }
 

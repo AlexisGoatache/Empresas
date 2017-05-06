@@ -1,8 +1,5 @@
 <?php
 
-// INICIO DE SESSION DEL USUARIO
-//session_start();
-
 //SEGURIDAD DE ACCESO
 require_once("seguridad.php");
 
@@ -25,14 +22,14 @@ $_SESSION['FrmDescripcion']= isset($_REQUEST['FrmDescripcion']) ? $_REQUEST['Frm
 $_SESSION['TbNombre']= isset($_REQUEST['TbNombre']) ? $_REQUEST['TbNombre'] : NULL;
 
 // VARIABLES DEL FORMULARIO
-$Sql="SELECT * FROM tbmenu WHERE mennom='frmconsultascamposdoc'";
+$Sql="SELECT * FROM tbmenu WHERE mennom='frmconsultatipodocdetalle'";
 $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error($conectar) );
 while ($Registro = mysqli_fetch_array($Resultado)) {
 	$_SESSION['FrmNombre']=$Registro['mennom'];
 	$_SESSION['FrmDescripcion']=$Registro['mendes'];
 	$_SESSION['TbNombre']=$Registro['tbmaestra'];
 	}  
-
+	
 //FUNCIONES
 
 function query($Sql) {
@@ -60,7 +57,7 @@ function query($Sql) {
     echo "<td>".$i."</td>";
     echo "<td>".$Registro['tipid']."</td>";  //<!-- ID -->
     echo "<td>".$Registro['tipdes']."</td>";   //<!-- TIPO DOCUMENTO -->
-	echo "<td>".$Registro['camdes']."</td>";   //<!-- CAMPO -->
+	 echo "<td>".$Registro['camdes']."</td>";   //<!-- CAMPO -->
     echo "<td>".$Registro['stades']."</td>";  //<!-- DESCRIPCION -->
     echo "</tr>"; 
     }while($Registro=mysqli_fetch_array($Resultado));
@@ -164,10 +161,9 @@ function query($Sql) {
 	if($CmbStatus != 0){
       $Consulta = $Consulta." AND tbstatus.staid= '$CmbStatus'";}
 	
-		$Sql="SELECT * FROM $_SESSION[TbNombre],tbtipodocumentos,tbtipodocdetalle,tbstatus WHERE
-			$_SESSION[TbNombre].camid=tbtipodocdetalle.camid AND 			  tbtipodocumentos.tipid=tbtipodocdetalle.tipid AND 
+		$Sql="SELECT * FROM $_SESSION[TbNombre],tbtipodocumentos,tbstatus WHERE
 			tbtipodocumentos.tipsta=tbstatus.staid $Consulta ORDER BY 
-			tbtipodocumentos.tipdes ASC;";
+			tbtipodocumentos.tipdes,$_SESSION[TbNombre].camdes ASC;";
 		query($Sql);
 ?>
 
