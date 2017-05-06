@@ -114,19 +114,19 @@ if ($BtnAccion=='Limpiar'){
 </head>
 <body bgcolor="#FFFFFF">
 
-<form action="<?php $PHP_SELF ?>" name="Frm.<?php echo $FrmNombre ?>" method="post">
+<form action="<?php $PHP_SELF ?>" name="<?php echo $_SESSION[FrmNombre]; ?>" method="post">
       <fieldset>
 
           <legend> <?php echo $_SESSION['FrmDescripcion'] ?> </legend>
 
-          <label>Id:</label>
+          <label>ID:</label>
           <input type="text"
                  name="TxtId"
                  value="<?php echo $TxtId; ?>"
                  size="6"
                  maxlength="6" /><br />
 
-         <label>Tipo de Documento:</label>
+         <label>TIPO DE DOCUMENTO:</label>
           <select name="CmbTipId" onChange="CamposDocumento(this.form);">
           <option value="0">Seleccione</option>
           <?php //carga el combo con status de dispositivos
@@ -140,7 +140,7 @@ if ($BtnAccion=='Limpiar'){
                 echo "<option value=\"$Registro[tipid]\" $x>$Registro[tipdes]</option>";}?>
           </select><br />
 
-          <label>Campo:</label>
+          <label>CAMPO:</label>
           <select name="CmbCamId">
           <option value="0">Seleccione</option>
           <?php //carga el combo con status de dispositivos
@@ -157,14 +157,14 @@ if ($BtnAccion=='Limpiar'){
           </select><br />
 
 		  
-          <label>Valor:</label>
+          <label>VALOR:</label>
           <input type="text"
                  name="TxtValor"
                  value="<?php echo $TxtValor; ?>"
                  size="60"
                  maxlength="60" /><br />
 
-          <label>Status:</label>
+          <label>STATUS:</label>
           <select name="CmbStatus" >
           <option value="0">Seleccione</option>
           <?php //carga el combo con status de dispositivos
@@ -178,7 +178,6 @@ if ($BtnAccion=='Limpiar'){
                 echo "<option value=\"$Registro[staid]\" $x>$Registro[stades]</option>";}?>
           </select><br />
 
-
           <hr />
 
           <div align=center>
@@ -191,7 +190,7 @@ if ($BtnAccion=='Limpiar'){
       </fieldset>
 
       <a href='frmmenucss.php'><img src='imagenes/back.gif' border=0></a>
-             
+                   
 </form>
 
 <script>

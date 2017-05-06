@@ -65,7 +65,7 @@ case 'Agregar':
      $BtnAccion='Limpiar';
      }else{
      ?>
-       <script>alert ("Este <?php  echo $FrmDescripcion;?> ya est� registrado!!!");</script>
+       <script>alert ("Este <?php  echo $_SESSION[FrmDescripcion];?> ya est� registrado!!!");</script>
      <?php 
      }
      break;
@@ -95,7 +95,7 @@ if ($BtnAccion=='Limpiar'){
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title><?php  echo $FrmDescripcion ?></title>
+<title><?php  echo $_SESSION['FrmDescripcion']; ?></title>
 
 <link rel="stylesheet" type="text/css" href="css/miestilo.css" />
 </head>
