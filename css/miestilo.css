@@ -51,12 +51,17 @@ input[type=button], input[type=submit], input[type=reset] {
     cursor: pointer;
 }
 
+table select{
+    width: 100%;
+}
 
 table {
     width: 75%;
     border: 1px solid #000000;
     margin: 0 auto 0 auto;
  }
+
+
 
 th {
    background-color:#FFFFFF;

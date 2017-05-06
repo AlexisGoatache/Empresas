@@ -119,9 +119,9 @@ if ($BtnAccion=='Limpiar'){
           <input type="text"
                  name="TxtId"
                  value="<?php echo $TxtId ?>"
-                 
                  size="5"
-                 maxlength="3" /><br />
+                 maxlength="3" 
+                 placeholder="Id Men&uacute;"/><br />
                  
           	<label>NOMBRE:</label>
           <input type="text"
