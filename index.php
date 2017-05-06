@@ -71,7 +71,8 @@ if ($BtnAccion=='Enviar'){
            name="TxtUsuario"
            value="<?php echo $TxtUsuario?>"
            size="10"
-           maxlength="10" /><br />
+           maxlength="10" 
+           placeholder="Usuario"/><br />
   </td>
 </tr>
 
