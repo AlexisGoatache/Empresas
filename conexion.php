@@ -11,4 +11,3 @@ function conectar(){
 function desconectar(){
     mysql_close();}
 ?>
-
