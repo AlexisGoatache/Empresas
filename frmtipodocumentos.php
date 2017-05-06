@@ -107,14 +107,16 @@ if ($BtnAccion=='Limpiar'){
                  name="TxtId"
                  value="<?php echo $TxtId; ?>"
                  size="6"
-                 maxlength="6" /><br />
+                 maxlength="6" 
+                 placeholder="Id Documento"/><br />
 
           <label>DESCRIPCI&Oacute;N:</label>
           <input type="text"
                  name="TxtDescripcion"
                  value="<?php  echo $TxtDescripcion; ?>"
                  size="60"
-                 maxlength="60" /><br />
+                 maxlength="60" 
+                 placeholder="Descripci&oacute;n del documento"/><br />
 
           <label>STATUS:</label>
           <select name="CmbStatus">
@@ -141,7 +143,7 @@ if ($BtnAccion=='Limpiar'){
 
       </fieldset>       
 
-      <a href='frmmenucss.php'><img src='imagenes/back.gif' border=0></a>
+      <a href='frmmenucss.php'><img src='imagenes/back.gif' border="0"></a>
 
 
 </form>

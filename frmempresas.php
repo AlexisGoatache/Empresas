@@ -108,14 +108,16 @@ if ($BtnAccion=='Limpiar'){
                  name="TxtId"
                  value="<?php echo $TxtId; ?>"
                  size="4"
-                 maxlength="4" /><br />
+                 maxlength="4" 
+                 placeholder="Id Empresa"/><br />
 
           <label>NOMBRE:</label>
           <input type="text"
                  name="TxtNombre"
                  value="<?php echo $TxtNombre; ?>"
                  size="35"
-                 maxlength="35" /><br />
+                 maxlength="35" 
+                 placeholder="Nombre de la empresa"/><br />
 
           <label>PASSWORD:</label>
           <input type="password"
@@ -155,7 +157,7 @@ if ($BtnAccion=='Limpiar'){
 
       </fieldset>       
 
-      <a href='frmmenucss.php'><img src='imagenes/back.gif' border=0></a>
+      <a href='frmmenucss.php'><img src='imagenes/back.gif' border="0"></a>
       
       </form>
 

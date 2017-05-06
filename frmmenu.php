@@ -128,14 +128,16 @@ if ($BtnAccion=='Limpiar'){
                  name="TxtNombre"
                  value="<?php echo $TxtNombre ?>"
                  size="35"
-                 maxlength="35" /><br />
+                 maxlength="35" 
+                 placeholder="Nombre del Men&uacute;"/><br />
 
           	<label>DESCRIPCI&Oacute;N:</label>
           <input type="text"
                  name="TxtDescripcion"
                  value="<?php echo $TxtDescripcion ?>"
                  size="35"
-                 maxlength="35" /><br />
+                 maxlength="35" 
+                 placeholder="Descripci&oacute; del Men&uacute;"/><br />
 
 
           <label>TIPO MEN&Uacute;:</label>
@@ -172,7 +174,7 @@ if ($BtnAccion=='Limpiar'){
 
       </fieldset>
       
-      <a href='frmmenucss.php'><img src='imagenes/back.gif' border=0></a>
+      <a href='frmmenucss.php'><img src='imagenes/back.gif' border="0"></a>
 
 </form>
 

@@ -107,21 +107,23 @@ if ($BtnAccion=='Limpiar'){
 
           <legend> <?php echo $_SESSION['FrmDescripcion'] ?> </legend>
 
-          <label>Id:</label>
+          <label>ID:</label>
           <input type="text"
                  name="TxtId"
                  value="<?php  echo $TxtId; ?>"
                  size="6"
-                 maxlength="6" /><br />
+                 maxlength="6" 
+                 placeholder="Id Campo"/><br />
 
           <label>DESCRIPCI&Oacute;N:</label>
           <input type="text"
                  name="TxtDescripcion"
                  value="<?php  echo $TxtDescripcion; ?>"
                  size="60"
-                 maxlength="60" /><br />
+                 maxlength="60" 
+                 placeholder="Descripci&oacute;"/><br />
 
-          <label>Status:</label>
+          <label>STATUS:</label>
           <select name="CmbStatus">
           <option value="0">Seleccione</option>
           <?php //carga el combo con status de dispositivos
@@ -146,7 +148,7 @@ if ($BtnAccion=='Limpiar'){
 
       </fieldset>
 
-      <a href='frmmenucss.php'><img src='imagenes/back.gif' border=0></a>
+      <a href='frmmenucss.php'><img src='imagenes/back.gif' border="0"></a>
              
 </form>
 

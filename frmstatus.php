@@ -101,17 +101,19 @@ if ($BtnAccion=='Limpiar'){
                  name="TxtId"
                  value="<?php echo $TxtId ?>"
                  size="5"
-                 maxlength="3" /><br />
+                 maxlength="3" 
+                 placeholder="Id Status"/><br />
 
           <label>STATUS:</label>
           <input type="text"
                  name="TxtDescripcion"
                  value="<?php echo $TxtDescripcion ?>"
                  size="35"
-                 maxlength="35" /><br />
+                 maxlength="35" 
+                 placeholder="Descripci&oacute;n del men&uacute;"/><br />
 
           <hr />
-          <div align=center>
+          <div align="center">
                <input type="submit" name="BtnAccion" value="Buscar" onclick="return validabuscar(this.form);"/>
                <input type="submit" name="BtnAccion" value="Agregar"  onclick="return validar(this.form);"/>
                <input type="submit" name="BtnAccion" value="Modificar" onclick="return validar(this.form);"/>
@@ -120,7 +122,7 @@ if ($BtnAccion=='Limpiar'){
 
       </fieldset>       
 
-      <a href='frmmenucss.php'><img src='imagenes/back.gif' border=0></a>
+      <a href='frmmenucss.php'><img src='imagenes/back.gif' border="0"></a>
 
 </form>
 <script>

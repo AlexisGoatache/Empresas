@@ -124,7 +124,9 @@ if ($BtnAccion=='Limpiar'){
                  name="TxtId"
                  value="<?php echo $TxtId; ?>"
                  size="6"
-                 maxlength="6" /><br />
+                 maxlength="6" 
+                 placeholder="Id Campo Valor"
+                 /><br />
 
          <label>TIPO DE DOCUMENTO:</label>
           <select name="CmbTipId" onChange="CamposDocumento(this.form);">
@@ -162,7 +164,8 @@ if ($BtnAccion=='Limpiar'){
                  name="TxtValor"
                  value="<?php echo $TxtValor; ?>"
                  size="60"
-                 maxlength="60" /><br />
+                 maxlength="60" 
+                 placeholder="Valor"/><br />
 
           <label>STATUS:</label>
           <select name="CmbStatus" >
@@ -189,7 +192,7 @@ if ($BtnAccion=='Limpiar'){
 
       </fieldset>
 
-      <a href='frmmenucss.php'><img src='imagenes/back.gif' border=0></a>
+      <a href='frmmenucss.php'><img src='imagenes/back.gif' border="0"></a>
                    
 </form>
 
