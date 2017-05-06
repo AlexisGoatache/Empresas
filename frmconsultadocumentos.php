@@ -36,10 +36,10 @@ global $conectar;	?>
 
     <table> <!--TABLA DE CONSULTA DE DISPOSITIVOS-->
         <?// 4 EJECUTAR LA CONSULTA
-        $resultado = mysqli_query($conectar,$sql) or die( "Error en Sql: " . mysqli_error($conectar) );
+        $Resultado = mysqli_query($conectar,$sql) or die( "Error en Sql: " . mysqli_error($conectar) );
         // 5. VERIFICA SI ENCONTRO REGISTROS
-        $registro=mysqli_fetch_array($resultado);
-        if(mysqli_num_rows($resultado)>0){?>
+        $Registro=mysqli_fetch_array($Resultado);
+        if(mysqli_num_rows($Resultado)>0){?>
 
           <tr> <!--ENCABEZADO DE LA CONSULTA-->
             <th>#</th>
@@ -56,13 +56,13 @@ global $conectar;	?>
             $i=$i+1;?>
             <tr>
             <td><?echo $i?></td>             <!-- NRO. DE DISPOSITIVOS -->
-            <td><?echo $registro[empid]?> </td>  <!-- ID DISPOSITIVO -->
-            <td><?echo $registro[empnom]?></td>   <!-- DESCRIPCION DEL DISPOSITIVO -->
-            <td><?echo $registro[tipdes]?></td>  <!-- MARCA -->
-            <td><?echo $registro[camdes]?></td>  <!-- MODELO -->
-            <td><?echo $registro[valcam]?></td>  <!-- SERIAL -->
+            <td><?echo $Registro[empid]?> </td>  <!-- ID DISPOSITIVO -->
+            <td><?echo $Registro[empnom]?></td>   <!-- DESCRIPCION DEL DISPOSITIVO -->
+            <td><?echo $Registro[tipdes]?></td>  <!-- MARCA -->
+            <td><?echo $Registro[camdes]?></td>  <!-- MODELO -->
+            <td><?echo $Registro[valcam]?></td>  <!-- SERIAL -->
       </tr><?
-                  }while($registro=mysqli_fetch_array($resultado));
+                  }while($Registro=mysqli_fetch_array($Resultado));
         } else {
          ?>
          <script>alert ("No existen registros con esa condici�n!!!");</script>
@@ -97,7 +97,7 @@ global $conectar;	?>
             </tr>
 
            <tr>
-             <div align=center>
+             <div align="center">
                <input type="submit" name="BtnAccion" value="Buscar"/>
                <input type="submit" name="BtnAccion" value="Limpiar" />
              </div>
@@ -111,10 +111,10 @@ global $conectar;	?>
                   <?// 3. CONSTRUIR CONSULTA DE EMPRESAS
                   $sql="SELECT * FROM tbempresas;";
                   // 4 EJECUTAR LA CONSULTA
-                  $resultado = mysqli_query($conectar,$sql) or die( "Error en Sql: " . mysqli_error($conectar) );
+                  $Resultado = mysqli_query($conectar,$sql) or die( "Error en Sql: " . mysqli_error($conectar) );
                   // 5 RECORRER EL RESULTADO
-                  while ($registro = mysqli_fetch_array($resultado)) {
-                    echo "<option value='$registro[empid]'>$registro[empnom]</option>";}?>
+                  while ($Registro = mysqli_fetch_array($Resultado)) {
+                    echo "<option value='$Registro[empid]'>$Registro[empnom]</option>";}?>
                 </select>
               </td>
 
@@ -124,10 +124,10 @@ global $conectar;	?>
                 <?// 3. CONSTRUIR CONSULTA TIPO DE DOCUMENTO
                 $sql="SELECT * FROM tbtipodocumentos;";
                 // 4 EJECUTAR LA CONSULTA
-                $resultado = mysqli_query($conectar,$sql) or die( "Error en Sql: " . mysqli_error($conectar) );
+                $Resultado = mysqli_query($conectar,$sql) or die( "Error en Sql: " . mysqli_error($conectar) );
                 // 5 RECORRER EL RESULTADO
-                while ($registro = mysqli_fetch_array($resultado)) {
-                  echo "<option  value='$registro[tipid]'>$registro[tipdes]</option>";}?>
+                while ($Registro = mysqli_fetch_array($Resultado)) {
+                  echo "<option  value='$Registro[tipid]'>$Registro[tipdes]</option>";}?>
                 </select>
               </td>
 
