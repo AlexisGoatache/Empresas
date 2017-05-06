@@ -27,18 +27,71 @@ while ($Registro = mysqli_fetch_array($Resultado)) {
 
 switch($BtnAccion){
 
-case 'Buscar':
+    case '<< Primero':
+     
+     $Sql="SELECT * FROM $_SESSION[TbNombre] ORDER BY $_SESSION[TbNombre].staid ASC LIMIT 1";
+     //4. Ejecutar la consulta
+     $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error($conectar) );
+     // 5. verificar si lo encontro
+     $Registro=mysqli_fetch_array($Resultado);
+     if(mysqli_num_rows($Resultado)>0){
+         //6. recuperar registros
+      $TxtId=$Registro['staid'];
+		  $TxtDescripcion=$Registro['stades'];
+         }
+     break;
 
+case '< Anterior':
+    $Sql="SELECT * FROM $_SESSION[TbNombre] WHERE staid=$TxtId-1";
+     //4. Ejecutar la consulta
+     $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error($conectar) );
+     // 5. verificar si lo encontro
+     $Registro=mysqli_fetch_array($Resultado);
+     if(mysqli_num_rows($Resultado)>0){
+         //6. recuperar registros
+      $TxtId=$Registro['staid'];
+		  $TxtDescripcion=$Registro['stades'];         
+      }
+         
+     break;
+
+case 'Siguiente >':
+     $Sql="SELECT * FROM $_SESSION[TbNombre] WHERE staid=$TxtId+1";
+     //4. Ejecutar la consulta
+     $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error($conectar) );
+     // 5. verificar si lo encontro
+     $Registro=mysqli_fetch_array($Resultado);
+     if(mysqli_num_rows($Resultado)>0){
+         //6. recuperar registros
+      $TxtId=$Registro['staid'];
+		  $TxtDescripcion=$Registro['stades'];
+         }
+     break;
+
+case 'Último >>':
+     $Sql="SELECT * FROM $_SESSION[TbNombre] ORDER BY $_SESSION[TbNombre].staid DESC LIMIT 1";
+     //4. Ejecutar la consulta
+     $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error($conectar) );
+     // 5. verificar si lo encontro
+     $Registro=mysqli_fetch_array($Resultado);
+     if(mysqli_num_rows($Resultado)>0){
+         //6. recuperar registros
+        $TxtId=$Registro['staid'];
+		    $TxtDescripcion=$Registro['stades'];         
+         }
+     break;  
+     
+case 'Buscar':
      //3. Contruir la consulta (Query)
      $sql="SELECT * FROM $_SESSION[TbNombre] WHERE staid='$TxtId'";
      //4. Ejecutar la consulta
-     $resultado = mysqli_query($conectar,$sql) or die( "Error en Sql: " . mysqli_error($conectar) );
+     $Resultado = mysqli_query($conectar,$sql) or die( "Error en Sql: " . mysqli_error($conectar) );
      // 5. verificar si lo encontro
-     $registro=mysqli_fetch_array($resultado);
-     if(mysqli_num_rows($resultado)>0){
+     $Registro=mysqli_fetch_array($Resultado);
+     if(mysqli_num_rows($Resultado)>0){
          //6. recuperar registros
-       $TxtId=$registro['staid'];
-		 $TxtDescripcion=$registro['stades'];
+      $TxtId=$Registro['staid'];
+		  $TxtDescripcion=$Registro['stades'];
          }
          else {
          ?>
@@ -49,9 +102,9 @@ case 'Buscar':
 
 case 'Agregar':
      $sql="SELECT * FROM $_SESSION[TbNombre] WHERE stades='$TxtDescripcion';";
-     $resultado = mysqli_query($conectar,$sql) or die( "Error en Sql: " . mysqli_error($conectar) );
-     $registro=mysqli_fetch_array($resultado);
-     if(mysqli_num_rows($resultado)==0){
+     $Resultado = mysqli_query($conectar,$sql) or die( "Error en Sql: " . mysqli_error($conectar) );
+     $Registro=mysqli_fetch_array($Resultado);
+     if(mysqli_num_rows($Resultado)==0){
        $sql="INSERT INTO tbstatus VALUES('','$TxtDescripcion');";
      mysqli_query($conectar,$sql);
      ?>
@@ -68,7 +121,7 @@ case 'Modificar':
      //3. Contruir la consulta (Query)
      $sql="UPDATE tbstatus SET `stades`='$TxtDescripcion' WHERE staid='$TxtId'";
      //4. Ejecutar la consulta
-     $resultado = mysqli_query($conectar,$sql) or die( "Error en Sql: " . mysqli_error($conectar) );
+     $Resultado = mysqli_query($conectar,$sql) or die( "Error en Sql: " . mysqli_error($conectar) );
      ?>
      <script>alert ("Los datos fueron modificado con �xito!!!")</script>
      <?php 
@@ -111,6 +164,13 @@ if ($BtnAccion=='Limpiar'){
                  placeholder="Descripci&oacute;n del men&uacute;"/><br />
 
           <hr />
+          <div align="center">
+               <input type="submit" name="BtnAccion" value="<< Primero"/>
+               <input type="submit" name="BtnAccion" value="< Anterior"/>
+               <input type="submit" name="BtnAccion" value="Siguiente >"/>
+               <input type="submit" name="BtnAccion" value="&Uacute;ltimo >>" />
+          </div>
+          
           <div align="center">
                <input type="submit" name="BtnAccion" value="Buscar" onclick="return validabuscar(this.form);"/>
                <input type="submit" name="BtnAccion" value="Agregar"  onclick="return validar(this.form);"/>

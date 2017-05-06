@@ -30,11 +30,74 @@ while ($Registro = mysqli_fetch_array($Resultado)) {
 //DESARROLLAR LA LOGICA DE LOS BOTONES
 
 switch($BtnAccion){
+
+    case '<< Primero':
+     
+     $Sql="SELECT * FROM $_SESSION[TbNombre] ORDER BY $_SESSION[TbNombre].empid ASC LIMIT 1";
+     //4. Ejecutar la consulta
+     $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error($conectar) );
+     // 5. verificar si lo encontro
+     $Registro=mysqli_fetch_array($Resultado);
+     if(mysqli_num_rows($Resultado)>0){
+         //6. recuperar registros
+        $TxtId=$Registro['empid'];
+        $TxtNombre=$Registro['empnom'];
+        $TxtPassword=$Registro['empcla'];
+        $CmbStatus=$Registro['empsta'];
+         }
+     break;
+
+case '< Anterior':
+    $Sql="SELECT * FROM $_SESSION[TbNombre] WHERE empid=$TxtId-1";
+     //4. Ejecutar la consulta
+     $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error($conectar) );
+     // 5. verificar si lo encontro
+     $Registro=mysqli_fetch_array($Resultado);
+     if(mysqli_num_rows($Resultado)>0){
+         //6. recuperar registros
+        $TxtId=$Registro['empid'];
+        $TxtNombre=$Registro['empnom'];
+        $TxtPassword=$Registro['empcla'];
+        $CmbStatus=$Registro['empsta'];         
+      }
+         
+     break;
+
+case 'Siguiente >':
+     $Sql="SELECT * FROM $_SESSION[TbNombre] WHERE empid=$TxtId+1";
+     //4. Ejecutar la consulta
+     $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error($conectar) );
+     // 5. verificar si lo encontro
+     $Registro=mysqli_fetch_array($Resultado);
+     if(mysqli_num_rows($Resultado)>0){
+         //6. recuperar registros
+      $TxtId=$Registro['empid'];
+      $TxtNombre=$Registro['empnom'];
+      $TxtPassword=$Registro['empcla'];
+      $CmbStatus=$Registro['empsta'];
+       }
+     break;
+
+case 'Último >>':
+     $Sql="SELECT * FROM $_SESSION[TbNombre] ORDER BY $_SESSION[TbNombre].empid DESC LIMIT 1";
+     //4. Ejecutar la consulta
+     $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error($conectar) );
+     // 5. verificar si lo encontro
+     $Registro=mysqli_fetch_array($Resultado);
+     if(mysqli_num_rows($Resultado)>0){
+      //6. recuperar registros
+      $TxtId=$Registro['empid'];
+      $TxtNombre=$Registro['empnom'];
+      $TxtPassword=$Registro['empcla'];
+      $CmbStatus=$Registro['empsta'];         
+       }
+     break; 
+    
 case 'Buscar':
      //3. Contruir la consulta (Query)
      $Sql="SELECT * FROM $_SESSION[TbNombre] WHERE $_SESSION[TbNombre].empid='$TxtId';";
      //4. Ejecutar la consulta
-     $Resultado = mysqli_query($conectar,$Sql) or die( "Error en $Sql: " . mysqli_error($conectar) );
+     $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error($conectar) );
      // 5. verificar si lo encontro
      $Registro=mysqli_fetch_array($Resultado);
      if(mysqli_num_rows($Resultado)>0){
@@ -49,6 +112,7 @@ case 'Buscar':
          <?
          $BtnAccion='Limpiar';}
      break;
+
 case 'Agregar':
      $Sql="SELECT * FROM $_SESSION[TbNombre] WHERE empid='$TxtId';";
      $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error($conectar) );
@@ -142,10 +206,19 @@ if ($BtnAccion=='Limpiar'){
               if ($CmbStatus==$Registro['staid']){$x='Selected'; }else{$x='';}
                 echo "<option value=\"$Registro[staid]\" $x>$Registro[stades]</option>";}?>
           </select><br />
-
+          
           <hr />
 
-          <div align=center>
+          <div align="center">
+               <input type="submit" name="BtnAccion" value="<< Primero"/>
+               <input type="submit" name="BtnAccion" value="< Anterior"/>
+               <input type="submit" name="BtnAccion" value="Siguiente >"/>
+               <input type="submit" name="BtnAccion" value="&Uacute;ltimo >>" />
+          </div>
+
+
+
+          <div align="center">
                <input type="submit" name="BtnAccion" value="Buscar" onclick="return validabuscar(this.form);"/>
                <input type="submit" name="BtnAccion" value="Agregar"  onclick="return validar(this.form);"/>
                <input type="submit" name="BtnAccion" value="Modificar" onclick="return validar(this.form);"/>

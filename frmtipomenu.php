@@ -26,11 +26,68 @@ while ($Registro = mysqli_fetch_array($Resultado)) {
 
 switch($BtnAccion){
 
+    case '<< Primero':
+     
+     $Sql="SELECT * FROM $_SESSION[TbNombre] ORDER BY $_SESSION[TbNombre].tipid ASC LIMIT 1";
+     //4. Ejecutar la consulta
+     $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error($conectar) );
+     // 5. verificar si lo encontro
+     $Registro=mysqli_fetch_array($Resultado);
+     if(mysqli_num_rows($Resultado)>0){
+         //6. recuperar registros
+         $TxtId=$Registro['tipid'];
+         $TxtDescripcion=$Registro['tipdes'];
+         $CmbStatus=$Registro['tipsta'];
+         }
+     break;
+
+case '< Anterior':
+    $Sql="SELECT * FROM $_SESSION[TbNombre] WHERE tipid=$TxtId-1";
+     //4. Ejecutar la consulta
+     $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error($conectar) );
+     // 5. verificar si lo encontro
+     $Registro=mysqli_fetch_array($Resultado);
+     if(mysqli_num_rows($Resultado)>0){
+         //6. recuperar registros
+         $TxtId=$Registro['tipid'];
+         $TxtDescripcion=$Registro['tipdes'];
+         $CmbStatus=$Registro['tipsta'];
+      }
+         
+     break;
+
+case 'Siguiente >':
+     $Sql="SELECT * FROM $_SESSION[TbNombre] WHERE tipid=$TxtId+1";
+     //4. Ejecutar la consulta
+     $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error($conectar) );
+     // 5. verificar si lo encontro
+     $Registro=mysqli_fetch_array($Resultado);
+     if(mysqli_num_rows($Resultado)>0){
+         //6. recuperar registros
+         $TxtId=$Registro['tipid'];
+         $TxtDescripcion=$Registro['tipdes'];
+         $CmbStatus=$Registro['tipsta'];
+       }
+     break;
+
+case 'Último >>':
+     $Sql="SELECT * FROM $_SESSION[TbNombre] ORDER BY $_SESSION[TbNombre].tipid DESC LIMIT 1";
+     //4. Ejecutar la consulta
+     $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error($conectar) );
+     // 5. verificar si lo encontro
+     $Registro=mysqli_fetch_array($Resultado);
+     if(mysqli_num_rows($Resultado)>0){
+      //6. recuperar registros
+         $TxtId=$Registro['tipid'];
+         $TxtDescripcion=$Registro['tipdes'];
+         $CmbStatus=$Registro['tipsta'];       }
+     break; 
+
 case 'Buscar':
      //3. Contruir la consulta (Query)
      $Sql="SELECT * FROM $_SESSION[TbNombre] WHERE tipid='$TxtId';";
      //4. Ejecutar la consulta
-     $Resultado=mysqli_query($conectar,$Sql);
+     $Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error($conectar) );
      // 5. verificar si lo encontro
      $Registro=mysqli_fetch_array($Resultado);
      if(mysqli_num_rows($Resultado)>0){
@@ -129,8 +186,14 @@ if ($BtnAccion=='Limpiar'){
           </select><br />
 
           <hr />
+          <div align="center">
+               <input type="submit" name="BtnAccion" value="<< Primero"/>
+               <input type="submit" name="BtnAccion" value="< Anterior"/>
+               <input type="submit" name="BtnAccion" value="Siguiente >"/>
+               <input type="submit" name="BtnAccion" value="&Uacute;ltimo >>" />
+          </div>
 
-          <div align=center>
+          <div align="center">
                <input type="submit" name="BtnAccion" value="Buscar"/>
                <input type="submit" name="BtnAccion" value="Agregar"/>
                <input type="submit" name="BtnAccion" value="Modificar"/>
