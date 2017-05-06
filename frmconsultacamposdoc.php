@@ -92,7 +92,7 @@ function query($Sql) {
             </tr>
 
            <tr>
-             <div align=center>
+             <div align="center">
                <input type="submit" name="BtnAccion" value="Buscar"/>
                <input type="submit" name="BtnAccion" value="Limpiar" />
              </div>
