@@ -94,7 +94,7 @@ if ($BtnAccion=='Limpiar'){
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title><?php echo $FrmDescripcion?></title>
+<title><?php echo $_SESSION['FrmDescripcion']?></title>
 <link rel="stylesheet" type="text/css" href="css/miestilo.css" />
 </head>
 <body bgcolor="#FFFFFF">
@@ -124,7 +124,8 @@ if ($BtnAccion=='Limpiar'){
                  name="TxtPassword"
                  value="<?php echo $TxtPassword; ?>"
                  size="50"
-                 maxlength="50" /><br />
+                 maxlength="50" 
+                 placeholder="Password"/><br />
 
           <label>RE-PASSWORD:</label>
           <input type="password"
