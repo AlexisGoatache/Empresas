@@ -57,45 +57,52 @@ if ($BtnAccion=='Enviar'){
 <title> <?php echo $_SESSION['FrmDescripcion']?> </title>
 <link rel="stylesheet" type="text/css" href="css/miestilo.css" />
 </head>
-<body bgcolor="#FFFFFF">
+<body>
 
 <form action="<?php $PHP_SELF ?>" name="<?php echo $_SESSION[FrmNombre]?>" method="post">
+  <fieldset>
+    <legend> <?php echo $_SESSION['FrmDescripcion'] ?> </legend>
+    <table>
+      <tr>
+        <td>
+          <label>USUARIO:</label>
+          <input type="text"
+                  name="TxtUsuario"
+                  value="<?php echo $TxtUsuario?>"
+                  maxlength="10" 
+                  placeholder="Usuario"/><br />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label>PASSWORD:</label>
+          <input type="password"
+                  name="TxtPassword"
+                  value="<?php echo $TxtPassword?>"
+                  maxlength="10" 
+                  placeholder="Password"/><br />
+        </td>
+      </tr>
+</table>
+<hr />
+ 
+<div align="center">
+    <input type="submit" name="BtnAccion" value="Enviar" /> 
+<div>
+
 
 <div align="center">
-<h2>...:: <?php echo $_SESSION['FrmDescripcion']?> ::...</h2>
-<table style="border:1px solid #000000;">
-<tr>
-  <td align="right">
-    <label>Usuario:   </label>
-    <input type="text"
-           name="TxtUsuario"
-           value="<?php echo $TxtUsuario?>"
-           maxlength="10" 
-           placeholder="Usuario"/><br />
-  </td>
-</tr>
+  <img src="imagenes/image001.gif" alt="" title="construccionx" width="301" height="351" border="0" />
+<div>
+</fieldset>
+    
 
-<tr>
-  <td align="right">
-    <label>Password:</label>
-    <input type="password"
-           name="TxtPassword"
-           value="<?php echo $TxtPassword?>"
-           maxlength="10" /><br />
-  </td>
-</tr>
-<tr> 
-  <td align="center">  <input type="submit" name="BtnAccion" value="Enviar" /> </td>
-</tr>
-
-</table>
-
-<img src="imagenes/image001.gif" alt="" title="construccionx" width="222" height="301" border="0" />
-</div>
 </body>
 
 <script>
 
 </script>
-
+</form>
 </html>
+
+

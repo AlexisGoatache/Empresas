@@ -158,7 +158,7 @@ if ($BtnAccion=='Limpiar'){
 <link rel="stylesheet" type="text/css" href="css/miestilo.css" />
 </head>
 
-<body bgcolor="#FFFFFF">
+<body>
 
 <form action="<?php  $PHP_SELF ?>" name="$_SESSION[$FrmNombre] ?>" method="post">
       <fieldset>

@@ -82,7 +82,7 @@ global $Conectar;	?>
 <link rel="stylesheet" type="text/css" href="css/miestilo.css" />
 </head>
 
-<body bgcolor="#FFFFFF">
+<body>
 
 <form action="<? $PHP_SELF ?>" name="<? echo "Frm".$FrmNombre ?>" method="post">
       <fieldset>

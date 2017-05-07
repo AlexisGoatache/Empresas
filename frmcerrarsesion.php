@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>Cierre de Sesion</title>
 </head>
-<body bgcolor="#FFFFFF">
+<body>
 <script>
    alert('Hasta  Luego...!');
    window.location='index.php';

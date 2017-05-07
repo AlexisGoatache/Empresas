@@ -153,7 +153,7 @@ if ($BtnAccion=='Limpiar'){
 <title><?php echo $_SESSION['FrmDescripcion'] ?></title>
 <link rel="stylesheet" type="text/css" href="css/miestilo.css" />
 </head>
-<body bgcolor="#FFFFFF">
+<body>
 
 <form action="<?php  $PHP_SELF ?>" name="<?php echo $_SESSION[FrmNombre] ?>" method="post">
       <fieldset>
