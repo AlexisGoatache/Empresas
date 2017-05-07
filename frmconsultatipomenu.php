@@ -22,7 +22,7 @@ $_SESSION['TbNombre']= isset($_REQUEST['TbNombre']) ? $_REQUEST['TbNombre'] : NU
 
 
 $Sql="SELECT * FROM tbmenu WHERE mennom='frmconsultatipomenu'";
-$Resultado = mysqli_query($conectar,$Sql) or die( "Error en Sql: " . mysqli_error($conectar) );
+$Resultado = mysqli_query($Conectar,$Sql) or die( "Error en Sql: " . mysqli_error($Conectar) );
 while ($Registro = mysqli_fetch_array($Resultado)) {
 	$_SESSION['FrmNombre']=$Registro['mennom'];
 	$_SESSION['FrmDescripcion']=$Registro['mendes'];
@@ -31,11 +31,11 @@ while ($Registro = mysqli_fetch_array($Resultado)) {
 //FUNCIONES
 
 function query($sql) {
-global $conectar;
+global $Conectar;
 
     echo "<table>"; //<!--TABLA DE CONSULTA DE DISPOSITIVOS-->
         // 4 EJECUTAR LA CONSULTA
-        $Resultado = mysqli_query($conectar,$sql) or die( "Error en Sql: " . mysqli_error($conectar) );
+        $Resultado = mysqli_query($Conectar,$sql) or die( "Error en Sql: " . mysqli_error($Conectar) );
         // 5. VERIFICA SI ENCONTRO REGISTROS
         $Registro=mysqli_fetch_array($Resultado);
         if(mysqli_num_rows($Resultado)>0){
@@ -65,7 +65,7 @@ global $conectar;
 
          return $sql;
   echo"</table>";
-  mysqli_close($conectar);}
+  mysqli_close($Conectar);}
 
 ?>
 <!DOCTYPE html>
@@ -103,7 +103,7 @@ global $conectar;
                   <?php // 3. CONSTRUIR CONSULTA DE EMPRESAS
                   $sql="SELECT * FROM tbstatus";
                   // 4 EJECUTAR LA CONSULTA
-                  $Resultado = mysqli_query($conectar,$sql) or die( "Error en Sql: " . mysqli_error($conectar) );
+                  $Resultado = mysqli_query($Conectar,$sql) or die( "Error en Sql: " . mysqli_error($Conectar) );
                   // 5 RECORRER EL RESULTADO
                   while ($Registro = mysqli_fetch_array($Resultado)) {
                     echo "<option value='$Registro[staid]'>$Registro[stades]</option>";}?>

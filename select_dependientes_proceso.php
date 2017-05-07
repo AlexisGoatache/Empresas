@@ -25,7 +25,7 @@ if(validaSelect($selectDestino) && validaOpcion($opcionSeleccionada))
     $tabla=$listadoSelects[$selectDestino];
     include 'conexion.php';
     conectar();
-    $consulta=mysqli_query($conectar,"SELECT id, opcion FROM $tabla WHERE relacion='$opcionSeleccionada'") or die(mysqli_error());
+    $consulta=mysqli_query($Conectar,"SELECT id, opcion FROM $tabla WHERE relacion='$opcionSeleccionada'") or die(mysqli_error());
     desconectar();
     
     // Comienzo a imprimir el select

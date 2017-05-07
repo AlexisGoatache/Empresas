@@ -3,7 +3,7 @@ function idpadre($nombre,$valor){
 include("conexion.php");
 $query = "SELECT * from padre order by padre";
 mysqli_select_db($dbname);
-$result = mysqli_query($conectar,$query);
+$result = mysqli_query($Conectar,$query);
 echo "<select name='$nombre' id='$nombre'>";
 echo "<option value=''>Selecciona un Padre...</option>";
 while($Registro=mysqli_fetch_array($result))
@@ -19,7 +19,7 @@ function idhijo($nombre,$valor)
 include("conexion.php");
 $query = "SELECT * FROM hijo order by hijo";
 mysqli_select_db($dbname);
-$result = mysqli_query($conectar,$query);
+$result = mysqli_query($Conectar,$query);
 echo "<select name='$nombre' id='$nombre'>";
 echo "<option value=''>Selecciona un Hijo...</option>";
 while($Registro=mysqli_fetch_array($result))
@@ -35,7 +35,7 @@ function idnieto($nombre,$valor)
 include("conexion.php");
 $query = "SELECT * FROM nieto order by nieto";
 mysqli_select_db($dbname);
-$result = mysqli_query($conectar,$query);
+$result = mysqli_query($Conectar,$query);
 echo "<select name='$nombre' id='$nombre'>";
 echo "<option value=''>Selecciona un Nieto...</option>";
 while($Registro=mysqli_fetch_array($result))

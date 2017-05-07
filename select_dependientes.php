@@ -15,7 +15,7 @@ function generaPaises(){
     // Voy imprimiendo el primer select compuesto por los paises
     echo "<select name='tbtipodocumentos' id='tipodocumentos' onChange='cargaContenido(this.id)'>";
     echo "<option value='0'>Elige</option>";
-    while($Registro=mysqli_fetch_row($conectar,$consulta)){
+    while($Registro=mysqli_fetch_row($Conectar,$consulta)){
         echo "<option value='".$Registro[0]."'>".$Registro[1]."</option>"; }
     echo "</select>";
 }
