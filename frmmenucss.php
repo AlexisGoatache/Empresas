@@ -13,7 +13,7 @@ $_SESSION['TbNombre']= isset($_REQUEST['TbNombre']) ? $_REQUEST['TbNombre'] : NU
 
 // VARIABLES DEL FORMULARIO
 $Sql="SELECT * FROM tbmenu WHERE mennom='frmmenu'";
-$Resultado = mysqli_query($Conectar,$Sql) or die( "Error en Sql: " . mysqli_error($Conectar) );
+$Resultado = mysqli_query($Conexion,$Sql) or die( "Error en Sql: " . mysqli_error($Conexion) );
 while ($Registro = mysqli_fetch_array($Resultado)) {
 	$_SESSION['FrmNombre']=$Registro['mennom'];
 	$_SESSION['FrmDescripcion']=$Registro['mendes'];
@@ -35,14 +35,14 @@ while ($Registro = mysqli_fetch_array($Resultado)) {
 	// 3. CONSTRUIR CONSULTA DE LOS TIPOS DE MENU
 	$Sql="SELECT * FROM tbtipomenu WHERE tipsta='1'";
 	// 4 EJECUTAR LA CONSULTA
-	$Resultado = mysqli_query($Conectar,$Sql) or die( "Error en Sql: " . mysqli_error($Conectar) );
+	$Resultado = mysqli_query($Conexion,$Sql) or die( "Error en Sql: " . mysqli_error($Conexion) );
 	// 5 RECORRER EL RESULTADO
 	while ($Registro = mysqli_fetch_array($Resultado)){
 	echo "<div class='dropdown'><button class='dropbtn'>$Registro[tipdes]</button>";
 	// 3. CONSTRUIR CONSULTA MENUS
 	$Sql1="SELECT * FROM $_SESSION[TbNombre] WHERE $_SESSION[TbNombre].mensta='1' AND $_SESSION[TbNombre].mentip=$Registro[tipid]";
 	// 4 EJECUTAR LA CONSULTA
-	$Resultado1 = mysqli_query($Conectar,$Sql1) or die( "Error en Sql: " . mysqli_error($Conectar) );
+	$Resultado1 = mysqli_query($Conexion,$Sql1) or die( "Error en Sql: " . mysqli_error($Conexion) );
 	// 5 RECORRER EL RESULTADO
 	echo "<div class='dropdown-content'>";
 	while ($Registro1 = mysqli_fetch_array($Resultado1)){ echo "<a href='$Registro1[mennom].php'>$Registro1[mendes]</a>"; }

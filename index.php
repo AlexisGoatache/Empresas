@@ -22,7 +22,7 @@ $_SESSION['TbNombre']= isset($_REQUEST['TbNombre']) ? $_REQUEST['TbNombre'] : NU
 
 // VARIABLES DEL FORMULARIO
 $Sql="SELECT * FROM tbmenu WHERE mennom='frmempresas'";
-$Resultado = mysqli_query($Conectar,$Sql) or die( "Error en Sql: " . mysqli_error($Conectar) );
+$Resultado = mysqli_query($Conexion,$Sql) or die( "Error en Sql: " . mysqli_error($Conexion) );
 while ($Registro = mysqli_fetch_array($Resultado)) {
 	$_SESSION['FrmNombre']=$Registro['mennom'];
 	$_SESSION['FrmDescripcion']=$Registro['mendes'];
@@ -37,7 +37,7 @@ while ($Registro = mysqli_fetch_array($Resultado)) {
 if ($BtnAccion=='Enviar'){
 
   $Sql="SELECT * FROM tbempresas WHERE empid='$TxtUsuario'";
-  $Resultado = mysqli_query($Conectar,$Sql) or die( "Error en Sql: " . mysqli_error($Conectar) );
+  $Resultado = mysqli_query($Conexion,$Sql) or die( "Error en Sql: " . mysqli_error($Conexion) );
 
   if(mysqli_num_rows($Resultado)>0){ //SI LA CANTIDAD DE REGISTROS ES MAYOR QUE 0
     $Registro=mysqli_fetch_array($Resultado); //TRAIGO COMO ARRAY LA INF.

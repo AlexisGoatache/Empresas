@@ -20,7 +20,7 @@ $_SESSION['TbNombre']= isset($_REQUEST['TbNombre']) ? $_REQUEST['TbNombre'] : NU
 
 // VARIABLES DEL FORMULARIO
 $Sql="SELECT * FROM tbmenu WHERE mennom='frmmenu'";
-$Resultado = mysqli_query($Conectar,$Sql) or die( "Error en Sql: " . mysqli_error($Conectar) );
+$Resultado = mysqli_query($Conexion,$Sql) or die( "Error en Sql: " . mysqli_error($Conexion) );
 while ($Registro = mysqli_fetch_array($Resultado)) {
 	$_SESSION['FrmNombre']=$Registro['mennom'];
 	$_SESSION['FrmDescripcion']=$Registro['mendes'];
@@ -35,7 +35,7 @@ switch($BtnAccion){
      
      $Sql="SELECT * FROM $_SESSION[TbNombre] ORDER BY $_SESSION[TbNombre].menid ASC LIMIT 1";
      //4. Ejecutar la consulta
-     $Resultado = mysqli_query($Conectar,$Sql) or die( "Error en Sql: " . mysqli_error($Conectar) );
+     $Resultado = mysqli_query($Conexion,$Sql) or die( "Error en Sql: " . mysqli_error($Conexion) );
      // 5. verificar si lo encontro
      $Registro=mysqli_fetch_array($Resultado);
      if(mysqli_num_rows($Resultado)>0){
@@ -51,7 +51,7 @@ switch($BtnAccion){
 case '< Anterior':
     $Sql="SELECT * FROM $_SESSION[TbNombre] WHERE menid=$TxtId-1";
      //4. Ejecutar la consulta
-     $Resultado = mysqli_query($Conectar,$Sql) or die( "Error en Sql: " . mysqli_error($Conectar) );
+     $Resultado = mysqli_query($Conexion,$Sql) or die( "Error en Sql: " . mysqli_error($Conexion) );
      // 5. verificar si lo encontro
      $Registro=mysqli_fetch_array($Resultado);
      if(mysqli_num_rows($Resultado)>0){
@@ -67,7 +67,7 @@ case '< Anterior':
 case 'Siguiente >':
      $Sql="SELECT * FROM $_SESSION[TbNombre] WHERE menid=$TxtId+1";
      //4. Ejecutar la consulta
-     $Resultado = mysqli_query($Conectar,$Sql) or die( "Error en Sql: " . mysqli_error($Conectar) );
+     $Resultado = mysqli_query($Conexion,$Sql) or die( "Error en Sql: " . mysqli_error($Conexion) );
      // 5. verificar si lo encontro
      $Registro=mysqli_fetch_array($Resultado);
      if(mysqli_num_rows($Resultado)>0){
@@ -83,7 +83,7 @@ case 'Siguiente >':
 case 'Último >>':
      $Sql="SELECT * FROM $_SESSION[TbNombre] ORDER BY $_SESSION[TbNombre].menid DESC LIMIT 1";
      //4. Ejecutar la consulta
-     $Resultado = mysqli_query($Conectar,$Sql) or die( "Error en Sql: " . mysqli_error($Conectar) );
+     $Resultado = mysqli_query($Conexion,$Sql) or die( "Error en Sql: " . mysqli_error($Conexion) );
      // 5. verificar si lo encontro
      $Registro=mysqli_fetch_array($Resultado);
      if(mysqli_num_rows($Resultado)>0){
@@ -100,7 +100,7 @@ case 'Buscar':
      //3. Contruir la consulta (Query)
      $Sql="SELECT * FROM $_SESSION[TbNombre] WHERE menid='$TxtId'";
      //4. Ejecutar la consulta
-     $Resultado = mysqli_query($Conectar,$Sql) or die( "Error en Sql: " . mysqli_error($Conectar) );
+     $Resultado = mysqli_query($Conexion,$Sql) or die( "Error en Sql: " . mysqli_error($Conexion) );
      // 5. verificar si lo encontro
      $Registro=mysqli_fetch_array($Resultado);
      if(mysqli_num_rows($Resultado)>0){
@@ -119,7 +119,7 @@ case 'Buscar':
 case 'Agregar':
 
      $Sql="SELECT * FROM $_SESSION[TbNombre] WHERE mendes='$TxtDescripcion';";
-     $Resultado = mysqli_query($Conectar,$Sql) or die( "Error en Sql: " . mysqli_error($Conectar) );
+     $Resultado = mysqli_query($Conexion,$Sql) or die( "Error en Sql: " . mysqli_error($Conexion) );
      $Registro=mysqli_fetch_array($Resultado);
      if(mysqli_num_rows($Resultado)==0){
      $sql="INSERT INTO $_SESSION[TbNombre] VALUES('',
@@ -127,7 +127,7 @@ case 'Agregar':
                                         '$TxtDescripcion',
                                         '$CmbTipo',
                                         '$CmbStatus');";
-     mysqli_query($Conectar,$sql);
+     mysqli_query($Conexion,$sql);
      ?>
        <script>alert ("Los datos fueron registrados con �xito!!!");</script>
      <?php
@@ -147,7 +147,7 @@ case 'Modificar':
                               `mensta`='$CmbStatus' WHERE menid='$TxtId'";
 
      //4. Ejecutar la consulta
-     $Resultado = mysqli_query($Conectar,$sql) or die( "Error en Sql: " . mysqli_error($Conectar) );
+     $Resultado = mysqli_query($Conexion,$sql) or die( "Error en Sql: " . mysqli_error($Conexion) );
      ?>
      <script>alert ("Los datos fueron modificado con �xito!!!")</script>
      <?php
@@ -206,7 +206,7 @@ if ($BtnAccion=='Limpiar'){
           <?php
           $Sql="SELECT * FROM tbtipomenu";
           // 4 ejecutar la consulta
-          $Resultado = mysqli_query($Conectar,$Sql) or die( "Error en Sql: " . mysqli_error($Conectar) );
+          $Resultado = mysqli_query($Conexion,$Sql) or die( "Error en Sql: " . mysqli_error($Conexion) );
           while ($Registro = mysqli_fetch_array($Resultado)) {
               if ($CmbTipo==$Registro['tipid']){$x='Selected'; }else{$x='';}
                 echo "<option value=\"$Registro[tipid]\" $x>$Registro[tipdes]</option>";}?>
@@ -217,7 +217,7 @@ if ($BtnAccion=='Limpiar'){
           <option value="0">Seleccione</option>
           <?php 
           $Sql="SELECT * FROM tbstatus";
-          $Resultado = mysqli_query($Conectar,$Sql) or die( "Error en Sql: " . mysqli_error($Conectar) );
+          $Resultado = mysqli_query($Conexion,$Sql) or die( "Error en Sql: " . mysqli_error($Conexion) );
           while ($Registro = mysqli_fetch_array($Resultado)) {
               if ($CmbStatus==$Registro['staid']){$x='Selected'; }else{$x='';}
                 echo "<option value=\"$Registro[staid]\" $x>$Registro[stades]</option>";}?>

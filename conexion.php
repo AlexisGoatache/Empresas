@@ -1,6 +1,6 @@
  <?php
 //1. CONECTAR MYSQL CON EL MANEJADOR DE BD
-$Conectar=mysqli_connect('localhost','root','','bdempresas');
+$Conexion=mysqli_connect('localhost','root','','bdempresas');
 
 function conectar(){
   //1. CONECTAR MYSQL CON EL MANEJADOR DE BD

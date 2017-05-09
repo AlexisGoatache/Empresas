@@ -16,7 +16,7 @@ $_SESSION['TbNombre']= isset($_REQUEST['TbNombre']) ? $_REQUEST['TbNombre'] : NU
 
 // VARIABLES DEL FORMULARIO
 $Sql="SELECT * FROM tbmenu WHERE mennom='frmstatus'";
-$Resultado = mysqli_query($Conectar,$Sql) or die( "Error en Sql: " . mysqli_error($Conectar) );
+$Resultado = mysqli_query($Conexion,$Sql) or die( "Error en Sql: " . mysqli_error($Conexion) );
 while ($Registro = mysqli_fetch_array($Resultado)) {
 	$_SESSION['FrmNombre']=$Registro['mennom'];
 	$_SESSION['FrmDescripcion']=$Registro['mendes'];
@@ -31,7 +31,7 @@ switch($BtnAccion){
      
      $Sql="SELECT * FROM $_SESSION[TbNombre] ORDER BY $_SESSION[TbNombre].staid ASC LIMIT 1";
      //4. Ejecutar la consulta
-     $Resultado = mysqli_query($Conectar,$Sql) or die( "Error en Sql: " . mysqli_error($Conectar) );
+     $Resultado = mysqli_query($Conexion,$Sql) or die( "Error en Sql: " . mysqli_error($Conexion) );
      // 5. verificar si lo encontro
      $Registro=mysqli_fetch_array($Resultado);
      if(mysqli_num_rows($Resultado)>0){
@@ -44,7 +44,7 @@ switch($BtnAccion){
 case '< Anterior':
     $Sql="SELECT * FROM $_SESSION[TbNombre] WHERE staid=$TxtId-1";
      //4. Ejecutar la consulta
-     $Resultado = mysqli_query($Conectar,$Sql) or die( "Error en Sql: " . mysqli_error($Conectar) );
+     $Resultado = mysqli_query($Conexion,$Sql) or die( "Error en Sql: " . mysqli_error($Conexion) );
      // 5. verificar si lo encontro
      $Registro=mysqli_fetch_array($Resultado);
      if(mysqli_num_rows($Resultado)>0){
@@ -58,7 +58,7 @@ case '< Anterior':
 case 'Siguiente >':
      $Sql="SELECT * FROM $_SESSION[TbNombre] WHERE staid=$TxtId+1";
      //4. Ejecutar la consulta
-     $Resultado = mysqli_query($Conectar,$Sql) or die( "Error en Sql: " . mysqli_error($Conectar) );
+     $Resultado = mysqli_query($Conexion,$Sql) or die( "Error en Sql: " . mysqli_error($Conexion) );
      // 5. verificar si lo encontro
      $Registro=mysqli_fetch_array($Resultado);
      if(mysqli_num_rows($Resultado)>0){
@@ -71,7 +71,7 @@ case 'Siguiente >':
 case 'Último >>':
      $Sql="SELECT * FROM $_SESSION[TbNombre] ORDER BY $_SESSION[TbNombre].staid DESC LIMIT 1";
      //4. Ejecutar la consulta
-     $Resultado = mysqli_query($Conectar,$Sql) or die( "Error en Sql: " . mysqli_error($Conectar) );
+     $Resultado = mysqli_query($Conexion,$Sql) or die( "Error en Sql: " . mysqli_error($Conexion) );
      // 5. verificar si lo encontro
      $Registro=mysqli_fetch_array($Resultado);
      if(mysqli_num_rows($Resultado)>0){
@@ -85,7 +85,7 @@ case 'Buscar':
      //3. Contruir la consulta (Query)
      $sql="SELECT * FROM $_SESSION[TbNombre] WHERE staid='$TxtId'";
      //4. Ejecutar la consulta
-     $Resultado = mysqli_query($Conectar,$sql) or die( "Error en Sql: " . mysqli_error($Conectar) );
+     $Resultado = mysqli_query($Conexion,$sql) or die( "Error en Sql: " . mysqli_error($Conexion) );
      // 5. verificar si lo encontro
      $Registro=mysqli_fetch_array($Resultado);
      if(mysqli_num_rows($Resultado)>0){
@@ -102,11 +102,11 @@ case 'Buscar':
 
 case 'Agregar':
      $sql="SELECT * FROM $_SESSION[TbNombre] WHERE stades='$TxtDescripcion';";
-     $Resultado = mysqli_query($Conectar,$sql) or die( "Error en Sql: " . mysqli_error($Conectar) );
+     $Resultado = mysqli_query($Conexion,$sql) or die( "Error en Sql: " . mysqli_error($Conexion) );
      $Registro=mysqli_fetch_array($Resultado);
      if(mysqli_num_rows($Resultado)==0){
        $sql="INSERT INTO tbstatus VALUES('','$TxtDescripcion');";
-     mysqli_query($Conectar,$sql);
+     mysqli_query($Conexion,$sql);
      ?>
        <script>alert ("Los datos fueron registrados con �xito!!!");</script>
      <?php 
@@ -121,7 +121,7 @@ case 'Modificar':
      //3. Contruir la consulta (Query)
      $sql="UPDATE tbstatus SET `stades`='$TxtDescripcion' WHERE staid='$TxtId'";
      //4. Ejecutar la consulta
-     $Resultado = mysqli_query($Conectar,$sql) or die( "Error en Sql: " . mysqli_error($Conectar) );
+     $Resultado = mysqli_query($Conexion,$sql) or die( "Error en Sql: " . mysqli_error($Conexion) );
      ?>
      <script>alert ("Los datos fueron modificado con �xito!!!")</script>
      <?php 

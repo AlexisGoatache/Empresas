@@ -21,7 +21,7 @@ $_SESSION['TbNombre']= isset($_REQUEST['TbNombre']) ? $_REQUEST['TbNombre'] : NU
 
 // VARIABLES DEL FORMULARIO
 $Sql="SELECT * FROM tbmenu WHERE mennom='frmconsultadocumentos'";
-$Resultado = mysqli_query($Conectar,$Sql) or die( "Error en Sql: " . mysqli_error($Conectar) );
+$Resultado = mysqli_query($Conexion,$Sql) or die( "Error en Sql: " . mysqli_error($Conexion) );
 while ($Registro = mysqli_fetch_array($Resultado)) {
 	$_SESSION['FrmNombre']=$Registro['mennom'];
 	$_SESSION['FrmDescripcion']=$Registro['mendes'];
@@ -31,12 +31,12 @@ while ($Registro = mysqli_fetch_array($Resultado)) {
 //FUNCIONES
 
 function query($sql) {
-global $Conectar;	?>
+global $Conexion;	?>
 
 
     <table> <!--TABLA DE CONSULTA DE DISPOSITIVOS-->
         <?// 4 EJECUTAR LA CONSULTA
-        $Resultado = mysqli_query($Conectar,$sql) or die( "Error en Sql: " . mysqli_error($Conectar) );
+        $Resultado = mysqli_query($Conexion,$sql) or die( "Error en Sql: " . mysqli_error($Conexion) );
         // 5. VERIFICA SI ENCONTRO REGISTROS
         $Registro=mysqli_fetch_array($Resultado);
         if(mysqli_num_rows($Resultado)>0){?>
@@ -71,7 +71,7 @@ global $Conectar;	?>
          return $sql;
 
   echo"</table>";
-  mysqli_close($Conectar);}
+  mysqli_close($Conexion);}
 
 ?>
 <!DOCTYPE html>
@@ -111,7 +111,7 @@ global $Conectar;	?>
                   <?// 3. CONSTRUIR CONSULTA DE EMPRESAS
                   $sql="SELECT * FROM tbempresas;";
                   // 4 EJECUTAR LA CONSULTA
-                  $Resultado = mysqli_query($Conectar,$sql) or die( "Error en Sql: " . mysqli_error($Conectar) );
+                  $Resultado = mysqli_query($Conexion,$sql) or die( "Error en Sql: " . mysqli_error($Conexion) );
                   // 5 RECORRER EL RESULTADO
                   while ($Registro = mysqli_fetch_array($Resultado)) {
                     echo "<option value='$Registro[empid]'>$Registro[empnom]</option>";}?>
@@ -124,7 +124,7 @@ global $Conectar;	?>
                 <?// 3. CONSTRUIR CONSULTA TIPO DE DOCUMENTO
                 $sql="SELECT * FROM tbtipodocumentos;";
                 // 4 EJECUTAR LA CONSULTA
-                $Resultado = mysqli_query($Conectar,$sql) or die( "Error en Sql: " . mysqli_error($Conectar) );
+                $Resultado = mysqli_query($Conexion,$sql) or die( "Error en Sql: " . mysqli_error($Conexion) );
                 // 5 RECORRER EL RESULTADO
                 while ($Registro = mysqli_fetch_array($Resultado)) {
                   echo "<option  value='$Registro[tipid]'>$Registro[tipdes]</option>";}?>

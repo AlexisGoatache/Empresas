@@ -17,7 +17,7 @@ $_SESSION['FrmDescripcion']= isset($_REQUEST['FrmDescripcion']) ? $_REQUEST['Frm
 $_SESSION['TbNombre']= isset($_REQUEST['TbNombre']) ? $_REQUEST['TbNombre'] : NULL;
 
 // VARIABLES DEL FORMULARIO
-$Sql="SELECT * FROM tbmenu WHERE mennom='frmcamposdoc'";
+$Sql="SELECT * FROM tbmenu WHERE mennom='frmcampos'";
 $Resultado = mysqli_query($Conectar,$Sql) or die( "Error en Sql: " . mysqli_error($Conectar) );
 while ($Registro = mysqli_fetch_array($Resultado)) {
 	$_SESSION['FrmNombre']=$Registro['mennom'];
