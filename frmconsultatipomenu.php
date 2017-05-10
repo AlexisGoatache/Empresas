@@ -60,7 +60,7 @@ global $Conexion;
              }while($Registro=mysqli_fetch_array($Resultado));
         } else {
          ?>
-         <script>alert ("No existen registros con esa condici�n!!!");</script>
+         <script>alert ("No existen registros con esa condición!!!");</script>
          <?php }
 
          return $sql;

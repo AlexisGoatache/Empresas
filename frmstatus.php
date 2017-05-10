@@ -207,9 +207,3 @@ function validabuscar(form){
 </script>
 </body>
 </html>
-
-
-
-
-
-
