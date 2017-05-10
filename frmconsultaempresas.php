@@ -44,16 +44,36 @@ global $Conexion,$Consulta;
 		$i=0;
 	// 5 RECORRER EL RESULTADO DE LA CONSULTA
 		do{
-		$i=$i+1;
-	echo "<tr>";
-		echo "<td>".$i."</td>";
-		echo "<td>".$Registro['empid']."</td>";  //<!-- ID EMPRESA -->
-		echo "<td>".$Registro['empnom']."</td>";   //<!-- NOMBRE EMPRESA -->
-		echo "<td>".$Registro['stades']."</td>";  //<!-- ESTATUS -->
-		echo "</tr>"; 
+		$i++;?>
+	<tr>
+		<td><?php echo $i; ?></td>
+		<td><input type="text"
+                 name="TxtId"
+                 value="<?php echo $Registro['empid']; ?>"
+                 maxlength="6" 
+                 placeholder="Id Empresa"/>
+		</td>
+		<td><input type="text"
+                 name="TxtNombre"
+                 value="<?php echo $Registro['empnom']; ?>"
+                 maxlength="60" 
+                 placeholder="Nombre de la Empresa"/>
+		</td>
+		<td><select name="CmbStatus">
+          <?php
+          $Sql1="SELECT * FROM tbstatus";
+          // 4 ejecutar la consulta
+          $Resultado1 = mysqli_query($Conexion,$Sql1) or die( "Error en Sql: " . mysqli_error($Conexion) );
+          // 5 recorrer el resultado
+          while ($Registro1 = mysqli_fetch_array($Resultado1)) {
+              if ($CmbStatus==$Registro1['staid']){$x='Selected'; }else{$x='';}
+                echo "<option value=\"$Registro1[staid]\" $x>$Registro1[stades]</option>";}?>
+          </select>
+		</tr>
+		<?php 
 		}while($Registro=mysqli_fetch_array($Resultado));
 				} else {
-				 ?><script>alert ("No existen registros con esa condici�n!!!");</script>
+				 ?><script>alert ("No existen registros con esa condición!!!");</script>
 		 <?php }
 				 return $Sql;
 
